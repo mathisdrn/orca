@@ -1,0 +1,23 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Project
+logs/
+.cache/
+.DS_Store
+data/
+
+# Artifacts
+analytics/artifacts/
+
+# mise
+mise.local.toml
+.mise.local.toml

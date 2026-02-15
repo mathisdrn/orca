@@ -1,0 +1,16 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "mcp": {
+        "context7": {
+            "enabled": true,
+            "headers": {
+                "CONTEXT7_API_KEY": ""
+            },
+            "type": "remote",
+            "url": "https://mcp.context7.com/mcp"
+        }
+    },
+    "plugin": [
+        "opencode-gemini-auth@latest"
+    ]
+}

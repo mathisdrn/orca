@@ -1,0 +1,79 @@
+[project]
+name = "Orca"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "dagster>=1.12.14",
+    "dagster-dg-cli>=1.12.14",
+    "dagster-webserver>=1.12.14",
+    "duckdb>=1.4.2",
+    "polars>=1.35.2",
+    "pyarrow>=22.0.0",
+    "sqlmesh[lsp]>=0.227.1",
+]
+
+[dependency-groups]
+dev = ["ruff>=0.8.0"]
+
+[tool.ruff]
+fix = true
+unsafe-fixes = true
+
+[tool.ruff.format]
+docstring-code-format = true
+quote-style = "single"
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
+
+
+[tool.ruff.lint.pylint]
+max-args = 8
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 320
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "A004",    # built-in function shadowed
+    "ANN204",  # missing class init return type
+    "BLE001",  # Allow bare except
+    "B018",    # useless-expression 
+    "B905",    # zip without explicit strict argument
+    "COM812",  # missing-trailing-comma, is already handled by ruff formatting
+    "C408",    # unnecessary-collection-call 
+    "C420",    # unnecessary-dict-comprehension
+    "D1",      # docstring-missing 
+    "D202",    # blank-line-before-function
+    "D203",    # blank-line-before-class
+    "D213",    # multi-line-summary-second-line
+    "D401",    # docstring should be in imperative mood
+    "E402",    # module level import not at top of file
+    "ERA001",  # Allow commented out code
+    "G004",    # Logging statements uses f-string
+    "INP001",  # implicit-namespace-package
+    "N803",    # Allow non-lowercase argument names
+    "N806",    # Allow non-lowercase variables in functions
+    "N816",    # mixed-case-variable-in-global-scope
+    "PLR2004", # magic-value-comparison
+    "T201",    # print-statement
+    "S113",    # requests call without timeout
+    "RUF001",  # ambiguous-unicode-character-string
+    "RUF002",  # ambiguous-unicode-character-docstring
+    "RUF003",  # ambiguous-unicode-character-comment
+    "RET504",  # return-statement
+    "SIM108",  # ternary operator should be used 
+    "S608",    # hardcoded sql expression
+    "PGH003",  # blanket-type-ignore
+    "D416",    # missing-section-name-colon
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["analytics"]
