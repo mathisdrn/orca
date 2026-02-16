@@ -1,22 +1,29 @@
 <p align="center">
+    <a href="https://github.com/mathisdrn/orca">
   <img src="https://raw.githubusercontent.com/mathisdrn/mathisdrn.github.io/refs/heads/master/images/orca-banner.svg" alt="Orca logo" width="700">
+    </a>
 </p>
 
 # Orca – a modern data platform
 
-Orca is a **production-ready**, **serverless**, and **agentic-ready** template for building a **data warehouse**. It utilizes a local-first development workflow while scaling to the cloud using entirely free and open-source tools.
+Orca is a template for building a production and agentic-ready **data warehouse**. It leverages a local-first development workflow that seamlessly scales to the cloud using entirely free and open-source tools.
 
-**Orca** is not a tool but a reference implementation of a modern data stack that can be easily adopted and extended. It provides a comprehensive framework for data ingestion, transformation, modeling, analytics, machine learning and reporting.
+> Orca is currently in early development. Feedback and contributions are welcome!
 
-## Principles
+**Orca** is not a tool but a reference implementation of a modern data stack that can be easily incrementally adopted and extended. It provides a comprehensive framework for data ingestion, transformation, modeling, analytics, machine learning and reporting.
+
+## Design Philosophy
 
 - **Open:** Rely on open code, standards, formats and protocols.
-- **Modular and Interoperable:** Easy to replace, extend or remove components of the pattern.
-- **Portable:** Compute anywhere (laptop, CI/CD, browser). The platform is environment agnostic and serverless.
-- **Declarative:** Using tools that are declarative reduces vendor lock-in and enable modern development practices and agentic workflow.
-- **Modern Development Practices:** Version control, changes are one commit away, CI/CD, testing, code review, documentation and more.
-- **Easy to onboard:** Define patterns, workflow and best practices that are working well across the stack.
+- **Composable:** Components can be easily replaced, extended, or removed.
+- **Declarative:** Code-based tools enable modern development practices and agentic workflows. It also improves interoperability and reproducibility.
+
+## Core Value Proposition
+
+- **Production-ready:** Provide a solid foundation for production workloads (managing environment, deployments, CI/CD, secrets management).
+- **Benefit from modern development practices:** Version control, changes are one commit away, CI/CD, testing, code review and more.
 - **Agentic-ready:**  Enable agentic behavior by providing agents with the right context, tools and security boundaries.
+- **Quick onboarding:** Quickly get up and running with your sources of data and with a clear path to build your data warehouse.
 
 ## Architecture
 
@@ -24,7 +31,7 @@ Orca is a **production-ready**, **serverless**, and **agentic-ready** template f
 | Role | Tool | Purpose |
 | :--- | :--- | :--- |
 | **Environment** | **[uv](https://docs.astral.sh/uv/)** | Python environment management. |
-| **Orchestration** | **[Dagster](https://dagster.io/)** | Manages the asset graph, providing observability, scheduling, and orchestration. |
+| **Orchestration** | **[Dagster](https://dagster.io/)** | Orchestrates the asset graph, providing observability, scheduling, and orchestration. |
 | **Ingestion** | **[dlt](https://dlthub.com/)** | Handles robust, schema-evolving data loading from APIs and external sources. |
 | **Compute** | **[DuckDB](https://duckdb.org/)** | Provides serverless, in-process SQL compute for fast analytical queries. |
 | **Storage** | **[DuckLake](https://ducklake.select/)** | Manages the data lake layer, decoupling storage (S3/Parquet/Iceberg) from compute. |
@@ -34,7 +41,7 @@ Orca is a **production-ready**, **serverless**, and **agentic-ready** template f
 | **Data Apps** | **[Streamlit](https://streamlit.io/)** | Builds interactive data applications using pure Python. |
 | **Notebooks** | **[Marimo](https://marimo.io/)** | Provides a reactive, reproducible notebook environment for exploration and ML. |
 
-### Agentic-ready
+### Agentic-Ready
 
 Orca is designed to be agentic-ready, allowing agents to operate autonomously across the stack:
 - Add a new data source from API docs.
