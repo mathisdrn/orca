@@ -8,7 +8,7 @@
 
 Orca is a template for building a production-ready and agentic-enabled [data warehouse](https://en.wikipedia.org/wiki/Data_warehouse) covering the needs of 99% of data teams. It leverages a local-first development workflow that scales to the cloud using best-in-class, free and open-source tools.
 
-Orca is not a tool but a reference implementation of a modern data stack and a set of patterns. It provides a comprehensive framework for data ingestion, transformation, modeling, analytics, machine learning and reporting.
+Orca is a set of patterns and a reference implementation of a modern data stack. It provides a comprehensive framework for data ingestion, transformation, modeling, analytics, machine learning and reporting.
 
 
 > Orca is currently in early development. This README serve as a roadmap and does not reflect current implementation status. 
