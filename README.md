@@ -6,11 +6,14 @@
 
 # Orca – a modern data platform
 
-Orca is a template for building a production and agentic-ready **data warehouse**. It leverages a local-first development workflow that scales to the cloud using best-in-class, free and open-source tools.
+Orca is a template for building a production-ready and agentic-enabled [data warehouse](https://en.wikipedia.org/wiki/Data_warehouse) covering the needs of 99% of data teams. It leverages a local-first development workflow that scales to the cloud using best-in-class, free and open-source tools.
 
-> Orca is currently in early development. Feedback and contributions are welcome!
+Orca is not a tool but a reference implementation of a modern data stack and a set of patterns. It provides a comprehensive framework for data ingestion, transformation, modeling, analytics, machine learning and reporting.
 
-**Orca** is not a tool but a reference implementation of a modern data stack that can be easily incrementally adopted and extended. It provides a comprehensive framework for data ingestion, transformation, modeling, analytics, machine learning and reporting.
+
+> Orca is currently in early development. This README serve as a roadmap and does not reflect current implementation status. 
+>
+> Feedback and contributions are welcome!
 
 ## Design Philosophy
 
@@ -20,6 +23,7 @@ Orca is a template for building a production and agentic-ready **data warehouse*
 
 ## Core Value Proposition
 
+- **Fitting most data teams needs:** Cover main lifecycle of data in a data warehouse (orchestration and observability, ingestion, transformation, reporting, machine learning) 
 - **Production-ready:** Provide a solid foundation for production workloads (managing environment, deployments, CI/CD, secrets management).
 - **Benefit from modern development practices:** Version control, changes are one commit away, CI/CD, testing, code review and more.
 - **Agentic-ready:**  Enable agentic behavior by providing agents with the right context, tools and security boundaries.
