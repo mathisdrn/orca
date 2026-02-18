@@ -6,7 +6,7 @@
 
 # Orca – a modern data platform
 
-Orca is a template for building a production and agentic-ready **data warehouse**. It leverages a local-first development workflow that seamlessly scales to the cloud using entirely free and open-source tools.
+Orca is a template for building a production and agentic-ready **data warehouse**. It leverages a local-first development workflow that scales to the cloud using best-in-class, free and open-source tools.
 
 > Orca is currently in early development. Feedback and contributions are welcome!
 
