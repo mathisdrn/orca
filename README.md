@@ -104,7 +104,7 @@ uv sync
 
 Real-world implementations of the modern data stack that inspired this project.
 
-* **[datadex](https://datadex.dev/)** – A serverless, local-first Open Data Platform.
+* **[datadex](https://datadex.datonic.io/)** – A serverless, local-first Open Data Platform.
 * **[nba-monte-carlo](https://github.com/matsonj/nba-monte-carlo)** – Originally *mds-in-a-box*, this project implements a full stack around NBA/NFL data with a custom [reporting front-end](https://mdsinabox.com/).
 * **[Modern Data Stack in a Box](https://duckdb.org/2022/10/12/modern-data-stack-in-a-box)** – A reference implementation built on DuckDB, Meltano, dbt, and Apache Superset.
 
