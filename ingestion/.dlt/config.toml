@@ -1,0 +1,14 @@
+[runtime]
+log_level="WARNING"  # the system log level of dlt
+# use the dlthub_telemetry setting to enable/disable anonymous usage data reporting, see https://dlthub.com/docs/reference/telemetry
+dlthub_telemetry = false
+
+[schema]
+naming="snake_case" # columns name are casted to snake_case
+
+[pipeline]
+dataset_name = "a_raw"
+
+[destination.duckdb]
+extensions=["spatial"]
+pragmas=["enable_progress_bar"]

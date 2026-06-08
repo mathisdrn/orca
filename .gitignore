@@ -15,9 +15,27 @@ logs/
 .DS_Store
 data/
 
-# Artifacts
-analytics/artifacts/
+# Secrets and credentials
+secrets.toml
+*.secrets.toml
+.env
 
-# mise
-mise.local.toml
-.mise.local.toml
+# Orchestration
+.tmp_dagster*/
+.dagster/
+dagster.yaml
+
+# Ingestion
+**/.dlt/pipelines/
+**/.dlt/.anonymous_id
+**/.dlt/profile-name
+**/.dlt/.var
+_local/
+
+# Transformation
+**/target/
+**/dbt_packages/
+**/.user.yml
+
+# Analysis
+analysis/artifacts/

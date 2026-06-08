@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: a_raw
+    schema: a_raw
+    tables:
+      - name: house_prices
+        description: Raw house prices dataset loaded by dlt.

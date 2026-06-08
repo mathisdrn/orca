@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://github.com/mathisdrn/orca">
+    <a href="https://github.com/mathisdrn/orca?tab=readme-ov-file#orca--a-modern-data-platform">
   <img src="https://raw.githubusercontent.com/mathisdrn/mathisdrn.github.io/refs/heads/master/images/orca-banner.svg" alt="Orca logo" width="700">
     </a>
 </p>
@@ -8,12 +8,9 @@
 
 Orca is a template for building a production-ready and agentic-enabled [data warehouse](https://en.wikipedia.org/wiki/Data_warehouse) covering the needs of 99% of data teams. It leverages a local-first development workflow that scales to the cloud using best-in-class, free and open-source tools.
 
-Orca is a set of patterns and a reference implementation of a modern data stack. It provides a comprehensive framework for data ingestion, transformation, modeling, analytics, machine learning and reporting.
-
+Orca is a set of patterns and a reference implementation of a modern data stack. It provides a comprehensive framework for data ingestion, transformation, modeling, machine learning and reporting.
 
 > Orca is currently in early development. This README serve as a roadmap and does not reflect current implementation status. 
->
-> Feedback and contributions are welcome!
 
 ## Design Philosophy
 
@@ -35,15 +32,14 @@ Orca is a set of patterns and a reference implementation of a modern data stack.
 | Role | Tool | Purpose |
 | :--- | :--- | :--- |
 | **Environment** | **[uv](https://docs.astral.sh/uv/)** | Python environment management. |
-| **Orchestration** | **[Dagster](https://dagster.io/)** | Orchestrates the asset graph, providing observability, scheduling, and orchestration. |
+| **Orchestration** | **[Dagster](https://www.dagster.io/)** | Orchestrates the asset graph, providing observability, scheduling, and orchestration. |
 | **Ingestion** | **[dlt](https://dlthub.com/)** | Handles robust, schema-evolving data loading from APIs and external sources. |
-| **Compute** | **[DuckDB](https://duckdb.org/)** | Provides serverless, in-process SQL compute for fast analytical queries. |
+| **Compute** | **[DuckDB](https://duckdb.org/)** | Database query engine for fast analytical queries. |
 | **Storage** | **[DuckLake](https://ducklake.select/)** | Manages the data lake layer, decoupling storage (S3/Parquet/Iceberg) from compute. |
-| **Transformation** | **[SQLMesh](https://sqlmesh.readthedocs.io/en/stable/)** | Brings CI/CD, virtual environments, and column-level lineage to SQL transformations. |
+| **Transformation** | **[dbt](https://www.getdbt.com/)** | Stateless data transformation tool. |
 | **Modeling** | **[Malloy](https://www.malloydata.dev/)** | Defines a rich and composable semantic layer. |
-| **Reporting** | **[Evidence](https://evidence.dev/)** | Generates static BI reports using Markdown and SQL. |
-| **Data Apps** | **[Streamlit](https://streamlit.io/)** | Builds interactive data applications using pure Python. |
-| **Notebooks** | **[Marimo](https://marimo.io/)** | Provides a reactive, reproducible notebook environment for exploration and ML. |
+| **Data analysis & ML** | **[Marimo](https://marimo.io/)** | Provides a reactive, reproducible notebook environment for exploration and ML. |
+| **Reporting** | **[Streamlit](https://streamlit.io/)** | Framework for building data applications. |
 
 ### Agentic-Ready
 
@@ -61,16 +57,16 @@ The agentic-ready architecture is enabled by **infrastructure-as-context** appro
     - **dev-ops:** Assist users with DevOps-related questions (managing environment, deployments, CI/CD, secrets management).
     - **data-ingestion:** Scaffolds advanced dlt pipelines with schema evolution, testing, and monitoring.
     - **data-transformation:**
-        - Creates SQLMesh transformation pipelines.
-        - Enforces SQLMesh best practices
+        - Creates dbt transformation pipelines.
+        - Enforces modeling best practices
         - Implements and tests [SCD Type 1, 2 and 3](https://en.wikipedia.org/wiki/Slowly_changing_dimension) and Star/Snowflake schemas.
     - **data-analyst-python:**
-        - Querying the data warehouse using Python.
+        - Querying the data warehouse in Python.
         - Creating plot using altair.
         - Transforming data using polars.
         - Creating Streamlit dashboards.
     - **data-scientist**
-        - Creating advanced sklearn pipeline and models.
+        - Creating machine learning models using sklearn, xgboost, lightgbm.
         - Explaining model results using PDP, SHAP and LIME.
 4. **Security Boundaries:** Agents operate within a role-based, least-privilege execution environment to ensure safe command execution.
 
@@ -85,7 +81,7 @@ The agentic-ready architecture is enabled by **infrastructure-as-context** appro
 To incorporate the latest features, improvements and fixes from the core template, follow this workflow:
 
 ```bash
-# Ensure upstream remote is configured (ignores error if already exists)
+# Ensure upstream remote is configured
 git remote add upstream https://github.com/mathisdrn/Orca.git || true
 
 # Fetch and merge latest changes
@@ -105,7 +101,7 @@ uv sync
 Real-world implementations of the modern data stack that inspired this project.
 
 * **[datadex](https://datadex.datonic.io/)** – A serverless, local-first Open Data Platform.
-* **[nba-monte-carlo](https://github.com/matsonj/nba-monte-carlo)** – Originally *mds-in-a-box*, this project implements a full stack around NBA/NFL data with a custom [reporting front-end](https://mdsinabox.com/).
+* **[nba-monte-carlo](https://github.com/matsonj/nba-monte-carlo)** – Originally *mds-in-a-box*, this project implements a modern data stack around NBA/NFL data including a [reporting front-end](https://mdsinabox.com/).
 * **[Modern Data Stack in a Box](https://duckdb.org/2022/10/12/modern-data-stack-in-a-box)** – A reference implementation built on DuckDB, Meltano, dbt, and Apache Superset.
 
 ### Core Concepts & Philosophy
