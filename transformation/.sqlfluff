@@ -1,0 +1,15 @@
+[sqlfluff]
+dialect = duckdb
+exclude_rules = ST06
+
+[sqlfluff:rules:references.quoting]
+# DuckDB keywords (reserved, type_function, and column_name categories) that should be ignored
+# by the unnecessary quoting rule (RF06) because they require quoting to avoid parsing errors.
+ignore_words = all,analyse,analyze,and,any,array,as,asc,asymmetric,both,case,cast,check,collate,column,constraint,create,default,deferrable,desc,describe,distinct,do,else,end,except,false,fetch,for,foreign,from,group,having,in,initially,intersect,into,lambda,lateral,leading,limit,not,null,offset,on,only,or,order,pivot,pivot_longer,pivot_wider,placing,primary,qualify,references,returning,select,show,some,summarize,symmetric,table,then,to,trailing,true,union,unique,unpivot,using,variadic,when,where,window,with,anti,asof,at,authorization,binary,by,collation,columns,concurrently,cross,freeze,full,generated,glob,ilike,inner,is,isnull,join,left,like,map,natural,notnull,outer,overlaps,positional,right,semi,similar,struct,tablesample,try_cast,unpack,verbose,between,bigint,bit,boolean,char,character,coalesce,dec,decimal,exists,extract,float,grouping,grouping_id,inout,int,integer,interval,national,nchar,none,nullif,numeric,out,overlay,position,precision,real,row,setof,smallint,substring,time,timestamp,treat,trim,values,varchar,xmlattributes,xmlconcat,xmlelement,xmlexists,xmlforest,xmlnamespaces,xmlparse,xmlpi,xmlroot,xmlserialize,xmltable
+
+
+[sqlfluff:rules:capitalisation.identifiers]
+ignore_words = VARCHAR,TIMESTAMP,INTEGER,BIGINT,BOOLEAN,DATE,DOUBLE,FLOAT,JSON
+
+[sqlfluff:rules:references.keywords]
+ignore_words = text,type,date

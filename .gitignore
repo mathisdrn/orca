@@ -1,0 +1,40 @@
+# Generic
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.DS_Store
+_local/
+
+# Virtual environments
+.venv
+
+# Environment variables
+.env
+.env.local
+
+# Secrets and credentials
+*secrets.toml
+
+# Database storage
+storage/orca.ducklake
+storage/orca.ducklake.files/
+
+# Orchestration
+orchestration/dagster_home/*
+!orchestration/dagster_home/dagster.yaml
+
+# Ingestion
+**/.dlt/pipelines/
+**/.dlt/.anonymous_id
+**/.dlt/profile-name
+**/.dlt/.var
+
+# Transformation
+**/target/
+**/dbt_packages/
+**/.user.yml
+**/logs/
+**/.cache/

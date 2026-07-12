@@ -1,0 +1,24 @@
+name: 'orca_dbt_transformation'
+version: '0.1.0'
+config-version: 2
+profile: 'orca'
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+        
+models:
+  orca_dbt_transformation:
+    +database: orca
+    marts:
+      +materialized: view
+      +schema: marts
+      +meta:
+        dagster:
+          group: marts

@@ -1,0 +1,14 @@
+orca:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: ':memory:'
+      extensions:
+        - ducklake
+      attach:
+        - path: "{{ env_var('DBT_DUCKDB_PATH', 'ducklake:../storage/orca.ducklake') }}"
+          alias: orca
+          options:
+            data_path: "{{ env_var('DBT_DUCKDB_DATA_PATH', '../storage/orca.ducklake.files/') }}"
+            override_data_path: true

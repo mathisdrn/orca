@@ -1,0 +1,45 @@
+source: stories is orca.table('stories') extend {
+  primary_key: story_id
+
+  # label="Story Count"
+  # number="#,##0"
+  measure: story_count is count()
+  # label="Unique Authors"
+  # number="#,##0"
+  measure: unique_author_count is count(author)
+  # label="Total Score"
+  # number="#,##0"
+  measure: total_score is sum(score)
+  # label="Average Score"
+  # number="0.0"
+  measure: avg_score is avg(score)
+  # label="Max Score"
+  # number="#,##0"
+  measure: max_score is max(score)
+  # label="Total Comments"
+  # number="#,##0"
+  measure: total_comments is sum(comment_count)
+  # label="Average Comments per Story"
+  # number="0.0"
+  measure: avg_comments is avg(comment_count)
+  # label="Link Story Count"
+  # number="#,##0"
+  measure: link_story_count is count() { where: url is not null }
+  # label="Show/Ask HN Count"
+  # number="#,##0"
+  measure: show_ask_count is count() { where: title ~ 'Show HN:%' or title ~ 'Ask HN:%' }
+}
+
+source: comments is orca.table('comments') extend {
+  primary_key: comment_id
+
+  join_one: parent_story is stories on story_id = parent_story.story_id
+  join_one: parent_comment is orca.table('comments') on parent_id = parent_comment.comment_id
+
+  # label="Comment Count"
+  # number="#,##0"
+  measure: comment_count is count()
+  # label="Unique Authors"
+  # number="#,##0"
+  measure: unique_author_count is count(author)
+}

@@ -1,0 +1,73 @@
+name: Data Warehouse Run
+
+on:
+  schedule:
+    # Run every week on monday at 4:00 AM UTC
+    - cron: '0 4 * * 1'
+  workflow_dispatch:
+    # Allow manual triggering from GitHub UI
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    
+    # We need write permissions to push the updated database files back to main
+    permissions:
+      contents: write
+
+    env:
+      DAGSTER_HOME: ${{ github.workspace }}/orchestration/dagster_home
+      DBT_DUCKDB_PATH: ducklake:/${{ github.workspace }}/storage/orca.ducklake
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.3.0
+        with:
+          enable-cache: true
+          version: "latest"
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: ".python-version"
+
+      - name: Install dependencies
+        run: |
+          uv sync --frozen
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Run dbt compile to refresh manifest
+        run: |
+          cd transformation
+          uv run dbt compile
+
+      - name: Run Dagster pipeline
+        run: |
+          uv run dg launch --assets "*"
+
+      - name: Post-process DuckLake for remote/portable querying
+        run: |
+          uv run python storage/post_process.py
+
+      - name: Commit and push changes
+        run: |
+          # Force add the database files and execution artifacts
+          git add -f storage/orca.ducklake
+          git add -f storage/orca.ducklake.files/
+          git add -f orchestration/dagster_home/history/
+          git add -f orchestration/dagster_home/storage/
+          
+          # Only commit and push if there are changes
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "weekly data warehouse update [skip ci]"
+            git push origin main
+          fi

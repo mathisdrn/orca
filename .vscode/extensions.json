@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+        "dbtlabsinc.dbt", // dbt extension
+        "charliermarsh.ruff", // Linting for Python
+        "astral-sh.ty", // Type checking for Python
+        "ms-toolsai.jupyter", // Jupyter extension for .ipynb files
+        "caenrigen.jupytext-sync", // Jupytext Sync for .ipynb and .py files
+        "tombi-toml.tombi", // TOML support for pyproject.toml
+        "ms-toolsai.datawrangler", // Data Wrangler for data manipulation
+        "grapecity.gc-excelviewer", // Tabular data viewer
+        "malloydata.malloy-vscode", // Malloy semantic model
+    ]
+}

@@ -1,0 +1,9 @@
+telemetry:
+  enabled: false
+
+python_logs:
+  managed_python_loggers:
+    - dlt
+    - ingestion
+    - dagster_dlt
+  python_log_level: INFO
