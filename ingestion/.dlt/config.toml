@@ -1,0 +1,17 @@
+[runtime]
+log_level="INFO"
+dlthub_telemetry = false
+
+[schema]
+naming="snake_case" # columns name are casted to snake_case
+max_table_nesting=0
+
+[pipeline]
+dataset_name = "raw"
+
+[load]
+truncate_staging_dataset = true
+
+[destination.duckdb]
+extensions=["ducklake"]
+pragmas=["enable_progress_bar"]

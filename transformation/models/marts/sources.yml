@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw
+    database: orca
+    schema: raw
+    tables:
+      - name: items
+        description: Raw Hacker News items ingested by dlt.
+

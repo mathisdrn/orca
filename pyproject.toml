@@ -1,0 +1,111 @@
+[project]
+name = "Orca"
+version = "0.1.0"
+description = "Orca is a modern data warehouse implementation built with best-in-class open-source tools."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "altair[all]>=6.0.0",         # Plotting library
+    "dagster>=1.12.14",           # Orchestration framework
+    "dagster-dbt>=0.25.14",       # Dagster dbt integration
+    "dagster-dg-cli>=1.12.14",    # Dagster CLI
+    "dagster-dlt>=0.29.8",        # Dagster dlt integration
+    "dagster-webserver>=1.12.14", # Dagster web UI
+    "dbt-duckdb>=1.9.0",          # dbt DuckDB adapter
+    "dlt[duckdb,hub]>=1.22.0",    # Data ingestion
+    "duckdb>=1.4.2",              # Analytical database
+    "duckdb-cli>=1.5.0",          # DuckDB CLI
+    "marimo>=0.23.8",             # Notebook-style data analysis
+    "pandas>=2.3.3",              # DataFrame manipulation library
+    "plotly>=6.5.2",              # Plotting library
+    "polars>=1.35.2",             # DataFrame manipulation library
+    "pyarrow>=22.0.0",            # Columnar in-memory data format (make dlt faster)
+    "streamlit>=1.54.0",          # Python web data app
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.2.0", # Jupyter kernel for interactive development
+    "jupytext>=1.19.1", # Jupyter notebook and script synchronization
+    "marimo>=0.19.11",  # Modern notebook alternative
+    "notebook>=7.5.3",  # Jupyter notebook interface
+    "pyyaml>=6.0.3",    # Required for skill-creator scripts
+    "ruff>=0.8.0",      # Python linter and formatter
+]
+
+[tool.ruff]
+target-version = "py313"
+fix = true
+unsafe-fixes = true
+
+# Exclude external skills formatting.
+extend-exclude = [".agents/skills/*"]
+
+[tool.ruff.format]
+preview = true
+docstring-code-format = true
+
+[tool.ruff.lint]
+preview = true
+# Comprehensive but pragmatic base categories for data engineering
+extend-select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+    "A",   # flake8-builtins
+    "RET", # flake8-return
+    "PT",  # flake8-pytest-style
+    "N",   # pep8-naming
+    "RUF", # Ruff-specific rules
+    "S",   # flake8-bandit (security)
+    "T20", # flake8-print (enforce logging in production pipelines)
+    "PLC", # pylint convention
+    "PLE", # pylint error
+    "PD",  # pandas best practices
+    "NPY", # numpy best practices
+    "FA",  # flake8-future-annotations (ensures compatibility)
+]
+
+# Globally ignored for friction-less data development
+ignore = [
+    "S608",   # Allow hardcoded SQL
+    "S101",   # Allow assert
+    "B905",   # Allow zip() without strict argument
+    "RUF001", # Allow ambiguous unicode string
+    "RUF002", # Allow ambiguous unicode docstring
+    "RUF003", # Allow ambiguous unicode comment
+    "RET504", # Allow variable assignment before return
+]
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 320
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+# Relaxed rules for data science, modeling, and notebooks
+"reporting/**" = [
+    "T201", # Allow print statements (T20)
+    "N803", # Allow uppercase arguments (e.g., matrix X) (N)
+    "N806", # Allow uppercase variables in functions (N)
+    "E402", # Allow imports not at top of file (common in notebooks) (E)
+    "S113", # Allow requests without timeouts for quick scraping (S)
+]
+"**/*.ipynb" = [
+    "T201", # Allow print in notebooks
+    "E402", # Allow delayed imports
+]
+
+[tool.dg]
+directory_type = "project"
+
+[tool.dg.project]
+root_module = "orchestration"
+
+
