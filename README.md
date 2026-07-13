@@ -135,16 +135,40 @@ To get started with Orca, follow these steps:
 2. Install [uv](https://docs.astral.sh/uv/getting-started/installation/)
 3. Install dependencies using `uv sync`
 4. Copy `.env.example` to `.env` and replace {PROJECT_ROOT} with the absolute path to the project.
-5. (optionnal) Install the recommended IDE extensions (VS Code, Cursor, Antigravity IDE).
+5. (optional) Install the recommended IDE extensions (VS Code, Cursor, Antigravity IDE).
+6. **Ignore local modifications to tracked database and execution logs** (see section below).
 
 You can then:
 - Run Dagster UI using `dg dev`
 - Run ingestion and transformation pipeline using `dg launch --assets "*"`
-- Explore the local database using:
-  - DuckDB CLI with: `duckdb 
-  - DuckDB UI with: `duckdb -ui "ducklake:storage/orca.ducklake`
-- Explore local database using [DuckDB UI](https://duckdb.org/2025/03/12/duckdb-ui) with `duckdb -ui "ducklake:storage/orca.ducklake"`
-- Explore Malloy semantic layer using the IDE extension.
+- Explore the local database using the [DuckDB UI](https://duckdb.org/2025/03/12/duckdb-ui):
+  ```bash
+  uv run duckdb -ui "ducklake:storage/orca.ducklake"
+  ```
+- Explore the Malloy semantic layer using the IDE extension.
+
+### Ignoring Local Execution Artifacts
+
+Because the database files, parquet data files, and Dagster history databases are committed/force-pushed to the remote repository during the weekly execution, they are tracked by Git. 
+
+To prevent local runs (e.g., from `dg dev` or `dg launch`) from modifying these tracked files and cluttering your `git status` output, you should run the following commands once during setup:
+
+```bash
+# Ignore local changes to the local DuckLake database catalog and Dagster home databases
+git ls-files storage/orca.ducklake orchestration/dagster_home/ | grep -v 'dagster.yaml' | xargs git update-index --skip-worktree
+
+# Ignore local changes to all parquet data files
+git ls-files storage/orca.ducklake.files/ | xargs git update-index --skip-worktree
+```
+
+> [!NOTE]
+> DLT pipeline states (under `ingestion/.dlt/pipelines/`) are already listed in `.gitignore` and are not tracked in the remote repository, so they don't require any additional setup.
+
+If you ever need to resume tracking these files (e.g., to commit changes to the database structure locally), run:
+```bash
+git ls-files storage/orca.ducklake orchestration/dagster_home/ | grep -v 'dagster.yaml' | xargs git update-index --no-skip-worktree
+git ls-files storage/orca.ducklake.files/ | xargs git update-index --no-skip-worktree
+```
 
 ## Project structure
 
