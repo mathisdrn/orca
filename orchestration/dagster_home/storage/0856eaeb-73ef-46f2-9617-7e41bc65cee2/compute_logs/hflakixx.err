@@ -1,0 +1,131 @@
+2026-07-13 10:17:03 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - The state was restored from the destination ducklake (dlt.destinations.ducklake):raw
+2026-07-13 10:17:03 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - The schema hackernews_source version 2 hash x2O+283VfDO1ZKj6vXc0p2ZY5gazwm9WbeP6G+WGXfs= was restored from the destination ducklake:raw
+2026-07-13 10:17:03 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Bind incremental on items with initial_value: 2026-07-01 00:00:00+00:00, start_value: 2026-07-12 09:47:49+00:00, end_value: None, func: max, row_order: None, on_missing: raise, range_start: closed, range_end: open
+2026-07-13 10:17:03 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Starting incremental ingestion from 2026-07-12 09:47:49 UTC (1783849669)...
+2026-07-13 10:17:03 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-12 09:47:49 to 2026-07-12 10:47:49 (1783849669 to 1783853269)...
+2026-07-13 10:17:03 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783849669%2Ccreated_at_i%3C1783853269&hitsPerPage=1000
+2026-07-13 10:17:03 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 236 items in this window.
+2026-07-13 10:17:03 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-12 10:47:49 to 2026-07-12 11:47:49 (1783853269 to 1783856869)...
+2026-07-13 10:17:03 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783853269%2Ccreated_at_i%3C1783856869&hitsPerPage=1000
+2026-07-13 10:17:04 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 289 items in this window.
+2026-07-13 10:17:04 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-12 11:47:49 to 2026-07-12 12:47:49 (1783856869 to 1783860469)...
+2026-07-13 10:17:04 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783856869%2Ccreated_at_i%3C1783860469&hitsPerPage=1000
+2026-07-13 10:17:04 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 343 items in this window.
+2026-07-13 10:17:04 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-12 12:47:49 to 2026-07-12 13:47:49 (1783860469 to 1783864069)...
+2026-07-13 10:17:04 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783860469%2Ccreated_at_i%3C1783864069&hitsPerPage=1000
+2026-07-13 10:17:05 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 414 items in this window.
+2026-07-13 10:17:05 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-12 13:47:49 to 2026-07-12 14:47:49 (1783864069 to 1783867669)...
+2026-07-13 10:17:05 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783864069%2Ccreated_at_i%3C1783867669&hitsPerPage=1000
+2026-07-13 10:17:06 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 345 items in this window.
+2026-07-13 10:17:06 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-12 14:47:49 to 2026-07-12 15:47:49 (1783867669 to 1783871269)...
+2026-07-13 10:17:06 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783867669%2Ccreated_at_i%3C1783871269&hitsPerPage=1000
+2026-07-13 10:17:06 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 399 items in this window.
+2026-07-13 10:17:06 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-12 15:47:49 to 2026-07-12 16:47:49 (1783871269 to 1783874869)...
+2026-07-13 10:17:06 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783871269%2Ccreated_at_i%3C1783874869&hitsPerPage=1000
+2026-07-13 10:17:07 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 387 items in this window.
+2026-07-13 10:17:07 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-12 16:47:49 to 2026-07-12 17:47:49 (1783874869 to 1783878469)...
+2026-07-13 10:17:07 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783874869%2Ccreated_at_i%3C1783878469&hitsPerPage=1000
+2026-07-13 10:17:08 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 404 items in this window.
+2026-07-13 10:17:08 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-12 17:47:49 to 2026-07-12 18:47:49 (1783878469 to 1783882069)...
+2026-07-13 10:17:08 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783878469%2Ccreated_at_i%3C1783882069&hitsPerPage=1000
+2026-07-13 10:17:09 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 458 items in this window.
+2026-07-13 10:17:09 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-12 18:47:49 to 2026-07-12 19:47:49 (1783882069 to 1783885669)...
+2026-07-13 10:17:09 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783882069%2Ccreated_at_i%3C1783885669&hitsPerPage=1000
+2026-07-13 10:17:09 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 525 items in this window.
+2026-07-13 10:17:09 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-12 19:47:49 to 2026-07-12 20:47:49 (1783885669 to 1783889269)...
+2026-07-13 10:17:09 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783885669%2Ccreated_at_i%3C1783889269&hitsPerPage=1000
+2026-07-13 10:17:10 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 536 items in this window.
+2026-07-13 10:17:10 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-12 20:47:49 to 2026-07-12 21:47:49 (1783889269 to 1783892869)...
+2026-07-13 10:17:10 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783889269%2Ccreated_at_i%3C1783892869&hitsPerPage=1000
+2026-07-13 10:17:11 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 463 items in this window.
+2026-07-13 10:17:11 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-12 21:47:49 to 2026-07-12 22:47:49 (1783892869 to 1783896469)...
+2026-07-13 10:17:11 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783892869%2Ccreated_at_i%3C1783896469&hitsPerPage=1000
+2026-07-13 10:17:12 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 472 items in this window.
+2026-07-13 10:17:12 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-12 22:47:49 to 2026-07-12 23:47:49 (1783896469 to 1783900069)...
+2026-07-13 10:17:12 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783896469%2Ccreated_at_i%3C1783900069&hitsPerPage=1000
+2026-07-13 10:17:14 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 390 items in this window.
+2026-07-13 10:17:14 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-12 23:47:49 to 2026-07-13 00:47:49 (1783900069 to 1783903669)...
+2026-07-13 10:17:14 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783900069%2Ccreated_at_i%3C1783903669&hitsPerPage=1000
+2026-07-13 10:17:14 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 392 items in this window.
+2026-07-13 10:17:14 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-13 00:47:49 to 2026-07-13 01:47:49 (1783903669 to 1783907269)...
+2026-07-13 10:17:14 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783903669%2Ccreated_at_i%3C1783907269&hitsPerPage=1000
+2026-07-13 10:17:14 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 338 items in this window.
+2026-07-13 10:17:14 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-13 01:47:49 to 2026-07-13 02:47:49 (1783907269 to 1783910869)...
+2026-07-13 10:17:14 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783907269%2Ccreated_at_i%3C1783910869&hitsPerPage=1000
+2026-07-13 10:17:17 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 325 items in this window.
+2026-07-13 10:17:17 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-13 02:47:49 to 2026-07-13 03:47:49 (1783910869 to 1783914469)...
+2026-07-13 10:17:17 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783910869%2Ccreated_at_i%3C1783914469&hitsPerPage=1000
+2026-07-13 10:17:19 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 362 items in this window.
+2026-07-13 10:17:19 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-13 03:47:49 to 2026-07-13 04:47:49 (1783914469 to 1783918069)...
+2026-07-13 10:17:19 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783914469%2Ccreated_at_i%3C1783918069&hitsPerPage=1000
+2026-07-13 10:17:19 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 349 items in this window.
+2026-07-13 10:17:19 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-13 04:47:49 to 2026-07-13 05:47:49 (1783918069 to 1783921669)...
+2026-07-13 10:17:19 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783918069%2Ccreated_at_i%3C1783921669&hitsPerPage=1000
+2026-07-13 10:17:20 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 317 items in this window.
+2026-07-13 10:17:20 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-13 05:47:49 to 2026-07-13 06:47:49 (1783921669 to 1783925269)...
+2026-07-13 10:17:20 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783921669%2Ccreated_at_i%3C1783925269&hitsPerPage=1000
+2026-07-13 10:17:20 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 366 items in this window.
+2026-07-13 10:17:20 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-13 06:47:49 to 2026-07-13 07:47:49 (1783925269 to 1783928869)...
+2026-07-13 10:17:20 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783925269%2Ccreated_at_i%3C1783928869&hitsPerPage=1000
+2026-07-13 10:17:21 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 379 items in this window.
+2026-07-13 10:17:21 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-13 07:47:49 to 2026-07-13 08:47:49 (1783928869 to 1783932469)...
+2026-07-13 10:17:21 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783928869%2Ccreated_at_i%3C1783932469&hitsPerPage=1000
+2026-07-13 10:17:21 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 396 items in this window.
+2026-07-13 10:17:21 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-13 08:47:49 to 2026-07-13 09:47:49 (1783932469 to 1783936069)...
+2026-07-13 10:17:21 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783932469%2Ccreated_at_i%3C1783936069&hitsPerPage=1000
+2026-07-13 10:17:22 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 437 items in this window.
+2026-07-13 10:17:22 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Querying time window: 2026-07-13 09:47:49 to 2026-07-13 10:17:03 (1783936069 to 1783937823)...
+2026-07-13 10:17:22 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1783936069%2Ccreated_at_i%3C1783937823&hitsPerPage=1000
+2026-07-13 10:17:22 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Retrieved 211 items in this window.
+2026-07-13 10:17:22 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Ingested 9533 items. Catch-up completed up to 2026-07-13 10:17:03 (1783937823).
+2026-07-13 10:17:22 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Created none pool with 1 workers
+2026-07-13 10:17:22 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Running file normalizing
+2026-07-13 10:17:22 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Found 1 load packages
+2026-07-13 10:17:22 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Found 2 files in schema hackernews_source load_id 1783937823.3100147
+2026-07-13 10:17:22 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Created new load package 1783937823.3100147 on loading volume with 2 files
+2026-07-13 10:17:22 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Created items normalizer JsonLItemsNormalizer with writer ParquetDataWriter for item format object and file format parquet on table items
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - A file format for table _dlt_pipeline_state was specified to preferred in the resource so parquet format being used.
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Created items normalizer JsonLItemsNormalizer with writer ParquetDataWriter for item format object and file format parquet on table _dlt_pipeline_state
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Processed all items in 2 files
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Schema hackernews_source with version 2 was not modified. Save skipped
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Committing storage, do not kill this process
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Extracted package 1783937823.3100147 processed
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Closing processing pool
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Processing pool closed
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Created thread pool with 20 workers
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Running file loading
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Found 1 load packages
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Loading schema from load package in 1783937823.3100147
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Loaded schema name hackernews_source and version 2
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Client for ducklake will start initialize storage 
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Client for ducklake will update schema to package schema 
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Schema with hash x2O+283VfDO1ZKj6vXc0p2ZY5gazwm9WbeP6G+WGXfs= inserted at 2026-07-12 09:51:22.059119+00:00 found in storage, no upgrade required
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Client for ducklake will start initialize storage for staging dataset
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Client for ducklake will update schema to package schema for staging dataset
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Schema with hash x2O+283VfDO1ZKj6vXc0p2ZY5gazwm9WbeP6G+WGXfs= not found in the storage. upgrading
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Found 13 updates for items in hackernews_source
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Found 6 updates for _dlt_version in hackernews_source
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Client for ducklake will truncate tables for staging dataset
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - 0 started jobs found, which should be continued
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Will complete 0 for 1783937823.3100147
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Will load additional 1, creating jobs
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Will load file 1783937823.3100147/new_jobs/items.99f72322a6.0.parquet with table name items
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Will complete 1 for 1783937823.3100147
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Job items.99f72322a6.parquet CREATED a new FOLLOWUP JOB /tmp/items.4cc3f79247.0.sql placed in new_jobs
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Job for items.99f72322a6.parquet completed in load 1783937823.3100147
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Will load additional 1, creating jobs
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Will load file 1783937823.3100147/new_jobs/items.4cc3f79247.0.sql with table name items
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Will complete 1 for 1783937823.3100147
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Job for items.4cc3f79247.sql completed in load 1783937823.3100147
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Will load additional 1, creating jobs
+2026-07-13 10:17:23 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Will load file 1783937823.3100147/new_jobs/_dlt_pipeline_state.958beeaecc.0.parquet with table name _dlt_pipeline_state
+2026-07-13 10:17:24 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Will complete 1 for 1783937823.3100147
+2026-07-13 10:17:24 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Job for _dlt_pipeline_state.958beeaecc.parquet completed in load 1783937823.3100147
+2026-07-13 10:17:24 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Will load additional 0, creating jobs
+2026-07-13 10:17:24 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - All jobs completed, archiving package 1783937823.3100147 with aborted set to False
+2026-07-13 10:17:24 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Closing processing pool
+2026-07-13 10:17:24 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - hackernews - Processing pool closed
+2026-07-13 10:17:24 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - dbt_assets - A dbt subsetted execution is not being performed. Using the default dbt selection arguments `['--select', 'fqn:*']`.
+2026-07-13 10:17:27 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - dbt_assets - Copying `/home/runner/work/orca/orca/transformation/target/partial_parse.msgpack` to `/home/runner/work/orca/orca/transformation/target/dbt_assets-0856eae-215a5e2/partial_parse.msgpack` to take advantage of partial parsing.
+2026-07-13 10:17:27 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - dbt_assets - Running dbt command: `dbt build --select fqn:*`.
+2026-07-13 10:17:34 +0000 - dagster - INFO - __ASSET_JOB - 0856eaeb-73ef-46f2-9617-7e41bc65cee2 - dbt_assets - Finished dbt command: `dbt build --select fqn:*`.
