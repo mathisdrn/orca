@@ -17,7 +17,7 @@ jobs:
 
     env:
       DAGSTER_HOME: ${{ github.workspace }}/orchestration/dagster_home
-      DBT_DUCKDB_PATH: ducklake:/${{ github.workspace }}/storage/orca.ducklake
+      DBT_DUCKDB_PATH: ducklake:${{ github.workspace }}/storage/orca.ducklake
 
     steps:
       - name: Checkout repository
@@ -54,7 +54,7 @@ jobs:
 
       - name: Post-process DuckLake for remote/portable querying
         run: |
-          uv run python storage/post_process.py
+          uv run duckdb < storage/clean_ducklake.sql
 
       - name: Commit and push changes
         run: |
