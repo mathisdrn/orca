@@ -136,7 +136,10 @@ To get started with Orca, follow these steps:
 3. Install dependencies using `uv sync`
 4. Copy `.env.example` to `.env` and replace {PROJECT_ROOT} with the absolute path to the project.
 5. (optional) Install the recommended IDE extensions (VS Code, Cursor, Antigravity IDE).
-6. **Ignore local modifications to tracked database and execution logs** (see section below).
+6. (optional) Ignore local modifications to the database and execution logs so they don't clutter your `git status` when running pipelines locally:
+   ```bash
+   git ls-files storage/orca.ducklake storage/orca.ducklake.files/ orchestration/dagster_home/ | grep -v 'dagster.yaml' | xargs git update-index --skip-worktree
+   ```
 
 You can then:
 - Run Dagster UI using `dg dev`
@@ -146,29 +149,6 @@ You can then:
   uv run duckdb -ui "ducklake:storage/orca.ducklake"
   ```
 - Explore the Malloy semantic layer using the IDE extension.
-
-### Ignoring Local Execution Artifacts
-
-Because the database files, parquet data files, and Dagster history databases are committed/force-pushed to the remote repository during the weekly execution, they are tracked by Git. 
-
-To prevent local runs (e.g., from `dg dev` or `dg launch`) from modifying these tracked files and cluttering your `git status` output, you should run the following commands once during setup:
-
-```bash
-# Ignore local changes to the local DuckLake database catalog and Dagster home databases
-git ls-files storage/orca.ducklake orchestration/dagster_home/ | grep -v 'dagster.yaml' | xargs git update-index --skip-worktree
-
-# Ignore local changes to all parquet data files
-git ls-files storage/orca.ducklake.files/ | xargs git update-index --skip-worktree
-```
-
-> [!NOTE]
-> DLT pipeline states (under `ingestion/.dlt/pipelines/`) are already listed in `.gitignore` and are not tracked in the remote repository, so they don't require any additional setup.
-
-If you ever need to resume tracking these files (e.g., to commit changes to the database structure locally), run:
-```bash
-git ls-files storage/orca.ducklake orchestration/dagster_home/ | grep -v 'dagster.yaml' | xargs git update-index --no-skip-worktree
-git ls-files storage/orca.ducklake.files/ | xargs git update-index --no-skip-worktree
-```
 
 ## Project structure
 
