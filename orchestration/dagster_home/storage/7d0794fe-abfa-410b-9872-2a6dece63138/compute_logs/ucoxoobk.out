@@ -1,0 +1,25 @@
+Running with dbt=1.11.12
+Registered adapter: duckdb=1.10.1
+Unable to do partial parsing because profile has changed
+Found 2 models, 4 data tests, 1 source, 486 macros
+
+Concurrency: 1 threads (target='dev')
+
+1 of 6 START sql view model orca.marts.comments ................................ [RUN]
+1 of 6 OK created sql view model orca.marts.comments ........................... [[32mOK[0m in 0.13s]
+2 of 6 START sql view model orca.marts.stories ................................. [RUN]
+2 of 6 OK created sql view model orca.marts.stories ............................ [[32mOK[0m in 0.10s]
+3 of 6 START test not_null_comments_comment_id ................................. [RUN]
+3 of 6 PASS not_null_comments_comment_id ....................................... [[32mPASS[0m in 0.07s]
+4 of 6 START test unique_comments_comment_id ................................... [RUN]
+4 of 6 PASS unique_comments_comment_id ......................................... [[32mPASS[0m in 0.05s]
+5 of 6 START test not_null_stories_story_id .................................... [RUN]
+5 of 6 PASS not_null_stories_story_id .......................................... [[32mPASS[0m in 0.03s]
+6 of 6 START test unique_stories_story_id ...................................... [RUN]
+6 of 6 PASS unique_stories_story_id ............................................ [[32mPASS[0m in 0.04s]
+
+Finished running 4 data tests, 2 view models in 0 hours 0 minutes and 0.66 seconds (0.66s).
+
+[32mCompleted successfully[0m
+
+Done. PASS=6 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=6
