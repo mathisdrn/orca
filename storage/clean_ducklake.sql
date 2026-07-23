@@ -4,9 +4,6 @@
 LOAD DUCKLAKE;
 ATTACH 'ducklake:storage/orca.ducklake' AS orca (DATA_PATH 'storage/orca.ducklake.files/', OVERRIDE_DATA_PATH true);
 
--- Drops the `raw_staging` schema created by dlt (see https://github.com/dlt-hub/dlt/issues/4174)
-DROP SCHEMA IF EXISTS orca.raw_staging CASCADE;
-
 -- Expire old snapshots and physically purge deleted/orphaned files
 CALL ducklake_expire_snapshots('orca', older_than => now());
 CALL ducklake_cleanup_old_files('orca', cleanup_all => true);
