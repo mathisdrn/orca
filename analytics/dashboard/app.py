@@ -50,7 +50,7 @@ def get_metadata():
 # 3. Fetch Metadata
 try:
     min_datetime, max_datetime, top_authors_list = get_metadata()
-except Exception as e:  # noqa: BLE001
+except Exception as e:  # ruff: ignore[blind-except]
     st.error(f"⚠️ Failed to initialize dashboard metadata: {e}")
     st.info(
         "Please check that the DuckLake database files in `storage/` are populated and up to date."
@@ -107,8 +107,10 @@ def get_dashboard_data(
 
     # Build where clause
     where_clauses = []
-    where_clauses.append(f"created_at >= '{start_date} 00:00:00'")
-    where_clauses.append(f"created_at <= '{end_date} 23:59:59'")
+    where_clauses.extend((
+        f"created_at >= '{start_date} 00:00:00'",
+        f"created_at <= '{end_date} 23:59:59'",
+    ))
 
     if type_filter == "Show HN / Ask HN Only":
         where_clauses.append("(title LIKE 'Show HN:%' OR title LIKE 'Ask HN:%')")
@@ -199,7 +201,7 @@ with st.spinner("Executing analytical database queries..."):
         ) = get_dashboard_data(
             story_type, date_range[0], date_range[1], author_search, limit_n
         )
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:  # ruff: ignore[blind-except]
         st.error(f"Failed to query the HackerNews data warehouse: {e}")
         st.stop()
 
@@ -233,7 +235,7 @@ with col1:
 
 with col2:
     st.metric("Total Score", f"{int(total_score) if total_score else 0:,}")
-    st.metric("Max Score", f"{max_score if max_score else 0:,}")
+    st.metric("Max Score", f"{max_score or 0:,}")
 
 with col3:
     st.metric("Total Comments", f"{int(total_comments) if total_comments else 0:,}")

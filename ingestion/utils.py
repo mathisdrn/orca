@@ -1,15 +1,13 @@
-# ruff: noqa: E402
 from pathlib import Path
 
+import dlt
+from dlt.destinations.impl.ducklake.configuration import DuckLakeCredentials
 from dotenv import load_dotenv
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 # Load env variables from root .env file
 load_dotenv(PROJECT_ROOT / ".env")
-
-import dlt
-from dlt.destinations.impl.ducklake.configuration import DuckLakeCredentials
 
 
 def create_pipeline(pipeline_name: str, dataset_name: str = "raw") -> dlt.Pipeline:

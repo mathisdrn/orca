@@ -34,7 +34,6 @@ dev = [
 ]
 
 [tool.ruff]
-target-version = "py313"
 fix = true
 unsafe-fixes = true
 
@@ -49,38 +48,61 @@ docstring-code-format = true
 preview = true
 # Comprehensive but pragmatic base categories for data engineering
 extend-select = [
-    "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings
-    "F",   # pyflakes
-    "I",   # isort
-    "UP",  # pyupgrade
-    "B",   # flake8-bugbear
-    "C4",  # flake8-comprehensions
-    "SIM", # flake8-simplify
-    "A",   # flake8-builtins
-    "RET", # flake8-return
-    "PT",  # flake8-pytest-style
-    "N",   # pep8-naming
-    "RUF", # Ruff-specific rules
-    "S",   # flake8-bandit (security)
-    "T20", # flake8-print (enforce logging in production pipelines)
-    "PLC", # pylint convention
-    "PLE", # pylint error
-    "PD",  # pandas best practices
-    "NPY", # numpy best practices
-    "FA",  # flake8-future-annotations (ensures compatibility)
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "I",    # isort
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "SIM",  # flake8-simplify
+    "A",    # flake8-builtins
+    "RET",  # flake8-return
+    "PT",   # flake8-pytest-style
+    "N",    # pep8-naming
+    "RUF",  # Ruff-specific rules
+    "S",    # flake8-bandit (security)
+    "T20",  # flake8-print (enforce logging in production pipelines)
+    "PLC",  # pylint convention
+    "PLE",  # pylint error
+    "PD",   # pandas best practices
+    "NPY",  # numpy best practices
+    "FA",   # flake8-future-annotations
+    "ICN",  # flake8-import-conventions (standard pd, pl, pa, st aliases)
+    "PTH",  # flake8-use-pathlib
+    "PERF", # Perflint (performance checks)
+    "FURB", # refurb (modern python idioms)
+    "PIE",  # flake8-pie
+    "SLF",  # flake8-self
+    "TC",   # flake8-type-checking (move type-only imports to IF TYPE_CHECKING)
+    "G",    # flake8-logging-format (enforces lazy logging formatting)
+    "LOG",  # flake8-logging
 ]
 
 # Globally ignored for friction-less data development
 ignore = [
-    "S608",   # Allow hardcoded SQL
-    "S101",   # Allow assert
-    "B905",   # Allow zip() without strict argument
-    "RUF001", # Allow ambiguous unicode string
-    "RUF002", # Allow ambiguous unicode docstring
-    "RUF003", # Allow ambiguous unicode comment
-    "RET504", # Allow variable assignment before return
+    "hardcoded-sql-expression",    # Allow hardcoded SQL
+    "assert",    # Allow assert
+    "zip-without-explicit-strict",    # Allow zip() without strict argument
+    "ambiguous-unicode-character-string",  # Allow ambiguous unicode string
+    "ambiguous-unicode-character-docstring",  # Allow ambiguous unicode docstring
+    "ambiguous-unicode-character-comment",  # Allow ambiguous unicode comment
+    "unnecessary-assign",  # Allow variable assignment before return
+    "magic-value-comparison", # Allow magic numbers in data thresholds & batch sizes
+    "too-many-arguments", # Allow functions with multiple arguments
+    "too-many-locals", # Allow functions with multiple local variables
+    "suspicious-non-cryptographic-random-usage",    # Allow standard random for data sampling
 ]
+
+[tool.ruff.lint.flake8-import-conventions.aliases]
+altair = "alt"
+dagster = "dg"
+dlt = "dlt"
+duckdb = "duckdb"
+numpy = "np"
+pandas = "pd"
+polars = "pl"
+pyarrow = "pa"
+streamlit = "st"
 
 [tool.ruff.lint.pycodestyle]
 max-line-length = 320
@@ -89,17 +111,25 @@ max-line-length = 320
 convention = "google"
 
 [tool.ruff.lint.per-file-ignores]
-# Relaxed rules for data science, modeling, and notebooks
-"reporting/**" = [
-    "T201", # Allow print statements (T20)
-    "N803", # Allow uppercase arguments (e.g., matrix X) (N)
-    "N806", # Allow uppercase variables in functions (N)
-    "E402", # Allow imports not at top of file (common in notebooks) (E)
-    "S113", # Allow requests without timeouts for quick scraping (S)
+# Relaxed rules for data science, modeling, dashboards, and notebooks
+"analytics/**" = [
+    "print", # Allow print statements (T20)
+    "invalid-argument-name", # Allow uppercase arguments (e.g., matrix X) (N)
+    "non-lowercase-variable-in-function", # Allow uppercase variables in functions (N)
+    "module-import-not-at-top-of-file", # Allow imports not at top of file (common in notebooks) (E)
+    "request-without-timeout", # Allow requests without timeouts for quick scraping (S)
+    "G",    # Allow f-strings in logging for interactive dashboard/EDA code
+    "LOG",  # Allow non-lazy logging in analytics
 ]
 "**/*.ipynb" = [
-    "T201", # Allow print in notebooks
-    "E402", # Allow delayed imports
+    "print", # Allow print in notebooks
+    "module-import-not-at-top-of-file", # Allow delayed imports
+    "G",    # Allow f-strings in logging in notebooks
+    "LOG",  # Allow non-lazy logging in notebooks
+]
+".agents/**" = [
+    "G",    # Allow f-strings in logging for tooling scripts
+    "LOG",  # Allow non-lazy logging in tooling scripts
 ]
 
 [tool.dg]
@@ -107,5 +137,3 @@ directory_type = "project"
 
 [tool.dg.project]
 root_module = "orchestration"
-
-
