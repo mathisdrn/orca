@@ -7,7 +7,7 @@ for the Orca project.
 import contextlib
 import re
 import shutil
-import subprocess
+import subprocess  # ruff: ignore[suspicious-subprocess-import]
 import tempfile
 from pathlib import Path
 
@@ -149,7 +149,7 @@ SKILL_MAPPINGS = [
 
 def run_command(cmd, cwd=None):
     """Run a shell command and return stdout/stderr."""
-    result = subprocess.run(cmd, capture_output=True, text=True, cwd=cwd)
+    result = subprocess.run(cmd, capture_output=True, text=True, cwd=cwd, check=False)  # ruff: ignore[subprocess-without-shell-equals-true]
     if result.returncode != 0:
         raise RuntimeError(f"Command failed: {result.stderr}")
     return result.stdout

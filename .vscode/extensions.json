@@ -7,7 +7,6 @@
         "caenrigen.jupytext-sync", // Jupytext Sync for .ipynb and .py files
         "tombi-toml.tombi", // TOML support for pyproject.toml
         "ms-toolsai.datawrangler", // Data Wrangler for data manipulation
-        "grapecity.gc-excelviewer", // Tabular data viewer
         "malloydata.malloy-vscode", // Malloy semantic model
     ]
 }
