@@ -93,6 +93,9 @@ ignore = [
     "suspicious-non-cryptographic-random-usage",    # Allow standard random for data sampling
 ]
 
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["dlt.sources.incremental"]
+
 [tool.ruff.lint.flake8-import-conventions.aliases]
 altair = "alt"
 dagster = "dg"

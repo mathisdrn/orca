@@ -69,7 +69,7 @@ columns_schema: dict[str, TColumnSchema] = {
 )
 def hackernews_items(
     max_items: int | None = None,
-    created_at_incremental: Any = dlt.sources.incremental(  # ruff: ignore[function-call-in-default-argument]
+    created_at_incremental: Any = dlt.sources.incremental(
         "created_at",
         initial_value=DEFAULT_START_DATE,
     ),
