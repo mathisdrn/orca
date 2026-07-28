@@ -2446,7 +2446,7 @@ wheels = [
 [[package]]
 name = "orca"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "altair", extra = ["all"] },
     { name = "dagster" },

@@ -140,3 +140,10 @@ directory_type = "project"
 
 [tool.dg.project]
 root_module = "orchestration"
+
+[tool.hatch.build.targets.wheel]
+packages = ["ingestion", "orchestration"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
