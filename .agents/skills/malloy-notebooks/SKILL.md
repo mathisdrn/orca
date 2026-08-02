@@ -1,8 +1,6 @@
 ---
 name: malloy-notebooks
-description: Create Malloy notebooks (.malloynb) for interactive dashboards and data
-  stories. Use when user asks to "create a notebook", "make a dashboard notebook",
-  "write a malloynb", "data story", or needs to build reports/visualizations.
+description: Create Malloy notebooks (.malloynb) for interactive dashboards and data stories. Use when user asks to "create a notebook", "make a dashboard notebook", "write a malloynb", "data story", or needs to build reports/visualizations.
 ---
 
 # Malloy Notebooks

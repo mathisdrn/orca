@@ -1,9 +1,6 @@
 ---
 name: malloy-define
-description: Propose a source plan and field definitions for a Malloy semantic model.
-  Covers picking which sources to model and at what grain, then proposing the specific
-  renames, dimensions, and measures per source, every proposal backed by querying
-  the data.
+description: Propose a source plan and field definitions for a Malloy semantic model. Covers picking which sources to model and at what grain, then proposing the specific renames, dimensions, and measures per source, every proposal backed by querying the data.
 ---
 
 # Propose sources and definitions

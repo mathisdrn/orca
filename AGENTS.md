@@ -10,5 +10,6 @@ This project contains:
 - `semantic_model/`: Malloy semantic models
 - `reporting/`: Streamlit dashboard and Malloy Publisher server
 - `.github/workflows/`: Data warehouse execution. Artifacts are force-pushed to GitHub but git-ignored for local-development.
-- `uv` for Python environment
+- `uv` for Python environment (use `uv run` to execute python code)
 - `ruff` for linter and formatter
+- `npx skills` for managing agent skills (requires Node.js)
