@@ -75,26 +75,9 @@ export default {
       return proxyWithRedirectRewrite(targetUrl, new URL(MALLOY_CLOUD_RUN_URL).host);
     }
 
-    // 5. Dashboards / Streamlit -> Fullscreen Iframe embedding
+    // 5. Dashboards / Streamlit -> Direct 302 redirect to Streamlit Cloud app
     if (pathname.startsWith("/dashboards")) {
-      const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orca Dashboards - Streamlit</title>
-  <style>
-    body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: system-ui, sans-serif; }
-    iframe { width: 100%; height: 100%; border: none; }
-  </style>
-</head>
-<body>
-  <iframe src="${STREAMLIT_APP_URL}" allow="camera; microphone; clipboard-read; clipboard-write;"></iframe>
-</body>
-</html>`;
-      return new Response(html, {
-        headers: { "Content-Type": "text/html; charset=utf-8" },
-      });
+      return Response.redirect(STREAMLIT_APP_URL, 302);
     }
 
     // Fallback: 404
