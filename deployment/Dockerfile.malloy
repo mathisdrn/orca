@@ -5,13 +5,7 @@ WORKDIR /app
 RUN npm install -g @malloy-publisher/server
 
 COPY analytics/ ./analytics/
-COPY deployment/proxy_guard.js ./deployment/proxy_guard.js
-COPY deployment/start_malloy.sh ./deployment/start_malloy.sh
-
-RUN chmod +x deployment/start_malloy.sh
-
-ENV TARGET_PORT=8081
 
 EXPOSE 8080
 
-CMD ["/bin/sh", "deployment/start_malloy.sh"]
+CMD ["npx", "@malloy-publisher/server", "--config", "analytics/malloy-config.json", "--port", "8080", "--host", "0.0.0.0"]
