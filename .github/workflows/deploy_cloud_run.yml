@@ -56,46 +56,47 @@ jobs:
             --concurrency 80 \
             --cpu-throttling
 
-  deploy-malloy:
-    name: Deploy Malloy Publisher
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
-
-      - name: Create Artifact Registry repository if not exists
-        run: |
-          gcloud artifacts repositories create orca \
-            --repository-format=docker \
-            --location=us-central1 \
-            --description="Orca data warehouse containers" --quiet || true
-
-      - name: Configure Docker for Artifact Registry
-        run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
-
-      - name: Build & Push Docker image
-        run: |
-          docker build -t us-central1-docker.pkg.dev/${{ env.GCP_PROJECT }}/orca/orca-malloy:latest -f deployment/Dockerfile.malloy .
-          docker push us-central1-docker.pkg.dev/${{ env.GCP_PROJECT }}/orca/orca-malloy:latest
-
-      - name: Deploy orca-malloy to Cloud Run
-        run: |
-          gcloud run deploy orca-malloy \
-            --image us-central1-docker.pkg.dev/${{ env.GCP_PROJECT }}/orca/orca-malloy:latest \
-            --region us-central1 \
-            --allow-unauthenticated \
-            --ingress all \
-            --memory 1Gi \
-            --cpu-boost \
-            --min-instances 0 \
-            --max-instances 1 \
-            --concurrency 80 \
-            --cpu-throttling
+# Temporarily paused until upstream @malloy-publisher/server DuckLake release:
+#  deploy-malloy:
+#    name: Deploy Malloy Publisher
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout repository
+#        uses: actions/checkout@v4
+#
+#      - name: Authenticate to Google Cloud
+#        uses: google-github-actions/auth@v2
+#        with:
+#          credentials_json: ${{ secrets.GCP_SA_KEY }}
+#
+#      - name: Set up Cloud SDK
+#        uses: google-github-actions/setup-gcloud@v2
+#
+#      - name: Create Artifact Registry repository if not exists
+#        run: |
+#          gcloud artifacts repositories create orca \
+#            --repository-format=docker \
+#            --location=us-central1 \
+#            --description="Orca data warehouse containers" --quiet || true
+#
+#      - name: Configure Docker for Artifact Registry
+#        run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+#
+#      - name: Build & Push Docker image
+#        run: |
+#          docker build -t us-central1-docker.pkg.dev/${{ env.GCP_PROJECT }}/orca/orca-malloy:latest -f deployment/Dockerfile.malloy .
+#          docker push us-central1-docker.pkg.dev/${{ env.GCP_PROJECT }}/orca/orca-malloy:latest
+#
+#      - name: Deploy orca-malloy to Cloud Run
+#        run: |
+#          gcloud run deploy orca-malloy \
+#            --image us-central1-docker.pkg.dev/${{ env.GCP_PROJECT }}/orca/orca-malloy:latest \
+#            --region us-central1 \
+#            --allow-unauthenticated \
+#            --ingress all \
+#            --memory 1Gi \
+#            --cpu-boost \
+#            --min-instances 0 \
+#            --max-instances 1 \
+#            --concurrency 80 \
+#            --cpu-throttling
