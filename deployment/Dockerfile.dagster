@@ -14,15 +14,15 @@ COPY transformation/ ./transformation/
 COPY orchestration/ ./orchestration/
 COPY storage/ ./storage/
 
-# Install dependencies using uv
-RUN uv sync --frozen --no-dev
+# Install dependencies using Python 3.12
+RUN uv sync --frozen --no-dev --python 3.12
 
 # Pre-compile dbt manifest so Dagster webserver initializes instantly without runtime compilation
-RUN cd transformation && uv run dbt compile --threads 1
+RUN cd transformation && uv run --python 3.12 dbt compile --threads 1
 
 ENV DAGSTER_HOME=/app/orchestration/dagster_home
 ENV PYTHONUNBUFFERED=1
 
 EXPOSE 8080
 
-CMD ["uv", "run", "dagster-webserver", "-h", "0.0.0.0", "-p", "8080", "-f", "orchestration/definitions.py", "--path-prefix", "/orchestration", "--read-only"]
+CMD ["uv", "run", "--python", "3.12", "dagster-webserver", "-h", "0.0.0.0", "-p", "8080", "-f", "orchestration/definitions.py", "--path-prefix", "/orchestration", "--read-only"]
