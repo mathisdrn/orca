@@ -56,7 +56,7 @@ dbt is a SQL-based data transformation framework:
 </details>
 
 > [!TIP]
-> Explore the dbt models and data lineage of the data warehouse at **https://mathisdrn.github.io/orca/dbt-docs**.
+> Explore the dbt models and data lineage of the data warehouse at **https://orca-datawarehouse.dev/transformation/**.
 
 ### Orchestration & Observability
 
@@ -65,7 +65,7 @@ The data warehouse ingestion and transformation pipelines are **orchestrated** u
 Dagster integrates with `dlt` and `dbt` to generate a unified view of asset dependencies. It manages the execution of ingestion and transformation pipelines while tracking execution details and asset metadata, such as runtime logs, performance, and row counts. [**Dagster UI**](https://docs.dagster.io/guides/operate/webserver) provides a user interface to view asset dependencies and execution history.
 
 > [!TIP]
-> Explore the live asset graph and execution history of the data warehouse at **https://orca-datawarehouse.dev/orchestration**
+> Explore the live asset graph and execution history of the data warehouse at **https://orca-datawarehouse.dev/orchestration/**
 > 
 > *The Dagster UI is hosted in **read-only mode** on a serverless Google Cloud Run instance.*
 
@@ -111,11 +111,11 @@ Orca uses [Malloy](https://malloydata.dev) as a **semantic layer** to create reu
 Orca hosts a [Malloy Publisher](https://docs.malloydata.dev/documentation/user_guides/publishing/publishing) server. It contains interactive dashboards and lets users build their own tables and visualizations using the Malloy semantic models.
 
 > [!TIP]
-> Explore the dashboards and build your own at [https://orca-datawarehouse.dev/reporting/](https://orca-datawarehouse.dev/reporting/).
+> Explore the dashboards and build your own at [https://orca-datawarehouse.dev/analytics/](https://orca-datawarehouse.dev/analytics/).
 > 
-> *The Malloy Publisher server runs on a Google Cloud Run serverless instance and uses [MotherDuck](https://www.motherduck.com/) free-tier to query the frozen DuckLake data warehouse.*
+> *The Malloy Publisher server runs on a Google Cloud Run serverless instance and queries the frozen DuckLake data warehouse over HTTP.*
 
-Orca also uses [Streamlit](https://streamlit.io/) to create interactive dashboards in Python. The dashboard is publicly accessible at [https://orca-dashboard.streamlit.app](https://orca-dashboard.streamlit.app).
+Orca also uses [Streamlit](https://streamlit.io/) to create interactive dashboards in Python. The dashboard is publicly accessible at [https://orca-datawarehouse.dev/dashboards/](https://orca-datawarehouse.dev/dashboards/).
 
 ## Agentic-ready
 
