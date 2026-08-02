@@ -13,10 +13,6 @@ COPY ingestion/ ./ingestion/
 COPY transformation/ ./transformation/
 COPY orchestration/ ./orchestration/
 COPY storage/ ./storage/
-COPY deployment/proxy_guard.py ./deployment/proxy_guard.py
-COPY deployment/start_dagster.sh ./deployment/start_dagster.sh
-
-RUN chmod +x deployment/start_dagster.sh
 
 # Install dependencies using Python 3.13
 RUN uv sync --frozen --no-dev --python 3.13
@@ -26,8 +22,7 @@ RUN cd transformation && uv run --python 3.13 dbt compile --threads 1
 
 ENV DAGSTER_HOME=/app/orchestration/dagster_home
 ENV PYTHONUNBUFFERED=1
-ENV TARGET_PORT=8081
 
 EXPOSE 8080
 
-CMD ["/bin/sh", "deployment/start_dagster.sh"]
+CMD ["uv", "run", "--python", "3.13", "dagster-webserver", "-h", "0.0.0.0", "-p", "8080", "-f", "orchestration/definitions.py", "--path-prefix", "/orchestration", "--read-only"]
