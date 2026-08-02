@@ -1,0 +1,11 @@
+FROM node:20-slim
+
+WORKDIR /app
+
+RUN npm install -g @malloydata/publisher
+
+COPY analytics/ ./analytics/
+
+EXPOSE 4000
+
+CMD ["malloy-publisher", "--config", "analytics/malloy-config.json", "--port", "4000", "--path-prefix", "/analytics"]
