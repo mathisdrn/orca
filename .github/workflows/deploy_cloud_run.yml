@@ -27,9 +27,13 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Build container image with Cloud Build
+      - name: Configure Docker for GCP
+        run: gcloud auth configure-docker --quiet
+
+      - name: Build & Push Docker image
         run: |
-          gcloud builds submit --tag gcr.io/${{ env.GCP_PROJECT }}/orca-dagster:latest -f deployment/Dockerfile.dagster .
+          docker build -t gcr.io/${{ env.GCP_PROJECT }}/orca-dagster:latest -f deployment/Dockerfile.dagster .
+          docker push gcr.io/${{ env.GCP_PROJECT }}/orca-dagster:latest
 
       - name: Deploy orca-dagster to Cloud Run
         run: |
@@ -57,9 +61,13 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Build container image with Cloud Build
+      - name: Configure Docker for GCP
+        run: gcloud auth configure-docker --quiet
+
+      - name: Build & Push Docker image
         run: |
-          gcloud builds submit --tag gcr.io/${{ env.GCP_PROJECT }}/orca-malloy:latest -f deployment/Dockerfile.malloy .
+          docker build -t gcr.io/${{ env.GCP_PROJECT }}/orca-malloy:latest -f deployment/Dockerfile.malloy .
+          docker push gcr.io/${{ env.GCP_PROJECT }}/orca-malloy:latest
 
       - name: Deploy orca-malloy to Cloud Run
         run: |
