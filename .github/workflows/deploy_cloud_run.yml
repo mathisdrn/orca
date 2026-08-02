@@ -48,6 +48,8 @@ jobs:
             --image us-central1-docker.pkg.dev/${{ env.GCP_PROJECT }}/orca/orca-dagster:latest \
             --region us-central1 \
             --allow-unauthenticated \
+            --memory 1Gi \
+            --cpu-boost \
             --min-instances 0 \
             --max-instances 1 \
             --concurrency 80 \
@@ -89,6 +91,8 @@ jobs:
             --image us-central1-docker.pkg.dev/${{ env.GCP_PROJECT }}/orca/orca-malloy:latest \
             --region us-central1 \
             --allow-unauthenticated \
+            --memory 1Gi \
+            --cpu-boost \
             --min-instances 0 \
             --max-instances 1 \
             --concurrency 80 \
