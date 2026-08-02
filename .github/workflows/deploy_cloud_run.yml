@@ -1,0 +1,67 @@
+name: Deploy to GCP Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'deployment/**'
+      - 'orchestration/**'
+      - 'analytics/**'
+      - '.github/workflows/deploy_cloud_run.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy-dagster:
+    name: Deploy Dagster Web UI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy orca-dagster to Cloud Run
+        run: |
+          gcloud run deploy orca-dagster \
+            --source . \
+            --file deployment/Dockerfile.dagster \
+            --region us-central1 \
+            --allow-unauthenticated \
+            --min-instances 0 \
+            --max-instances 1 \
+            --concurrency 80 \
+            --cpu-throttling
+
+  deploy-malloy:
+    name: Deploy Malloy Publisher
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy orca-malloy to Cloud Run
+        run: |
+          gcloud run deploy orca-malloy \
+            --source . \
+            --file deployment/Dockerfile.malloy \
+            --region us-central1 \
+            --allow-unauthenticated \
+            --min-instances 0 \
+            --max-instances 1 \
+            --concurrency 80 \
+            --cpu-throttling

@@ -1,0 +1,11 @@
+{
+  "name": "orca-router",
+  "main": "cloudflare_worker.js",
+  "compatibility_date": "2026-08-02",
+  "routes": [
+    {
+      "pattern": "orca-datawarehouse.dev/*",
+      "zone_name": "orca-datawarehouse.dev"
+    }
+  ]
+}
