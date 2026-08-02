@@ -31,7 +31,7 @@ jobs:
         run: |
           gcloud run deploy orca-dagster \
             --source . \
-            --file deployment/Dockerfile.dagster \
+            --dockerfile deployment/Dockerfile.dagster \
             --region us-central1 \
             --allow-unauthenticated \
             --min-instances 0 \
@@ -58,7 +58,7 @@ jobs:
         run: |
           gcloud run deploy orca-malloy \
             --source . \
-            --file deployment/Dockerfile.malloy \
+            --dockerfile deployment/Dockerfile.malloy \
             --region us-central1 \
             --allow-unauthenticated \
             --min-instances 0 \
