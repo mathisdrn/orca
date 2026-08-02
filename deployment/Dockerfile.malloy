@@ -6,7 +6,12 @@ RUN npm install -g @malloy-publisher/server
 
 COPY analytics/ ./analytics/
 COPY deployment/proxy_guard.js ./deployment/proxy_guard.js
+COPY deployment/start_malloy.sh ./deployment/start_malloy.sh
+
+RUN chmod +x deployment/start_malloy.sh
+
+ENV TARGET_PORT=8081
 
 EXPOSE 8080
 
-CMD npx @malloy-publisher/server --config analytics/malloy-config.json --port 8081 --host 127.0.0.1 & TARGET_PORT=8081 node deployment/proxy_guard.js
+CMD ["/bin/sh", "deployment/start_malloy.sh"]
