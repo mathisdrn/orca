@@ -5,15 +5,16 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 WORKDIR /app
 
-# Install dependencies using uv
-COPY pyproject.toml uv.lock ./
-RUN uv sync --frozen --no-dev
+# Copy project metadata and README required by hatchling build backend
+COPY pyproject.toml uv.lock README.md ./
 
-# Copy application code, pipeline definitions, and execution history
+# Copy application source code for workspace package build
 COPY ingestion/ ./ingestion/
 COPY transformation/ ./transformation/
 COPY orchestration/ ./orchestration/
 COPY storage/ ./storage/
+
+RUN uv sync --frozen --no-dev
 
 ENV DAGSTER_HOME=/app/orchestration/dagster_home
 ENV PYTHONUNBUFFERED=1
