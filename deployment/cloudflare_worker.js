@@ -13,7 +13,7 @@
 const DAGSTER_CLOUD_RUN_URL = "https://orca-dagster-120618094679.us-central1.run.app";
 const MALLOY_CLOUD_RUN_URL = "https://orca-malloy-120618094679.us-central1.run.app";
 const GITHUB_PAGES_URL = "https://mathisdrn.github.io/orca/dbt-docs";
-const STREAMLIT_APP_URL = "https://orca-dashboard.streamlit.app";
+const STREAMLIT_APP_URL = "https://orca-dashboard.streamlit.app/?embed=true";
 
 const PROXY_SECRET = "orca-cloudflare-secret-987654321";
 
@@ -75,9 +75,26 @@ export default {
       return proxyWithRedirectRewrite(targetUrl, new URL(MALLOY_CLOUD_RUN_URL).host);
     }
 
-    // 5. Dashboards / Streamlit -> Direct 302 redirect to Streamlit Cloud app
+    // 5. Dashboards / Streamlit -> Seamless Fullscreen Iframe
     if (pathname.startsWith("/dashboards")) {
-      return Response.redirect(STREAMLIT_APP_URL, 302);
+      const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orca Dashboards - Streamlit</title>
+  <style>
+    body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: system-ui, sans-serif; background-color: #0e1117; }
+    iframe { width: 100%; height: 100%; border: none; }
+  </style>
+</head>
+<body>
+  <iframe src="${STREAMLIT_APP_URL}" allow="camera; microphone; clipboard-read; clipboard-write;"></iframe>
+</body>
+</html>`;
+      return new Response(html, {
+        headers: { "Content-Type": "text/html; charset=utf-8" },
+      });
     }
 
     // Fallback: 404
