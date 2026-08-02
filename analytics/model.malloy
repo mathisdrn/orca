@@ -34,7 +34,7 @@ source: comments is orca.table('comments') extend {
   primary_key: comment_id
 
   join_one: parent_story is stories on story_id = parent_story.story_id
-  join_one: parent_comment is orca.table('comments') on parent_id = parent_comment.comment_id
+  join_one: parent_comment is comments on parent_id = parent_comment.comment_id
 
   # label="Comment Count"
   # number="#,##0"
