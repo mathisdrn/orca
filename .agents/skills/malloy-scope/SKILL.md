@@ -1,8 +1,6 @@
 ---
 name: malloy-scope
-description: Present discovery findings and propose an analytical scope before modeling.
-  Use after inspecting a package's model and data, to classify tables and recommend
-  an analytical focus the user can pick from.
+description: Present discovery findings and propose an analytical scope before modeling. Use after inspecting a package's model and data, to classify tables and recommend an analytical focus the user can pick from.
 ---
 
 # Propose Analytical Scope

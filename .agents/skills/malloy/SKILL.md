@@ -1,8 +1,6 @@
 ---
 name: malloy
-description: Index of all Malloy skills. Use when user asks "malloy help", "what malloy
-  skills are available", "how do I use malloy", or needs guidance on which Malloy
-  skill to use.
+description: Index of all Malloy skills. Use when user asks "malloy help", "what malloy skills are available", "how do I use malloy", or needs guidance on which Malloy skill to use.
 ---
 
 # Malloy Skills Index

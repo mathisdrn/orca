@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "skills": {
+    "dagster-expert": {
+      "source": "dagster-io/skills",
+      "sourceType": "github",
+      "skillPath": "skills/dagster-expert/skills/dagster-expert/SKILL.md",
+      "computedHash": "0de12b5fee0975ce5440efbea2f49016bfe6af3e6b0aba12a293bc03698939b4"
+    },
+    "duckdb-docs": {
+      "source": "duckdb/duckdb-skills",
+      "sourceType": "github",
+      "skillPath": "skills/duckdb-docs/SKILL.md",
+      "computedHash": "6aa9b9d013487eace5398a0e035cf5ee3efd220b34349a46e7c335cf079f7e66"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "computedHash": "b146008599c31057cef1c145774cea5d5afb30e8f43fa802e47a4b461419aaaf"
+    },
+    "malloy": {
+      "source": "malloydata/publisher",
+      "sourceType": "github",
+      "skillPath": "skills/malloy/SKILL.md",
+      "computedHash": "4ed33d289e60466ff458e445153fba7c59f768cc2b2cf22cdd62f9b8074ad0e4"
+    },
+    "malloy-analyze": {
+      "source": "malloydata/publisher",
+      "sourceType": "github",
+      "skillPath": "skills/malloy-analyze/SKILL.md",
+      "computedHash": "469c5bc9cf0c495e878472c4d1969d3a2964d1f05c4ffb9d05fdd046b166cfd8"
+    },
+    "malloy-charts": {
+      "source": "malloydata/publisher",
+      "sourceType": "github",
+      "skillPath": "skills/malloy-charts/SKILL.md",
+      "computedHash": "f2262b2338784ffb26a44c19987dae52a45468a5bb5e25e03c6696a348f76b1e"
+    },
+    "malloy-debug": {
+      "source": "malloydata/publisher",
+      "sourceType": "github",
+      "skillPath": "skills/malloy-debug/SKILL.md",
+      "computedHash": "ac1261342fe07c4fb2d1a5bc42d6a60d7e3bd3c04377781e72e4fbf5fe12dffb"
+    },
+    "malloy-define": {
+      "source": "malloydata/publisher",
+      "sourceType": "github",
+      "skillPath": "skills/malloy-define/SKILL.md",
+      "computedHash": "66db66ff69bb4f604e0f6a25e9fc349c6ef8ee99a47343a1491d21f8029f2b9e"
+    },
+    "malloy-discover": {
+      "source": "malloydata/publisher",
+      "sourceType": "github",
+      "skillPath": "skills/malloy-discover/SKILL.md",
+      "computedHash": "983ad5d9e8fc66fac9531f24fd37a8f24b864e7e19af37b26e8155610bdc6113"
+    },
+    "malloy-document": {
+      "source": "malloydata/publisher",
+      "sourceType": "github",
+      "skillPath": "skills/malloy-document/SKILL.md",
+      "computedHash": "760c26808cf7cd38ef126c964b72d85619357427d9e737407c243b5ed57241f6"
+    },
+    "malloy-model": {
+      "source": "malloydata/publisher",
+      "sourceType": "github",
+      "skillPath": "skills/malloy-model/SKILL.md",
+      "computedHash": "aa67bddefb771e54a355bfcfdc9d972b3909566c9c1e839241407dd8075f9d5e"
+    },
+    "malloy-modeling": {
+      "source": "malloydata/publisher",
+      "sourceType": "github",
+      "skillPath": "skills/malloy-modeling/SKILL.md",
+      "computedHash": "b1bb3b1fc51f20437dd49608ce5a33c0af2c4ee1ab2a81bfe006416642ffd6c7"
+    },
+    "malloy-notebooks": {
+      "source": "malloydata/publisher",
+      "sourceType": "github",
+      "skillPath": "skills/malloy-notebooks/SKILL.md",
+      "computedHash": "175585812038fc5b03af9a0632746b19a4bb65983e9d1541418cc8cafc9c52f8"
+    },
+    "malloy-patterns": {
+      "source": "malloydata/publisher",
+      "sourceType": "github",
+      "skillPath": "skills/malloy-patterns/SKILL.md",
+      "computedHash": "b6a0fc91b9f244345b617362a8181f2850de38543b4003aae38c512bc664f602"
+    },
+    "malloy-queries": {
+      "source": "malloydata/publisher",
+      "sourceType": "github",
+      "skillPath": "skills/malloy-queries/SKILL.md",
+      "computedHash": "ed05cea67962799d6efde1c0298daac20175693ca0defc8cf209d04ef72d3ccf"
+    },
+    "malloy-review": {
+      "source": "malloydata/publisher",
+      "sourceType": "github",
+      "skillPath": "skills/malloy-review/SKILL.md",
+      "computedHash": "f9d38ab408d528713ed18a42134872f8d8996cd62fb6bc569877a0f32521947c"
+    },
+    "malloy-scope": {
+      "source": "malloydata/publisher",
+      "sourceType": "github",
+      "skillPath": "skills/malloy-scope/SKILL.md",
+      "computedHash": "f907c4a63ad4edc8da45dbeaa32f9f85ccbb3156e4cde8ceda8c3f5aaa57c926"
+    },
+    "marimo-notebook": {
+      "source": "marimo-team/skills",
+      "sourceType": "github",
+      "skillPath": "skills/marimo-notebook/SKILL.md",
+      "computedHash": "d843af038a49245369d9a91b8dda531a0d58882bc06623604b673cb144588edd"
+    },
+    "motherduck-duckdb-sql": {
+      "source": "motherduckdb/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/motherduck-duckdb-sql/SKILL.md",
+      "computedHash": "6eb088190d6ec32d4ce7f73ea17af63b2e128d281d6400f2b6f4cee82f5acf33"
+    },
+    "motherduck-load-data": {
+      "source": "motherduckdb/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/motherduck-load-data/SKILL.md",
+      "computedHash": "8500d9a48222fde65185c958b25cc619fadaeeb081d0862d64aa67345eaa1ddd"
+    },
+    "motherduck-model-data": {
+      "source": "motherduckdb/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/motherduck-model-data/SKILL.md",
+      "computedHash": "dc0d035d78dee9c5e0e76c75532b9f819b142d05772fcaa21754d7361135a96d"
+    },
+    "skill-creator": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/skill-creator/SKILL.md",
+      "computedHash": "5ea13a6d9f0d4bb694405d79acd00cadec0d21bb138c4dd10fcf3c500cb835c2"
+    },
+    "troubleshooting-dbt-job-errors": {
+      "source": "dbt-labs/dbt-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/dbt/skills/troubleshooting-dbt-job-errors/SKILL.md",
+      "computedHash": "6c18b079cebf60a7e6ef419133459f59cf2ea05206f3ccdd3e38cc413d3e3fd0"
+    },
+    "using-dbt-for-analytics-engineering": {
+      "source": "dbt-labs/dbt-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/dbt/skills/using-dbt-for-analytics-engineering/SKILL.md",
+      "computedHash": "154227ce8eaf50cb8b38099722c5358f215e4728f4f5c18ea33f89bee5b8f88a"
+    }
+  }
+}

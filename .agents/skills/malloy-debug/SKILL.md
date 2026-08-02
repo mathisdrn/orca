@@ -1,8 +1,6 @@
 ---
 name: malloy-debug
-description: Fix Malloy compile errors and understand error messages. Use when encountering
-  errors in .malloy files, user says "fix this error", "malloy error", "compile error",
-  "syntax error", or sees 20+ cascading errors.
+description: Fix Malloy compile errors and understand error messages. Use when encountering errors in .malloy files, user says "fix this error", "malloy error", "compile error", "syntax error", or sees 20+ cascading errors.
 ---
 
 # Debugging Malloy Errors

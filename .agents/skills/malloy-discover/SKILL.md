@@ -1,8 +1,6 @@
 ---
 name: malloy-discover
-description: Silent data discovery for Malloy modeling. Used at Step 1 of the modeling
-  workflow. Scans tables, columns, distributions, and relationships without user interaction.
-  The agent builds an internal picture before presenting anything.
+description: Silent data discovery for Malloy modeling. Used at Step 1 of the modeling workflow. Scans tables, columns, distributions, and relationships without user interaction. The agent builds an internal picture before presenting anything.
 ---
 
 # Data Discovery (Step 1, Silent)
