@@ -15,6 +15,8 @@ const MALLOY_CLOUD_RUN_URL = "https://orca-malloy-120618094679.us-central1.run.a
 const GITHUB_PAGES_URL = "https://mathisdrn.github.io/orca/dbt-docs";
 const STREAMLIT_APP_URL = "https://orca-dashboard.streamlit.app";
 
+const PROXY_SECRET = "orca-cloudflare-secret-987654321";
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -37,6 +39,7 @@ export default {
       const targetUrl = `${DAGSTER_CLOUD_RUN_URL}${pathname}${url.search}`;
       const modifiedRequest = new Request(targetUrl, request);
       modifiedRequest.headers.set("Host", new URL(DAGSTER_CLOUD_RUN_URL).host);
+      modifiedRequest.headers.set("X-Orca-Proxy-Secret", PROXY_SECRET);
       return fetch(modifiedRequest);
     }
 
@@ -45,6 +48,7 @@ export default {
       const targetUrl = `${MALLOY_CLOUD_RUN_URL}${pathname}${url.search}`;
       const modifiedRequest = new Request(targetUrl, request);
       modifiedRequest.headers.set("Host", new URL(MALLOY_CLOUD_RUN_URL).host);
+      modifiedRequest.headers.set("X-Orca-Proxy-Secret", PROXY_SECRET);
       return fetch(modifiedRequest);
     }
 
