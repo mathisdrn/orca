@@ -10,8 +10,8 @@
  */
 
 // Replace these URLs with your actual deployed GCP Cloud Run URLs
-const DAGSTER_CLOUD_RUN_URL = "https://orca-dagster-xxx-uc.a.run.app";
-const MALLOY_CLOUD_RUN_URL = "https://orca-malloy-xxx-uc.a.run.app";
+const DAGSTER_CLOUD_RUN_URL = "https://orca-dagster-120618094679.us-central1.run.app";
+const MALLOY_CLOUD_RUN_URL = "https://orca-malloy-120618094679.us-central1.run.app";
 const GITHUB_PAGES_URL = "https://mathisdrn.github.io/orca/dbt-docs";
 const STREAMLIT_APP_URL = "https://orca-dashboard.streamlit.app";
 
