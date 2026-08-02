@@ -22,6 +22,12 @@ export default {
     const url = new URL(request.url);
     const pathname = url.pathname;
 
+    // 0. Redirect www to apex domain
+    if (url.hostname.startsWith("www.")) {
+      url.hostname = "orca-datawarehouse.dev";
+      return Response.redirect(url.toString(), 301);
+    }
+
     // 1. Root path redirect
     if (pathname === "/" || pathname === "") {
       return Response.redirect(`${url.origin}/analytics/`, 302);

@@ -6,6 +6,10 @@
     {
       "pattern": "orca-datawarehouse.dev/*",
       "zone_name": "orca-datawarehouse.dev"
+    },
+    {
+      "pattern": "www.orca-datawarehouse.dev/*",
+      "zone_name": "orca-datawarehouse.dev"
     }
   ]
 }
