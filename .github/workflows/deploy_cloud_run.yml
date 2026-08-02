@@ -27,11 +27,14 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
+      - name: Build container image with Cloud Build
+        run: |
+          gcloud builds submit --tag gcr.io/${{ env.GCP_PROJECT }}/orca-dagster:latest -f deployment/Dockerfile.dagster .
+
       - name: Deploy orca-dagster to Cloud Run
         run: |
           gcloud run deploy orca-dagster \
-            --source . \
-            --dockerfile deployment/Dockerfile.dagster \
+            --image gcr.io/${{ env.GCP_PROJECT }}/orca-dagster:latest \
             --region us-central1 \
             --allow-unauthenticated \
             --min-instances 0 \
@@ -54,11 +57,14 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
+      - name: Build container image with Cloud Build
+        run: |
+          gcloud builds submit --tag gcr.io/${{ env.GCP_PROJECT }}/orca-malloy:latest -f deployment/Dockerfile.malloy .
+
       - name: Deploy orca-malloy to Cloud Run
         run: |
           gcloud run deploy orca-malloy \
-            --source . \
-            --dockerfile deployment/Dockerfile.malloy \
+            --image gcr.io/${{ env.GCP_PROJECT }}/orca-malloy:latest \
             --region us-central1 \
             --allow-unauthenticated \
             --min-instances 0 \
