@@ -8,13 +8,17 @@ WORKDIR /app
 # Copy project metadata and README required by hatchling build backend
 COPY pyproject.toml uv.lock README.md ./
 
-# Copy application source code for workspace package build
+# Copy application source code
 COPY ingestion/ ./ingestion/
 COPY transformation/ ./transformation/
 COPY orchestration/ ./orchestration/
 COPY storage/ ./storage/
 
+# Install dependencies using uv
 RUN uv sync --frozen --no-dev
+
+# Pre-compile dbt manifest so Dagster webserver initializes instantly without runtime compilation
+RUN cd transformation && uv run dbt compile --threads 1
 
 ENV DAGSTER_HOME=/app/orchestration/dagster_home
 ENV PYTHONUNBUFFERED=1

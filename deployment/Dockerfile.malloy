@@ -6,6 +6,6 @@ RUN npm install -g @malloy-publisher/server
 
 COPY analytics/ ./analytics/
 
-EXPOSE 4000
+EXPOSE 8080
 
-CMD ["npx", "@malloy-publisher/server", "--config", "analytics/malloy-config.json", "--port", "4000", "--host", "0.0.0.0"]
+CMD ["npx", "@malloy-publisher/server", "--config", "analytics/malloy-config.json", "--port", "8080", "--host", "0.0.0.0"]
