@@ -40,3 +40,8 @@ orchestration/dagster_home/*
 **/.cache/
 .wrangler/
 **/.wrangler/
+
+# Malloy Publisher local runtime state
+publisher.db
+publisher.db*
+publisher_data/
