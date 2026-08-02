@@ -8,4 +8,4 @@ COPY analytics/ ./analytics/
 
 EXPOSE 4000
 
-CMD ["npx", "@malloy-publisher/server", "--config", "analytics/malloy-config.json", "--port", "4000", "--path-prefix", "/analytics"]
+CMD ["npx", "@malloy-publisher/server", "--config", "analytics/malloy-config.json", "--port", "4000", "--host", "0.0.0.0"]
