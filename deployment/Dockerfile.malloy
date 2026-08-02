@@ -5,7 +5,8 @@ WORKDIR /app
 RUN npm install -g @malloy-publisher/server
 
 COPY analytics/ ./analytics/
+COPY deployment/proxy_guard.js ./deployment/proxy_guard.js
 
 EXPOSE 8080
 
-CMD ["npx", "@malloy-publisher/server", "--config", "analytics/malloy-config.json", "--port", "8080", "--host", "0.0.0.0"]
+CMD npx @malloy-publisher/server --config analytics/malloy-config.json --port 8081 --host 127.0.0.1 & TARGET_PORT=8081 node deployment/proxy_guard.js

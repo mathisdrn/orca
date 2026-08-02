@@ -13,6 +13,7 @@ COPY ingestion/ ./ingestion/
 COPY transformation/ ./transformation/
 COPY orchestration/ ./orchestration/
 COPY storage/ ./storage/
+COPY deployment/proxy_guard.py ./deployment/proxy_guard.py
 
 # Install dependencies using Python 3.13
 RUN uv sync --frozen --no-dev --python 3.13
@@ -25,4 +26,4 @@ ENV PYTHONUNBUFFERED=1
 
 EXPOSE 8080
 
-CMD ["uv", "run", "--python", "3.13", "dagster-webserver", "-h", "0.0.0.0", "-p", "8080", "-f", "orchestration/definitions.py", "--path-prefix", "/orchestration", "--read-only"]
+CMD uv run --python 3.13 dagster-webserver -h 127.0.0.1 -p 8081 -f orchestration/definitions.py --path-prefix /orchestration --read-only & TARGET_PORT=8081 python3 deployment/proxy_guard.py
