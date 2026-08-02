@@ -40,22 +40,39 @@ export default {
       return fetch(targetUrl, request);
     }
 
+    // Helper function to proxy requests and rewrite redirect Location headers
+    const proxyWithRedirectRewrite = async (targetUrl, backendHost) => {
+      const modifiedRequest = new Request(targetUrl, request);
+      modifiedRequest.headers.set("Host", backendHost);
+      modifiedRequest.headers.set("X-Forwarded-Host", url.host);
+      modifiedRequest.headers.set("X-Forwarded-Proto", "https");
+      modifiedRequest.headers.set("X-Orca-Proxy-Secret", PROXY_SECRET);
+
+      const response = await fetch(modifiedRequest);
+      const location = response.headers.get("Location");
+      if (location) {
+        const newHeaders = new Headers(response.headers);
+        const rewrittenLocation = location.replace(`https://${backendHost}`, url.origin);
+        newHeaders.set("Location", rewrittenLocation);
+        return new Response(response.body, {
+          status: response.status,
+          statusText: response.statusText,
+          headers: newHeaders,
+        });
+      }
+      return response;
+    };
+
     // 3. Orchestration / Dagster UI -> GCP Cloud Run
     if (pathname.startsWith("/orchestration")) {
       const targetUrl = `${DAGSTER_CLOUD_RUN_URL}${pathname}${url.search}`;
-      const modifiedRequest = new Request(targetUrl, request);
-      modifiedRequest.headers.set("Host", new URL(DAGSTER_CLOUD_RUN_URL).host);
-      modifiedRequest.headers.set("X-Orca-Proxy-Secret", PROXY_SECRET);
-      return fetch(modifiedRequest);
+      return proxyWithRedirectRewrite(targetUrl, new URL(DAGSTER_CLOUD_RUN_URL).host);
     }
 
     // 4. Analytics / Malloy Publisher -> GCP Cloud Run
     if (pathname.startsWith("/analytics")) {
       const targetUrl = `${MALLOY_CLOUD_RUN_URL}${pathname}${url.search}`;
-      const modifiedRequest = new Request(targetUrl, request);
-      modifiedRequest.headers.set("Host", new URL(MALLOY_CLOUD_RUN_URL).host);
-      modifiedRequest.headers.set("X-Orca-Proxy-Secret", PROXY_SECRET);
-      return fetch(modifiedRequest);
+      return proxyWithRedirectRewrite(targetUrl, new URL(MALLOY_CLOUD_RUN_URL).host);
     }
 
     // 5. Dashboards / Streamlit -> Fullscreen Iframe embedding
