@@ -20,9 +20,14 @@ RUN uv sync --frozen --no-dev --python 3.13
 # Pre-compile dbt manifest so Dagster webserver initializes instantly without runtime compilation
 RUN cd transformation && uv run --python 3.13 dbt compile --threads 1
 
+# Pre-compile all Python bytecode at build time to eliminate runtime compilation
+RUN python3 -m compileall /app/.venv /app
+
+ENV PATH="/app/.venv/bin:$PATH"
 ENV DAGSTER_HOME=/app/orchestration/dagster_home
 ENV PYTHONUNBUFFERED=1
+ENV PYTHONOPTIMIZE=1
 
 EXPOSE 8080
 
-CMD ["uv", "run", "--python", "3.13", "dagster-webserver", "-h", "0.0.0.0", "-p", "8080", "-f", "orchestration/definitions.py", "--path-prefix", "/orchestration", "--read-only"]
+CMD ["dagster-webserver", "-h", "0.0.0.0", "-p", "8080", "-f", "orchestration/definitions.py", "--path-prefix", "/orchestration", "--read-only"]
