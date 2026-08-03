@@ -5,28 +5,30 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 WORKDIR /app
 
-# Copy project metadata and README required by hatchling build backend
+# Enable native bytecode compilation in uv & set virtual environment PATH
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    PATH="/app/.venv/bin:$PATH" \
+    DAGSTER_HOME=/app/orchestration/dagster_home \
+    PYTHONUNBUFFERED=1
+
+# 1. Copy dependency files first to maximize Docker layer cache
 COPY pyproject.toml uv.lock README.md ./
 
-# Copy application source code
+# 2. Install third-party dependencies first (without project source)
+RUN uv sync --frozen --no-dev --no-install-project --python 3.13
+
+# 3. Copy application source code (changes here reuse cached dependency layer)
 COPY ingestion/ ./ingestion/
 COPY transformation/ ./transformation/
 COPY orchestration/ ./orchestration/
 COPY storage/ ./storage/
 
-# Install dependencies using Python 3.13
-RUN uv sync --frozen --no-dev --python 3.13
+# 4. Install the project package itself & clean uv build cache to minimize image size
+RUN uv sync --frozen --no-dev --python 3.13 && uv cache clean
 
-# Pre-compile dbt manifest so Dagster webserver initializes instantly without runtime compilation
-RUN cd transformation && uv run --python 3.13 dbt compile --threads 1
-
-# Pre-compile all Python bytecode at build time to eliminate runtime compilation
-RUN python3 -m compileall -q /app/.venv /app || true
-
-ENV PATH="/app/.venv/bin:$PATH"
-ENV DAGSTER_HOME=/app/orchestration/dagster_home
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONOPTIMIZE=1
+# 5. Pre-compile dbt manifest
+RUN cd transformation && dbt compile --threads 1
 
 EXPOSE 8080
 
