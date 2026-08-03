@@ -52,7 +52,7 @@ export default {
       const location = response.headers.get("Location");
       if (location) {
         const newHeaders = new Headers(response.headers);
-        const rewrittenLocation = location.replace(`https://${backendHost}`, url.origin);
+        const rewrittenLocation = location.replace(new RegExp(`https?://${backendHost}`, 'g'), url.origin);
         newHeaders.set("Location", rewrittenLocation);
         return new Response(response.body, {
           status: response.status,
