@@ -21,7 +21,7 @@ RUN uv sync --frozen --no-dev --python 3.13
 RUN cd transformation && uv run --python 3.13 dbt compile --threads 1
 
 # Pre-compile all Python bytecode at build time to eliminate runtime compilation
-RUN python3 -m compileall /app/.venv /app
+RUN python3 -m compileall -q /app/.venv /app || true
 
 ENV PATH="/app/.venv/bin:$PATH"
 ENV DAGSTER_HOME=/app/orchestration/dagster_home
