@@ -65,7 +65,7 @@ gcloud iam service-accounts keys create key.json --iam-account=$SA
 
 ```bash
 # Local testing
-uv run dagster-webserver -h 0.0.0.0 -p 8080 -f orchestration/definitions.py --path-prefix /orchestration --read-only
+uv run dagster-webserver -h 0.0.0.0 -p 8080 -f orchestration/definitions.py --path-prefix /orchestration --read-only --live-data-poll-rate 60000 --code-server-log-level WARNING
 npx @malloy-publisher/server --config analytics/malloy-config.json --port 8080 --host 0.0.0.0
 
 # Monitoring
