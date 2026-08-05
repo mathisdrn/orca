@@ -17,6 +17,110 @@ const STREAMLIT_APP_URL = "https://orca-dashboard.streamlit.app/?embed=true";
 
 const PROXY_SECRET = "orca-cloudflare-secret-987654321";
 
+// Cache OIDC token per target audience in worker instance memory
+const tokenCache = {};
+
+function base64url(source) {
+  let encoded = btoa(source);
+  return encoded.replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
+}
+
+function arrayBufferToBase64Url(buffer) {
+  let binary = "";
+  const bytes = new Uint8Array(buffer);
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return base64url(binary);
+}
+
+function pemToBinary(pem) {
+  const pemContents = pem
+    .replace(/-----BEGIN PRIVATE KEY-----/, "")
+    .replace(/-----END PRIVATE KEY-----/, "")
+    .replace(/\s+/g, "");
+  const binaryDerString = atob(pemContents);
+  const binaryDer = new Uint8Array(binaryDerString.length);
+  for (let i = 0; i < binaryDerString.length; i++) {
+    binaryDer[i] = binaryDerString.charCodeAt(i);
+  }
+  return binaryDer.buffer;
+}
+
+async function getGoogleOidcToken(targetAudience, env) {
+  const now = Math.floor(Date.now() / 1000);
+  const cached = tokenCache[targetAudience];
+  if (cached && cached.expiresAt > now + 300) {
+    return cached.token;
+  }
+
+  const saEmail = env.GCP_SA_EMAIL;
+  const privateKeyPem = env.GCP_SA_PRIVATE_KEY;
+
+  if (!saEmail || !privateKeyPem) {
+    console.warn("GCP Service Account credentials missing in worker env.");
+    return null;
+  }
+
+  try {
+    const binaryKey = pemToBinary(privateKeyPem);
+    const cryptoKey = await crypto.subtle.importKey(
+      "pkcs8",
+      binaryKey,
+      { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" },
+      false,
+      ["sign"]
+    );
+
+    const header = { alg: "RS256", typ: "JWT" };
+    const payload = {
+      iss: saEmail,
+      sub: saEmail,
+      aud: "https://oauth2.googleapis.com/token",
+      target_audience: targetAudience,
+      iat: now,
+      exp: now + 3600,
+    };
+
+    const encodedHeader = base64url(JSON.stringify(header));
+    const encodedPayload = base64url(JSON.stringify(payload));
+    const dataToSign = `${encodedHeader}.${encodedPayload}`;
+
+    const signature = await crypto.subtle.sign(
+      "RSASSA-PKCS1-v1_5",
+      cryptoKey,
+      new TextEncoder().encode(dataToSign)
+    );
+
+    const jwt = `${dataToSign}.${arrayBufferToBase64Url(signature)}`;
+
+    const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
+        assertion: jwt,
+      }),
+    });
+
+    if (!tokenResponse.ok) {
+      const errorText = await tokenResponse.text();
+      console.error("Failed to fetch Google OIDC token:", tokenResponse.status, errorText);
+      return null;
+    }
+
+    const tokenData = await tokenResponse.json();
+    tokenCache[targetAudience] = {
+      token: tokenData.id_token,
+      expiresAt: now + 3500,
+    };
+    return tokenData.id_token;
+  } catch (err) {
+    console.error("Error generating OIDC token:", err);
+    return null;
+  }
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -30,7 +134,7 @@ export default {
 
     // 1. Root path redirect
     if (pathname === "/" || pathname === "") {
-      return Response.redirect(`${url.origin}/analytics/`, 302);
+      return Response.redirect(`${url.origin}/orchestration/`, 302);
     }
 
     // 2. Transformation / dbt docs -> GitHub Pages
@@ -41,12 +145,19 @@ export default {
     }
 
     // Helper function to proxy requests and rewrite redirect Location headers
-    const proxyWithRedirectRewrite = async (targetUrl, backendHost) => {
+    const proxyWithRedirectRewrite = async (targetUrl, backendHost, requireAuth = false) => {
       const modifiedRequest = new Request(targetUrl, request);
       modifiedRequest.headers.set("Host", backendHost);
       modifiedRequest.headers.set("X-Forwarded-Host", url.host);
       modifiedRequest.headers.set("X-Forwarded-Proto", "https");
       modifiedRequest.headers.set("X-Orca-Proxy-Secret", PROXY_SECRET);
+
+      if (requireAuth) {
+        const idToken = await getGoogleOidcToken(new URL(targetUrl).origin, env);
+        if (idToken) {
+          modifiedRequest.headers.set("Authorization", `Bearer ${idToken}`);
+        }
+      }
 
       const response = await fetch(modifiedRequest);
       const location = response.headers.get("Location");
@@ -63,10 +174,10 @@ export default {
       return response;
     };
 
-    // 3. Orchestration / Dagster UI -> GCP Cloud Run
+    // 3. Orchestration / Dagster UI -> GCP Cloud Run (Protected by OIDC)
     if (pathname.startsWith("/orchestration")) {
       const targetUrl = `${DAGSTER_CLOUD_RUN_URL}${pathname}${url.search}`;
-      return proxyWithRedirectRewrite(targetUrl, new URL(DAGSTER_CLOUD_RUN_URL).host);
+      return proxyWithRedirectRewrite(targetUrl, new URL(DAGSTER_CLOUD_RUN_URL).host, true);
     }
 
     // 4. Analytics / Malloy Publisher -> GCP Cloud Run

@@ -8,6 +8,7 @@ WORKDIR /app
 # Enable native bytecode compilation in uv & set virtual environment PATH
 ENV UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
+    PYTHONOPTIMIZE=1 \
     PATH="/app/.venv/bin:$PATH" \
     DAGSTER_HOME=/app/orchestration/dagster_home \
     PYTHONUNBUFFERED=1
@@ -25,11 +26,11 @@ COPY orchestration/ ./orchestration/
 COPY storage/ ./storage/
 
 # 4. Install the project package itself & clean uv build cache to minimize image size
-RUN uv sync --frozen --no-dev --python 3.13 && uv cache clean
+RUN mkdir -p /app/orchestration/dagster_home && uv sync --frozen --no-dev --python 3.13 && uv cache clean
 
 # 5. Pre-compile dbt manifest
 RUN cd transformation && dbt compile --threads 1
 
 EXPOSE 8080
 
-CMD ["dagster-webserver", "-h", "0.0.0.0", "-p", "8080", "-f", "orchestration/definitions.py", "--path-prefix", "/orchestration", "--read-only", "--live-data-poll-rate", "60000", "--code-server-log-level", "WARNING"]
+CMD ["dagster-webserver", "-h", "0.0.0.0", "-p", "8080", "-f", "orchestration/definitions.py", "--path-prefix", "/orchestration", "--read-only", "--suppress-warnings", "--uvicorn-log-level", "warning", "--live-data-poll-rate", "60000", "--code-server-log-level", "WARNING"]
