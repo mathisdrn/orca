@@ -108,14 +108,17 @@ Orca uses [Malloy](https://malloydata.dev) as a **semantic layer** to create reu
 
 ### Reporting
 
-Orca hosts a [Malloy Publisher](https://docs.malloydata.dev/documentation/user_guides/publishing/publishing) server. It contains interactive dashboards and lets users build their own tables and visualizations using the Malloy semantic models.
+Orca uses [Streamlit](https://streamlit.io/) to create interactive dashboards in Python.
 
 > [!TIP]
-> Explore the dashboards and build your own at [https://orca-datawarehouse.dev/analytics/](https://orca-datawarehouse.dev/analytics/).
-> 
-> *The Malloy Publisher server runs on a Google Cloud Run serverless instance and queries the frozen DuckLake data warehouse over HTTP.*
+> Explore the interactive dashboard at **https://orca-datawarehouse.dev/dashboards/**.
 
-Orca also uses [Streamlit](https://streamlit.io/) to create interactive dashboards in Python. The dashboard is publicly accessible at [https://orca-datawarehouse.dev/dashboards/](https://orca-datawarehouse.dev/dashboards/).
+<!-- 
+Orca hosts a [Malloy Publisher](https://docs.malloydata.dev/documentation/user_guides/publishing/publishing) server. It contains interactive dashboards and lets users build their own tables and visualizations using the Malloy semantic models.
+
+Explore the dashboards and build your own at https://orca-datawarehouse.dev/analytics/.
+The Malloy Publisher server runs on a Google Cloud Run serverless instance and queries the frozen DuckLake data warehouse over HTTP.
+-->
 
 ## Agentic-ready
 

@@ -19,7 +19,6 @@ graph TD
 
 | Route | Service | Backend | Access |
 | --- | --- | --- | --- |
-| `/analytics/` | Malloy Publisher | GCP Cloud Run (`orca-malloy`) | Interactive dashboards |
 | `/orchestration/` | Dagster Web UI | GCP Cloud Run (`orca-dagster`) | Read-only asset graph & logs |
 | `/transformation/` | dbt Docs | GitHub Pages | Static lineage & docs |
 | `/dashboards/` | Streamlit | Streamlit Cloud | Embedded iframe |
@@ -52,7 +51,7 @@ done
 gcloud iam service-accounts keys create key.json --iam-account=$SA
 ```
 
-*Deployments trigger automatically via GitHub Actions on changes to `deployment/`, `orchestration/`, or `analytics/`.*
+*Deployments trigger automatically via GitHub Actions on changes to `deployment/` or `orchestration/`.*
 
 ### Step 2: Cloudflare Router & WAF
 

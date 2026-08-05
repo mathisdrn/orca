@@ -1,11 +1,11 @@
 {
   "connections": {
     "orca": {
-      "additionalExtensions": ["ducklake"],
+      "additionalExtensions": "ducklake",
       "databasePath": ":memory:",
       "is": "duckdb",
       "readOnly": true,
-      "setupSQL": "SET statement_timeout = '15s'; SET max_memory = '512MB'; ATTACH IF NOT EXISTS 'ducklake:https://raw.githubusercontent.com/mathisdrn/orca/main/storage/orca.ducklake' AS orca; USE orca.marts;"
+      "setupSQL": "ATTACH 'ducklake:storage/orca.ducklake' (DATA_PATH 'storage/orca.ducklake.files/', OVERRIDE_DATA_PATH true, READ_ONLY); USE orca.marts;"
     }
   }
 }
