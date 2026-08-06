@@ -6,7 +6,7 @@
 
 # Orca – a modern data warehouse
 
-Orca is an implementation of a serverless, declarative and agentic-ready [data warehouse](https://en.wikipedia.org/wiki/Data_warehouse) built with best-in-class, free, and open-source tools.
+Orca is an implementation of a serverless, declarative and agentic-ready [data warehouse](https://en.wikipedia.org/wiki/Data_warehouse) built with best-in-class, free, and open-source tools. 
 
 ## Features 
 
@@ -17,11 +17,16 @@ Orca is an implementation of a serverless, declarative and agentic-ready [data w
 - **Easy setup:** Clone the repository, execute the pipelines and start experimenting.
 - **Make it yours:** Easily adaptable and extensible to different needs.
 
+## Links
+
+- 📊 **[Interactive dashboard](https://orca-datawarehouse.dev/dashboards/)** – Explore HackerNews analytics & insights
+- 🔄 **[Dagster orchestration](https://orca-datawarehouse.dev/orchestration/)** – View the live asset graph and execution history
+- 🏗️ **[dbt documentation and lineage](https://orca-datawarehouse.dev/transformation/)** – Inspect data transformations and models
+- 🦆 **[Browse the database](https://demo.duckui.com/#s=H4sIAAAAAAAAE1WNzU7DMBCEX2XlSyWUH-CYnEyTqlEdIupUIJSLcUxjNbGLvaYqiHdHraiA2-zMtzOf5J1ktxHB416RjPi3kUdENY6n6yEod4TGSQGvzn4oA32Qu1HsFDg1WVTjkUTnn4zEMfzBe4ECDsKpwQb_S0Pw2myhCHJX3EGvxagkJp3pDGtoAcVmvmJ0VeadoW1L50uoFnDftFA-VbzlMLvMZwPi3mdp6sQh2WocwkvwyklrUBlMpJ3SSeCgfe9Map0U6SS0ST1aJ7bq7CSXrhlQDicn78yGlxfZGb5sHoEyBi29YyXPOxPHwDd1TdfVcwmTcOiTU6VW_icsWTlv4QoW66b-DwCr6qqFm-ucREQEtOtgSIYuqK9vAZk7B4MBAAA)** – Query the data lakehouse live via Duck-UI
+
 ## Content
 
 Orca data warehouse is built around [HackerNews](https://hcker.news/) data. HackerNews is a news aggregator where users submit and vote on articles, comments and discussions. It is a popular source of information for tech enthusiasts, developers and entrepreneurs.
-
-<!-- To complete: explain what Orca do with the data and what is the final goal of the project. -->
 
 ## Architecture
 
