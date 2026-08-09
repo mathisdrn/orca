@@ -16,9 +16,10 @@ clean-targets:
 models:
   orca_dbt_transformation:
     +database: orca
+    +persist_docs:
+      relation: true
+      columns: false # currently not supported for views in duckdb/ducklake
     marts:
       +materialized: view
       +schema: marts
-      +meta:
-        dagster:
-          group: marts
+      +group: marts

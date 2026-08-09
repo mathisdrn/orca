@@ -30,11 +30,13 @@ source: stories is orca.table('stories') extend {
   measure: show_ask_count is count() { where: title ~ 'Show HN:%' or title ~ 'Ask HN:%' }
 }
 
-source: comments is orca.table('comments') extend {
+source: comments_base is orca.table('comments') extend {
   primary_key: comment_id
+}
 
+source: comments is comments_base extend {
   join_one: parent_story is stories on story_id = parent_story.story_id
-  join_one: parent_comment is comments on parent_id = parent_comment.comment_id
+  join_one: parent_comment is comments_base on parent_id = parent_comment.comment_id
 
   # label="Comment Count"
   # number="#,##0"
@@ -43,3 +45,14 @@ source: comments is orca.table('comments') extend {
   # number="#,##0"
   measure: unique_author_count is count(author)
 }
+
+# Top 10 Stories by Score
+query: top_stories is stories -> {
+  group_by: title, author, created_at
+  aggregate: 
+    score is sum(score)
+    comments is sum(comment_count)
+  order_by: score desc
+  limit: 10
+}
+

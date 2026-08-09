@@ -118,12 +118,7 @@ Orca uses [Streamlit](https://streamlit.io/) to create interactive dashboards in
 > [!TIP]
 > Explore the interactive dashboard at **https://orca-datawarehouse.dev/dashboards/**.
 
-<!-- 
-Orca hosts a [Malloy Publisher](https://docs.malloydata.dev/documentation/user_guides/publishing/publishing) server. It contains interactive dashboards and lets users build their own tables and visualizations using the Malloy semantic models.
 
-Explore the dashboards and build your own at https://orca-datawarehouse.dev/analytics/.
-The Malloy Publisher server runs on a Google Cloud Run serverless instance and queries the frozen DuckLake data warehouse over HTTP.
--->
 
 ## Agentic-ready
 
