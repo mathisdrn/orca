@@ -153,9 +153,11 @@
   </div>
 
   <script>
-    const TARGET_URL = 'https://orca-dagster-iaggoalhda-uc.a.run.app/orchestration/';
-    const POLL_INTERVAL_MS = 1000; // 1 seconde polling interval
-    
+    // Poll through the Cloudflare proxy (not the direct Cloud Run URL) so auth headers are added.
+    // window.location.origin resolves to https://orca-datawarehouse.dev when served by the worker.
+    const TARGET_URL = window.location.origin + '/orchestration/';
+    const POLL_INTERVAL_MS = 2000; // 2 second polling interval
+
     let secondsElapsed = 0;
     const timerElem = document.getElementById('timer');
 
@@ -165,16 +167,16 @@
       timerElem.textContent = `Temps écoulé : ${secondsElapsed}s`;
     }, 1000);
 
-    // Poll endpoint every 1 second
+    // Poll endpoint — redirect only when we get a real 2xx back (not a 503/cold-start error)
     async function checkAvailability() {
       try {
-        const response = await fetch(TARGET_URL, { method: 'HEAD', mode: 'no-cors' });
-        // In no-cors mode, type 'opaque' indicates successful connection
-        if (response) {
+        const response = await fetch(TARGET_URL, { method: 'HEAD' });
+        if (response.ok) {
           window.location.href = TARGET_URL;
         }
+        // 503/502/504 => still cold, keep polling
       } catch (err) {
-        // Server not ready yet, continue polling
+        // Network error => still cold, continue polling
       }
     }
 

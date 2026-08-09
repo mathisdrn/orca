@@ -4,18 +4,122 @@
  * Routes:
  *  - /transformation/*  -> GitHub Pages (dbt-docs)
  *  - /orchestration/*   -> GCP Cloud Run (orca-dagster)
- *  - /analytics/*       -> GCP Cloud Run (orca-malloy)
  *  - /dashboards/*      -> Streamlit App (iframe wrapper / redirect)
- *  - /                  -> Redirect to /analytics/
+ *  - /                  -> Redirect to /orchestration/
  */
 
 // Replace these URLs with your actual deployed GCP Cloud Run URLs
 const DAGSTER_CLOUD_RUN_URL = "https://orca-dagster-120618094679.us-central1.run.app";
-const MALLOY_CLOUD_RUN_URL = "https://orca-malloy-120618094679.us-central1.run.app";
 const GITHUB_PAGES_URL = "https://mathisdrn.github.io/orca/dbt-docs";
 const STREAMLIT_APP_URL = "https://orca-dashboard.streamlit.app/?embed=true";
 
 const PROXY_SECRET = "orca-cloudflare-secret-987654321";
+
+const COLDSTART_LOADER_HTML = `<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orca Data Warehouse – Démarrage de l'instance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at 50% 30%, #1e293b 0%, #0f172a 100%);
+      color: #f8fafc;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 48px;
+      width: 90%;
+      max-width: 480px;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.8s ease-out;
+    }
+    .logo-container { margin-bottom: 24px; display: flex; justify-content: center; }
+    .logo {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 24px rgba(14, 165, 233, 0.4);
+    }
+    .logo svg { width: 36px; height: 36px; fill: none; stroke: white; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    h1 {
+      font-size: 1.5rem; font-weight: 600; margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; margin-bottom: 32px; }
+    .spinner-wrapper { position: relative; width: 64px; height: 64px; margin: 0 auto 32px auto; }
+    .spinner {
+      width: 100%; height: 100%;
+      border: 4px solid rgba(14, 165, 233, 0.15);
+      border-top: 4px solid #0ea5e9;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    .timer { font-size: 0.85rem; color: #64748b; font-variant-numeric: tabular-nums; }
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(14, 165, 233, 0.1);
+      border: 1px solid rgba(14, 165, 233, 0.2);
+      color: #38bdf8; padding: 6px 14px; border-radius: 9999px;
+      font-size: 0.85rem; font-weight: 500; margin-bottom: 16px;
+    }
+    .pulse-dot { width: 8px; height: 8px; background-color: #38bdf8; border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo-container">
+      <div class="logo">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+    </div>
+    <div class="status-badge">
+      <div class="pulse-dot"></div>
+      <span>Instance Serverless GCP</span>
+    </div>
+    <h1>Démarrage de Dagster UI...</h1>
+    <p>L'instance serverless s'éveille pour économiser vos ressources. Redirection automatique dès que le serveur est prêt.</p>
+    <div class="spinner-wrapper"><div class="spinner"></div></div>
+    <div class="timer" id="timer">Temps écoulé : 0s</div>
+  </div>
+  <script>
+    const TARGET_URL = window.location.origin + '/orchestration/';
+    const POLL_INTERVAL_MS = 2000;
+    let secondsElapsed = 0;
+    const timerElem = document.getElementById('timer');
+    setInterval(() => { secondsElapsed++; timerElem.textContent = 'Temps écoulé : ' + secondsElapsed + 's'; }, 1000);
+    async function checkAvailability() {
+      try {
+        const response = await fetch(TARGET_URL, { method: 'HEAD' });
+        if (response.ok) { window.location.href = TARGET_URL; }
+      } catch (err) { /* still cold, keep polling */ }
+    }
+    setInterval(checkAvailability, POLL_INTERVAL_MS);
+    checkAvailability();
+  <\/script>
+</body>
+</html>`;
+
 
 // Cache OIDC token per target audience in worker instance memory
 const tokenCache = {};
@@ -145,7 +249,7 @@ export default {
     }
 
     // Helper function to proxy requests and rewrite redirect Location headers
-    const proxyWithRedirectRewrite = async (targetUrl, backendHost, requireAuth = false) => {
+    const proxyWithRedirectRewrite = async (targetUrl, backendHost, requireAuth = false, timeoutMs = null) => {
       const modifiedRequest = new Request(targetUrl, request);
       modifiedRequest.headers.set("Host", backendHost);
       modifiedRequest.headers.set("X-Forwarded-Host", url.host);
@@ -159,34 +263,68 @@ export default {
         }
       }
 
-      const response = await fetch(modifiedRequest);
-      const location = response.headers.get("Location");
-      if (location) {
-        const newHeaders = new Headers(response.headers);
-        const rewrittenLocation = location.replace(new RegExp(`https?://${backendHost}`, 'g'), url.origin);
-        newHeaders.set("Location", rewrittenLocation);
-        return new Response(response.body, {
-          status: response.status,
-          statusText: response.statusText,
-          headers: newHeaders,
-        });
+      let timeoutId;
+      const options = {};
+      if (timeoutMs) {
+        const controller = new AbortController();
+        timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+        options.signal = controller.signal;
       }
-      return response;
+
+      try {
+        const response = await fetch(modifiedRequest, options);
+        if (timeoutId) clearTimeout(timeoutId);
+
+        const location = response.headers.get("Location");
+        if (location) {
+          const newHeaders = new Headers(response.headers);
+          const rewrittenLocation = location.replace(new RegExp(`https?://${backendHost}`, 'g'), url.origin);
+          newHeaders.set("Location", rewrittenLocation);
+          return new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: newHeaders,
+          });
+        }
+        return response;
+      } catch (err) {
+        if (timeoutId) clearTimeout(timeoutId);
+        throw err;
+      }
     };
 
     // 3. Orchestration / Dagster UI -> GCP Cloud Run (Protected by OIDC)
     if (pathname.startsWith("/orchestration")) {
+      // On cold start, Cloud Run may return 503. Detect and serve loading page instead.
       const targetUrl = `${DAGSTER_CLOUD_RUN_URL}${pathname}${url.search}`;
+
+      // Only show the loader for browser navigation (not for API/asset sub-requests)
+      const acceptHeader = request.headers.get("Accept") || "";
+      const isBrowserNav = acceptHeader.includes("text/html");
+
+      if (isBrowserNav) {
+        try {
+          // Serve loading page if the cold backend takes more than 2 seconds to respond
+          const response = await proxyWithRedirectRewrite(targetUrl, new URL(DAGSTER_CLOUD_RUN_URL).host, true, 2000);
+          // Cloud Run returns 503 during cold start / scale-from-zero
+          if (response.status === 503 || response.status === 502 || response.status === 504) {
+            return new Response(COLDSTART_LOADER_HTML, {
+              headers: { "Content-Type": "text/html; charset=utf-8" },
+            });
+          }
+          return response;
+        } catch (err) {
+          // Network error or AbortError (timeout) => instance is cold, show loader
+          return new Response(COLDSTART_LOADER_HTML, {
+            headers: { "Content-Type": "text/html; charset=utf-8" },
+          });
+        }
+      }
+
       return proxyWithRedirectRewrite(targetUrl, new URL(DAGSTER_CLOUD_RUN_URL).host, true);
     }
 
-    // 4. Analytics / Malloy Publisher -> GCP Cloud Run
-    if (pathname.startsWith("/analytics")) {
-      const targetUrl = `${MALLOY_CLOUD_RUN_URL}${pathname}${url.search}`;
-      return proxyWithRedirectRewrite(targetUrl, new URL(MALLOY_CLOUD_RUN_URL).host);
-    }
-
-    // 5. Dashboards / Streamlit -> Seamless Fullscreen Iframe
+    // 4. Dashboards / Streamlit -> Seamless Fullscreen Iframe
     if (pathname.startsWith("/dashboards")) {
       const html = `<!DOCTYPE html>
 <html lang="en">

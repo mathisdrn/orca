@@ -4,6 +4,7 @@ from pathlib import Path
 
 from dagster import (
     AssetExecutionContext,
+    AssetKey,
     AssetSpec,
     Definitions,
     in_process_executor,
@@ -12,6 +13,8 @@ from dagster_dbt import DbtCliResource, DbtProject
 from dagster_dbt import dbt_assets as dbt_assets_decorator
 from dagster_dlt import DagsterDltResource, DagsterDltTranslator, dlt_assets
 from dagster_dlt.translator import DltResourceTranslatorData
+from dagster_malloy import MalloyResource, MalloyTranslator, load_malloy_assets
+from dagster_malloy.parser import MalloyParsedModel
 
 from ingestion.hackernews import hackernews_source
 from ingestion.utils import create_pipeline
@@ -36,6 +39,21 @@ class CustomDagsterDltTranslator(DagsterDltTranslator):
         )
 
 
+class CustomMalloyTranslator(MalloyTranslator):
+    def get_source_asset_spec(
+        self, source_name: str, file_path: Path, parsed_model: MalloyParsedModel
+    ) -> AssetSpec:
+        spec = super().get_source_asset_spec(source_name, file_path, parsed_model)
+        # Prepend 'marts' to table dependencies (e.g. marts/stories instead of stories)
+        new_deps = [
+            AssetKey(["marts", *list(dep.asset_key.path)])
+            if dep.asset_key.path[0] not in ("marts", "model")
+            else dep.asset_key
+            for dep in spec.deps
+        ]
+        return spec.replace_attributes(deps=new_deps)
+
+
 # Define DLT assets
 @dlt_assets(
     dlt_source=hackernews_source(),
@@ -54,6 +72,12 @@ DBT_PROJECT_DIR = PROJECT_ROOT / "transformation"
 dbt_project = DbtProject(project_dir=DBT_PROJECT_DIR)
 dbt_project.prepare_if_dev()
 
+# Load Malloy assets
+malloy_assets = load_malloy_assets(
+    path=PROJECT_ROOT / "analytics",
+    translator=CustomMalloyTranslator(),
+)
+
 # Ensure dbt subprocess resolves the DuckLake catalog by absolute path,
 # regardless of the working directory it runs from.
 _catalog = f"{PROJECT_ROOT / 'storage' / 'orca.ducklake'}"
@@ -71,10 +95,14 @@ defs = Definitions(
     assets=[
         hackernews_assets,
         dbt_assets,
+        malloy_assets,
     ],
     resources={
         "dlt": DagsterDltResource(),
         "dbt": DbtCliResource(project_dir=dbt_project),
+        "malloy": MalloyResource(
+            config_path=str(PROJECT_ROOT / "analytics" / "malloy-config.json"),
+        ),
     },
     executor=in_process_executor,  # to avoid DuckDB concurrent access errors
 )

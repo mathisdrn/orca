@@ -1,5 +1,10 @@
 version: 2
 
+groups:
+  - name: marts
+    owner:
+      email: mathisderenne@gmail.com
+
 models:
   - name: stories
     description: "Hacker News stories (posts) containing author, score (points), title, URL, and comment counts."

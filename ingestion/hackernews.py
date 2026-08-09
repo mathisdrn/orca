@@ -57,7 +57,7 @@ columns_schema: dict[str, TColumnSchema] = {
     "comment_count": {"data_type": "bigint"},
     "title": {"data_type": "text"},
     "url": {"data_type": "text"},
-    "type": {"data_type": "text"},
+    "type": {"data_type": "text", "partition": True},
 }
 
 
