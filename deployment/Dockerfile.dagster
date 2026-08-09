@@ -23,6 +23,7 @@ RUN uv sync --frozen --no-dev --no-install-project --python 3.13
 COPY ingestion/ ./ingestion/
 COPY transformation/ ./transformation/
 COPY orchestration/ ./orchestration/
+COPY analytics/ ./analytics/
 COPY storage/ ./storage/
 
 # 4. Install the project package itself & clean uv build cache to minimize image size
