@@ -1,0 +1,59 @@
+2026-08-10 23:31:24 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - The state was restored from the destination ducklake (dlt.destinations.ducklake):raw
+2026-08-10 23:31:24 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - The schema hackernews_source version 3 hash 6By9nwqTTrhznnSPDpfURqHpWrsY2BVikyibecXijOE= was restored from the destination ducklake:raw
+2026-08-10 23:31:24 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Bind incremental on items with initial_value: 2026-07-01 00:00:00+00:00, start_value: 2026-08-10 23:25:04+00:00, end_value: None, func: max, row_order: None, on_missing: raise, range_start: closed, range_end: open
+2026-08-10 23:31:24 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Starting incremental ingestion from 2026-08-10 23:25:04 UTC (1786404304)...
+2026-08-10 23:31:24 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Querying time window: 2026-08-10 23:25:04 to 2026-08-10 23:31:24 (1786404304 to 1786404684)...
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Making GET request to https://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i%3E%3D1786404304%2Ccreated_at_i%3C1786404684&hitsPerPage=1000
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Retrieved 40 items in this window.
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Ingested 40 items. Catch-up completed up to 2026-08-10 23:31:24 (1786404684).
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Created none pool with 1 workers
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Running file normalizing
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Found 1 load packages
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Found 2 files in schema hackernews_source load_id 1786404684.9161499
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Created new load package 1786404684.9161499 on loading volume with 2 files
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Created items normalizer JsonLItemsNormalizer with writer ParquetDataWriter for item format object and file format parquet on table items
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - A file format for table _dlt_pipeline_state was specified to preferred in the resource so parquet format being used.
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Created items normalizer JsonLItemsNormalizer with writer ParquetDataWriter for item format object and file format parquet on table _dlt_pipeline_state
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Processed all items in 2 files
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Schema hackernews_source with version 3 was not modified. Save skipped
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Committing storage, do not kill this process
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Extracted package 1786404684.9161499 processed
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Closing processing pool
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Processing pool closed
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Created thread pool with 20 workers
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Running file loading
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Found 1 load packages
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Loading schema from load package in 1786404684.9161499
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Loaded schema name hackernews_source and version 3
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Client for ducklake will start initialize storage 
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Client for ducklake will update schema to package schema 
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Schema with hash 6By9nwqTTrhznnSPDpfURqHpWrsY2BVikyibecXijOE= inserted at 2026-08-10 23:15:46.025744+00:00 found in storage, no upgrade required
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Client for ducklake will start initialize storage for staging dataset
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Client for ducklake will update schema to package schema for staging dataset
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Schema with hash 6By9nwqTTrhznnSPDpfURqHpWrsY2BVikyibecXijOE= not found in the storage. upgrading
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Found 6 updates for _dlt_version in hackernews_source
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Found 13 updates for items in hackernews_source
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Client for ducklake will truncate tables for staging dataset
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - 0 started jobs found, which should be continued
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Will complete 0 for 1786404684.9161499
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Will load additional 1, creating jobs
+2026-08-10 23:31:25 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Will load file 1786404684.9161499/new_jobs/_dlt_pipeline_state.26e2de9cf8.0.parquet with table name _dlt_pipeline_state
+2026-08-10 23:31:26 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Will complete 1 for 1786404684.9161499
+2026-08-10 23:31:26 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Job for _dlt_pipeline_state.26e2de9cf8.parquet completed in load 1786404684.9161499
+2026-08-10 23:31:26 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Will load additional 1, creating jobs
+2026-08-10 23:31:26 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Will load file 1786404684.9161499/new_jobs/items.68bef731df.0.parquet with table name items
+2026-08-10 23:31:26 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Will complete 1 for 1786404684.9161499
+2026-08-10 23:31:26 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Job items.68bef731df.parquet CREATED a new FOLLOWUP JOB /tmp/items.d15a405368.0.sql placed in new_jobs
+2026-08-10 23:31:26 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Job for items.68bef731df.parquet completed in load 1786404684.9161499
+2026-08-10 23:31:26 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Will load additional 1, creating jobs
+2026-08-10 23:31:26 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Will load file 1786404684.9161499/new_jobs/items.d15a405368.0.sql with table name items
+2026-08-10 23:31:26 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Will complete 1 for 1786404684.9161499
+2026-08-10 23:31:26 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Job for items.d15a405368.sql completed in load 1786404684.9161499
+2026-08-10 23:31:26 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Will load additional 0, creating jobs
+2026-08-10 23:31:26 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - All jobs completed, archiving package 1786404684.9161499 with aborted set to False
+2026-08-10 23:31:26 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Closing processing pool
+2026-08-10 23:31:26 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - hackernews - Processing pool closed
+2026-08-10 23:31:26 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - dbt_assets - A dbt subsetted execution is not being performed. Using the default dbt selection arguments `['--select', 'fqn:*']`.
+2026-08-10 23:31:30 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - dbt_assets - Copying `/home/runner/work/orca/orca/transformation/target/partial_parse.msgpack` to `/home/runner/work/orca/orca/transformation/target/dbt_assets-59c7ca9-bd5f858/partial_parse.msgpack` to take advantage of partial parsing.
+2026-08-10 23:31:30 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - dbt_assets - Running dbt command: `dbt build --select fqn:*`.
+2026-08-10 23:31:36 +0000 - dagster - INFO - __ASSET_JOB - 59c7ca95-7587-4d9c-a59c-0f5d6ec34962 - dbt_assets - Finished dbt command: `dbt build --select fqn:*`.
