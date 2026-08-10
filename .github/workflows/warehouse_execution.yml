@@ -48,6 +48,10 @@ jobs:
           cd transformation
           uv run dbt compile
 
+      - name: Install @malloydata/cli
+        run: |
+          npm install -g @malloydata/cli
+
       - name: Run Dagster pipeline
         run: |
           uv run dg launch --assets "*"
