@@ -1,9 +1,9 @@
 {
   "connections": {
     "orca": {
-      "additionalExtensions": ["ducklake"],
-      "databasePath": ":memory:",
       "is": "duckdb",
+      "additionalExtensions": "ducklake",
+      "databasePath": ":memory:",
       "readOnly": true,
       "setupSQL": "ATTACH 'ducklake:storage/orca.ducklake' (DATA_PATH 'storage/orca.ducklake.files/', OVERRIDE_DATA_PATH true, READ_ONLY); USE orca.marts;"
     }
