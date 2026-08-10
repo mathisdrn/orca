@@ -1,7 +1,7 @@
 {
   "connections": {
     "orca": {
-      "additionalExtensions": "ducklake",
+      "additionalExtensions": ["ducklake"],
       "databasePath": ":memory:",
       "is": "duckdb",
       "readOnly": true,
