@@ -48,9 +48,10 @@ jobs:
           cd transformation
           uv run dbt compile
 
-      - name: Install @malloydata/cli
+      - name: Install @malloydata/cli & pre-compile Malloy manifest
         run: |
           npm install -g @malloydata/cli
+          uv run python analytics/build_manifest.py
 
       - name: Run Dagster pipeline
         run: |
