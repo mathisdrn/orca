@@ -93,11 +93,6 @@ const COLDSTART_LOADER_HTML = `<!DOCTYPE html>
     <div class="timer" id="timer">Time elapsed: 0s</div>
   </div>
   <script>
-    const TARGET_URL = window.location.origin + '/orchestration/';
-    const POLL_INTERVAL_MS = 2000;
-    let secondsElapsed = 0;
-    const timerElem = document.getElementById('timer');
-  <script>
     const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     const TARGET_URL = window.location.origin + '/orchestration/';
     const POLL_INTERVAL_MS = 2000;
