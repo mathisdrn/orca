@@ -13,26 +13,8 @@ from dagster_dbt import DbtCliResource, DbtProject
 from dagster_dbt import dbt_assets as dbt_assets_decorator
 from dagster_dlt import DagsterDltResource, DagsterDltTranslator, dlt_assets
 from dagster_dlt.translator import DltResourceTranslatorData
-import json
-
 from dagster_malloy import MalloyResource, MalloyTranslator, load_malloy_assets
-from dagster_malloy.parser import MalloyParsedModel, MalloyParser
-
-# Pre-compiled manifest-cached parser to eliminate Node.js runtime dependency in Cloud Run
-_orig_parse_file = MalloyParser.parse_file
-
-
-@classmethod
-def _cached_parse_file(cls, file_path, cli_client=None):
-    path = Path(file_path).resolve()
-    manifest_path = path.parent / f"{path.stem}.malloy.json"
-    if manifest_path.exists():
-        data = json.loads(manifest_path.read_text(encoding="utf-8"))
-        return cls.from_ast_dict(data, file_path=path)
-    return _orig_parse_file(file_path, cli_client=cli_client)
-
-
-MalloyParser.parse_file = _cached_parse_file
+from dagster_malloy.parser import MalloyParsedModel
 
 from ingestion.hackernews import hackernews_source
 from ingestion.utils import create_pipeline

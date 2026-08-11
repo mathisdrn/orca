@@ -36,8 +36,9 @@ COPY storage/ ./storage/
 # 4. Install the project package itself & clean uv build cache to minimize image size
 RUN mkdir -p /app/orchestration/dagster_home && uv sync --frozen --no-dev --python 3.13 && uv cache clean
 
-# 5. Pre-compile dbt manifest
+# 5. Pre-compile dbt manifest & Malloy AST manifest
 RUN cd transformation && dbt compile --threads 1
+RUN python analytics/build_manifest.py
 
 EXPOSE 8080
 
