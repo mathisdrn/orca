@@ -3,6 +3,13 @@ FROM python:3.13-slim
 # Install uv for fast Python environment setup
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
+# Install Node.js & @malloydata/cli for Malloy asset compilation
+RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates \
+    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get install -y --no-install-recommends nodejs \
+    && npm install -g @malloydata/cli \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 # Enable native bytecode compilation in uv & set virtual environment PATH
