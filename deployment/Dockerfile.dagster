@@ -39,4 +39,4 @@ RUN python analytics/build_manifest.py
 
 EXPOSE 8080
 
-CMD ["dagster-webserver", "-h", "0.0.0.0", "-p", "8080", "-f", "orchestration/definitions.py", "--path-prefix", "/orchestration", "--read-only", "--suppress-warnings", "--uvicorn-log-level", "warning", "--live-data-poll-rate", "60000", "--code-server-log-level", "WARNING"]
+CMD ["dagster-webserver", "-h", "0.0.0.0", "-p", "8080", "-f", "orchestration/definitions.py", "--path-prefix", "/orchestration", "--read-only", "--suppress-warnings", "--uvicorn-log-level", "warning", "--live-data-poll-rate", "600000", "--code-server-log-level", "WARNING"]
