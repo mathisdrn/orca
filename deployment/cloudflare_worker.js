@@ -16,74 +16,64 @@ const STREAMLIT_APP_URL = "https://orca-dashboard.streamlit.app/?embed=true";
 const PROXY_SECRET = "orca-cloudflare-secret-987654321";
 
 const COLDSTART_LOADER_HTML = `<!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orca Data Warehouse – Démarrage de l'instance</title>
+  <title>Orca Data Warehouse – Starting Instance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: radial-gradient(circle at 50% 30%, #1e293b 0%, #0f172a 100%);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #0f172a;
       color: #f8fafc;
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      padding: 16px;
     }
     .card {
-      background: rgba(30, 41, 59, 0.7);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px;
-      padding: 48px;
-      width: 90%;
-      max-width: 480px;
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 40px 32px;
+      width: 100%;
+      max-width: 440px;
       text-align: center;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      animation: fadeIn 0.8s ease-out;
     }
-    .logo-container { margin-bottom: 24px; display: flex; justify-content: center; }
+    .logo-container { margin-bottom: 20px; display: flex; justify-content: center; }
     .logo {
-      width: 64px; height: 64px;
-      background: linear-gradient(135deg, #0ea5e9, #6366f1);
-      border-radius: 16px;
+      width: 48px; height: 48px;
+      background-color: #0284c7;
+      border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 24px rgba(14, 165, 233, 0.4);
     }
-    .logo svg { width: 36px; height: 36px; fill: none; stroke: white; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    h1 {
-      font-size: 1.5rem; font-weight: 600; margin-bottom: 12px;
-      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    .logo svg { width: 28px; height: 28px; fill: none; stroke: #ffffff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background-color: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      color: #38bdf8; padding: 4px 12px; border-radius: 9999px;
+      font-size: 0.8rem; font-weight: 500; margin-bottom: 20px;
     }
-    p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; margin-bottom: 32px; }
-    .spinner-wrapper { position: relative; width: 64px; height: 64px; margin: 0 auto 32px auto; }
+    .pulse-dot { width: 6px; height: 6px; background-color: #38bdf8; border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
+    h1 { font-size: 1.35rem; font-weight: 600; color: #f8fafc; margin-bottom: 12px; }
+    p { color: #94a3b8; font-size: 0.9rem; line-height: 1.5; margin-bottom: 28px; }
+    .spinner-wrapper { position: relative; width: 40px; height: 40px; margin: 0 auto 24px auto; }
     .spinner {
       width: 100%; height: 100%;
-      border: 4px solid rgba(14, 165, 233, 0.15);
-      border-top: 4px solid #0ea5e9;
+      border: 3px solid #334155;
+      border-top: 3px solid #38bdf8;
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
     .timer { font-size: 0.85rem; color: #64748b; font-variant-numeric: tabular-nums; }
-    .status-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(14, 165, 233, 0.1);
-      border: 1px solid rgba(14, 165, 233, 0.2);
-      color: #38bdf8; padding: 6px 14px; border-radius: 9999px;
-      font-size: 0.85rem; font-weight: 500; margin-bottom: 16px;
-    }
-    .pulse-dot { width: 8px; height: 8px; background-color: #38bdf8; border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
   </style>
 </head>
 <body>
@@ -95,27 +85,36 @@ const COLDSTART_LOADER_HTML = `<!DOCTYPE html>
     </div>
     <div class="status-badge">
       <div class="pulse-dot"></div>
-      <span>Instance Serverless GCP</span>
+      <span>GCP Serverless Instance</span>
     </div>
-    <h1>Démarrage de Dagster UI...</h1>
-    <p>L'instance serverless s'éveille pour économiser vos ressources. Redirection automatique dès que le serveur est prêt.</p>
+    <h1>Starting Dagster UI...</h1>
+    <p>The serverless instance is spinning up to save resources. Spin-up usually takes about 30 seconds. You will be automatically redirected as soon as the server is ready.</p>
     <div class="spinner-wrapper"><div class="spinner"></div></div>
-    <div class="timer" id="timer">Temps écoulé : 0s</div>
+    <div class="timer" id="timer">Time elapsed: 0s</div>
   </div>
   <script>
     const TARGET_URL = window.location.origin + '/orchestration/';
     const POLL_INTERVAL_MS = 2000;
     let secondsElapsed = 0;
     const timerElem = document.getElementById('timer');
-    setInterval(() => { secondsElapsed++; timerElem.textContent = 'Temps écoulé : ' + secondsElapsed + 's'; }, 1000);
+  <script>
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const TARGET_URL = window.location.origin + '/orchestration/';
+    const POLL_INTERVAL_MS = 2000;
+    let secondsElapsed = 0;
+    const timerElem = document.getElementById('timer');
+    setInterval(() => { secondsElapsed++; timerElem.textContent = 'Time elapsed: ' + secondsElapsed + 's'; }, 1000);
     async function checkAvailability() {
+      if (isLocalhost) return;
       try {
-        const response = await fetch(TARGET_URL, { method: 'HEAD' });
+        const response = await fetch(TARGET_URL, { method: 'HEAD', headers: { 'Accept': 'application/json' } });
         if (response.ok) { window.location.href = TARGET_URL; }
       } catch (err) { /* still cold, keep polling */ }
     }
-    setInterval(checkAvailability, POLL_INTERVAL_MS);
-    checkAvailability();
+    if (!isLocalhost) {
+      setInterval(checkAvailability, POLL_INTERVAL_MS);
+      checkAvailability();
+    }
   <\/script>
 </body>
 </html>`;
@@ -309,6 +308,7 @@ export default {
           // Cloud Run returns 503 during cold start / scale-from-zero
           if (response.status === 503 || response.status === 502 || response.status === 504) {
             return new Response(COLDSTART_LOADER_HTML, {
+              status: 503,
               headers: { "Content-Type": "text/html; charset=utf-8" },
             });
           }
@@ -316,6 +316,7 @@ export default {
         } catch (err) {
           // Network error or AbortError (timeout) => instance is cold, show loader
           return new Response(COLDSTART_LOADER_HTML, {
+            status: 503,
             headers: { "Content-Type": "text/html; charset=utf-8" },
           });
         }

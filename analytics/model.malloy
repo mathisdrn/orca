@@ -56,3 +56,10 @@ query: top_stories is stories -> {
   limit: 10
 }
 
+# Verify story_id primary keys are non-null
+query: check_valid_stories is stories -> {
+  where: story_id is null
+  aggregate: invalid_count is count()
+}
+
+

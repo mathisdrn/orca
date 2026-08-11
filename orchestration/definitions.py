@@ -13,7 +13,13 @@ from dagster_dbt import DbtCliResource, DbtProject
 from dagster_dbt import dbt_assets as dbt_assets_decorator
 from dagster_dlt import DagsterDltResource, DagsterDltTranslator, dlt_assets
 from dagster_dlt.translator import DltResourceTranslatorData
-from dagster_malloy import MalloyResource, MalloyTranslator, load_malloy_assets
+from dagster_duckdb import DuckDBResource
+from dagster_malloy import (
+    MalloyProject,
+    MalloyResource,
+    MalloyTranslator,
+    load_malloy_assets,
+)
 from dagster_malloy.parser import MalloyParsedModel
 
 from ingestion.hackernews import hackernews_source
@@ -66,20 +72,27 @@ def hackernews_assets(context: AssetExecutionContext, dlt: DagsterDltResource):
     yield from dlt.run(context=context)
 
 
-# Configure dbt project using the DbtProject helper
+# Configure project roots and projects
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DBT_PROJECT_DIR = PROJECT_ROOT / "transformation"
 ANALYTICS_DIR = PROJECT_ROOT / "analytics"
+
+# Configure dbt project using the DbtProject helper
 dbt_project = DbtProject(project_dir=DBT_PROJECT_DIR)
 dbt_project.prepare_if_dev()
 
+# Configure Malloy project using the MalloyProject helper
+malloy_project = MalloyProject(path=ANALYTICS_DIR)
+malloy_project.prepare_if_dev()
 
-# Load Malloy assets with explicit manifest caching and auto-recompilation if stale
+# Load Malloy assets with warehouse-native CTAS materialization
 malloy_assets = load_malloy_assets(
-    path=ANALYTICS_DIR,
+    project=malloy_project,
     translator=CustomMalloyTranslator(),
-    use_manifest_if_exists=True,
-    auto_recompile_if_stale=True,
+    execution_mode="warehouse",
+    materialization_mode="table",
+    db_resource_key="duckdb",
+    include_checks=True,
 )
 
 # Ensure dbt subprocess resolves the DuckLake catalog by absolute path,
@@ -104,7 +117,11 @@ defs = Definitions(
     resources={
         "dlt": DagsterDltResource(),
         "dbt": DbtCliResource(project_dir=dbt_project),
+        "duckdb": DuckDBResource(
+            database=str(PROJECT_ROOT / "storage" / "orca.ducklake")
+        ),
         "malloy": MalloyResource(
+            execution_mode="warehouse",
             config_path=str(PROJECT_ROOT / "analytics" / "malloy-config.json"),
         ),
     },
