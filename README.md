@@ -109,7 +109,14 @@ Execution artifacts are git-ignored for local development and testing but force-
 
 ### Semantic layer
 
-Orca uses [Malloy](https://malloydata.dev) as a **semantic layer** to create reusable data models and metrics on top of the data warehouse `marts` layer. Malloy models compile to SQL queries that can be used for consumption by reporting tools and dashboards.
+Orca uses [Malloy](https://malloydata.dev) as a **semantic layer** to create reusable data models and metrics on top of the data warehouse `marts` layer.
+
+Malloy models and queries are integrated seamlessly into Dagster orchestration using [**`dagster-malloy`**](https://github.com/mathisdrn/dagster-malloy). `dagster-malloy` provides:
+- **Warehouse-Native Materialization (CTAS)**: Compiles Malloy models into dialect SQL and executes `CREATE TABLE AS <sql>` directly inside the DuckDB / DuckLake warehouse without Python RAM overhead or data egress.
+- **Full Data Lineage**: Automatically maps Malloy sources and join dependencies against `marts` dbt tables to generate a unified asset graph in the Dagster UI.
+- **AST Manifest Caching**: Pre-compiles AST metadata (`malloy_manifest.json`) via `MalloyProject` for instant pure-Python asset loading in production.
+- **Data Quality Asset Checks**: Automatically registers inline Malloy validation queries as Dagster asset checks executed directly in the warehouse.
+
 
 ### Reporting
 

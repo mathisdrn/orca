@@ -755,6 +755,19 @@ wheels = [
 ]
 
 [[package]]
+name = "dagster-duckdb"
+version = "0.29.17"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "dagster" },
+    { name = "duckdb" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/c8/d4/1488fe05ac73b68454bb61606dc22c67fae4ccf34fa44d2eb53ed748172c/dagster_duckdb-0.29.17.tar.gz", hash = "sha256:ac6f56b0854a990408dce2d0565f696ebf128ae46017cfcf69ffa8052b320a44", size = 142297, upload-time = "2026-08-07T18:45:04.759Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/13/44/1f758cb80c9fef22e73ad04539fee711853a186df195febb7f27399fb85c/dagster_duckdb-0.29.17-py3-none-any.whl", hash = "sha256:5a2ff019b2fbb1385ba03e9ed6d7b3f7c7904211c89339e9bf95dedc90a4c4f2", size = 10194, upload-time = "2026-08-07T18:45:03.786Z" },
+]
+
+[[package]]
 name = "dagster-graphql"
 version = "1.13.17"
 source = { registry = "https://pypi.org/simple" }
@@ -772,16 +785,17 @@ wheels = [
 
 [[package]]
 name = "dagster-malloy"
-version = "0.2.1"
+version = "0.2.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "dagster" },
+    { name = "duckdb" },
     { name = "polars" },
     { name = "pydantic" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/7b/f3/97cd0e13762267c62b7801d6db022c33e8d22bfc16c25ed958007ce119f3/dagster_malloy-0.2.1.tar.gz", hash = "sha256:3c7591bf24f0705cdeb7811e18957abaac96d6397c8441c54afbe0f7f632887c", size = 736558, upload-time = "2026-08-11T10:43:20.343Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/0c/b4/6844441fa28e734813d83061ab1ac3560edefd130e919307b57fc0f3515c/dagster_malloy-0.2.3.tar.gz", hash = "sha256:8283ddca6bd3b3ebe82202cce944433149a32c2ad27ec73dd5d51cd24aecd542", size = 719421, upload-time = "2026-08-11T16:23:10.637Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b1/73/701739eab3eb8947c22d612e4ec94e75e77b3f3e01cb241cb09d999a679c/dagster_malloy-0.2.1-py3-none-any.whl", hash = "sha256:97c8bd1bd8d7bf4f73d06309af002c6a3a6d48db2512880dba6343cac2f0029c", size = 431116, upload-time = "2026-08-11T10:43:17.963Z" },
+    { url = "https://files.pythonhosted.org/packages/9f/24/3a37cf502a485ed75194d476939da287d2f76fe5220a4274bd98eef82610/dagster_malloy-0.2.3-py3-none-any.whl", hash = "sha256:c4bc6049248d2bbec5ee4219b322a042dd09b6c22cd8dda672d85a3f103ff453", size = 413885, upload-time = "2026-08-11T16:23:07.99Z" },
 ]
 
 [[package]]
@@ -2479,6 +2493,7 @@ dependencies = [
     { name = "dagster-dbt" },
     { name = "dagster-dg-cli" },
     { name = "dagster-dlt" },
+    { name = "dagster-duckdb" },
     { name = "dagster-malloy" },
     { name = "dagster-webserver" },
     { name = "dbt-duckdb" },
@@ -2510,7 +2525,8 @@ requires-dist = [
     { name = "dagster-dbt", specifier = ">=0.25.14" },
     { name = "dagster-dg-cli", specifier = ">=1.12.14" },
     { name = "dagster-dlt", specifier = ">=0.29.8" },
-    { name = "dagster-malloy", specifier = ">=0.2.1" },
+    { name = "dagster-duckdb", specifier = ">=0.29.17" },
+    { name = "dagster-malloy", specifier = ">=0.2.3" },
     { name = "dagster-webserver", specifier = ">=1.12.14" },
     { name = "dbt-duckdb", specifier = ">=1.9.0" },
     { name = "dlt", extras = ["duckdb", "hub"], specifier = ">=1.29.0" },

@@ -1,0 +1,145 @@
+{
+  "version": "1.0",
+  "models": {
+    "model.malloy": {
+      "file_path": "/Users/mathisderenne/GitHub/orca/analytics/model.malloy",
+      "sources": {
+        "stories": {
+          "name": "stories",
+          "connection": "orca",
+          "table_or_sql": "stories",
+          "base_source_name": null,
+          "line_number": 1,
+          "raw_code": "source: stories is orca.table('stories') extend {\n  primary_key: story_id\n\n  # label=\"Story Count\"\n  # number=\"#,##0\"\n  measure: story_count is count()\n  # label=\"Unique Authors\"\n  # number=\"#,##0\"\n  measure: unique_author_count is count(author)\n  # label=\"Total Score\"\n  # number=\"#,##0\"\n  measure: total_score is sum(score)\n  # label=\"Average Score\"\n  # number=\"0.0\"\n  measure: avg_score is avg(score)\n  # label=\"Max Score\"\n  # number=\"#,##0\"\n  measure: max_score is max(score)\n  # label=\"Total Comments\"\n  # number=\"#,##0\"\n  measure: total_comments is sum(comment_count)\n  # label=\"Average Comments per Story\"\n  # number=\"0.0\"\n  measure: avg_comments is avg(comment_count)\n  # label=\"Link Story Count\"\n  # number=\"#,##0\"\n  measure: link_story_count is count() { where: url is not null }\n  # label=\"Show/Ask HN Count\"\n  # number=\"#,##0\"\n  measure: show_ask_count is count() { where: title ~ 'Show HN:%' or title ~ 'Ask HN:%' }\n}",
+          "joined_sources": []
+        },
+        "comments_base": {
+          "name": "comments_base",
+          "connection": "orca",
+          "table_or_sql": "comments",
+          "base_source_name": null,
+          "line_number": 33,
+          "raw_code": "source: comments_base is orca.table('comments') extend {\n  primary_key: comment_id\n}",
+          "joined_sources": []
+        },
+        "comments": {
+          "name": "comments",
+          "connection": null,
+          "table_or_sql": null,
+          "base_source_name": "comments_base",
+          "line_number": 37,
+          "raw_code": "source: comments is comments_base extend {\n  join_one: parent_story is stories on story_id = parent_story.story_id\n  join_one: parent_comment is comments_base on parent_id = parent_comment.comment_id\n\n  # label=\"Comment Count\"\n  # number=\"#,##0\"\n  measure: comment_count is count()\n  # label=\"Unique Authors\"\n  # number=\"#,##0\"\n  measure: unique_author_count is count(author)\n}",
+          "joined_sources": [
+            "parent_story",
+            "parent_comment"
+          ]
+        }
+      },
+      "queries": {
+        "top_stories": {
+          "name": "top_stories",
+          "source_name": "stories",
+          "view_name": null,
+          "description": "Top 10 Stories by Score",
+          "line_number": 50,
+          "raw_code": "query: top_stories is stories -> {\n  group_by: title, author, created_at\n  aggregate: \n    score is sum(score)\n    comments is sum(comment_count)\n  order_by: score desc\n  limit: 10\n}",
+          "is_check": false,
+          "is_dashboard": false,
+          "is_notebook_cell": false,
+          "cell_index": null,
+          "tags": [],
+          "nested_views": []
+        },
+        "check_valid_stories": {
+          "name": "check_valid_stories",
+          "source_name": "stories",
+          "view_name": null,
+          "description": "Verify story_id primary keys are non-null",
+          "line_number": 60,
+          "raw_code": "query: check_valid_stories is stories -> {\n  where: story_id is null\n  aggregate: invalid_count is count()\n}",
+          "is_check": true,
+          "is_dashboard": false,
+          "is_notebook_cell": false,
+          "cell_index": null,
+          "tags": [],
+          "nested_views": []
+        }
+      },
+      "imports": [],
+      "table_dependencies": [
+        "stories",
+        "comments"
+      ]
+    },
+    "/Users/mathisderenne/GitHub/orca/analytics/model.malloy": {
+      "file_path": "/Users/mathisderenne/GitHub/orca/analytics/model.malloy",
+      "sources": {
+        "stories": {
+          "name": "stories",
+          "connection": "orca",
+          "table_or_sql": "stories",
+          "base_source_name": null,
+          "line_number": 1,
+          "raw_code": "source: stories is orca.table('stories') extend {\n  primary_key: story_id\n\n  # label=\"Story Count\"\n  # number=\"#,##0\"\n  measure: story_count is count()\n  # label=\"Unique Authors\"\n  # number=\"#,##0\"\n  measure: unique_author_count is count(author)\n  # label=\"Total Score\"\n  # number=\"#,##0\"\n  measure: total_score is sum(score)\n  # label=\"Average Score\"\n  # number=\"0.0\"\n  measure: avg_score is avg(score)\n  # label=\"Max Score\"\n  # number=\"#,##0\"\n  measure: max_score is max(score)\n  # label=\"Total Comments\"\n  # number=\"#,##0\"\n  measure: total_comments is sum(comment_count)\n  # label=\"Average Comments per Story\"\n  # number=\"0.0\"\n  measure: avg_comments is avg(comment_count)\n  # label=\"Link Story Count\"\n  # number=\"#,##0\"\n  measure: link_story_count is count() { where: url is not null }\n  # label=\"Show/Ask HN Count\"\n  # number=\"#,##0\"\n  measure: show_ask_count is count() { where: title ~ 'Show HN:%' or title ~ 'Ask HN:%' }\n}",
+          "joined_sources": []
+        },
+        "comments_base": {
+          "name": "comments_base",
+          "connection": "orca",
+          "table_or_sql": "comments",
+          "base_source_name": null,
+          "line_number": 33,
+          "raw_code": "source: comments_base is orca.table('comments') extend {\n  primary_key: comment_id\n}",
+          "joined_sources": []
+        },
+        "comments": {
+          "name": "comments",
+          "connection": null,
+          "table_or_sql": null,
+          "base_source_name": "comments_base",
+          "line_number": 37,
+          "raw_code": "source: comments is comments_base extend {\n  join_one: parent_story is stories on story_id = parent_story.story_id\n  join_one: parent_comment is comments_base on parent_id = parent_comment.comment_id\n\n  # label=\"Comment Count\"\n  # number=\"#,##0\"\n  measure: comment_count is count()\n  # label=\"Unique Authors\"\n  # number=\"#,##0\"\n  measure: unique_author_count is count(author)\n}",
+          "joined_sources": [
+            "parent_story",
+            "parent_comment"
+          ]
+        }
+      },
+      "queries": {
+        "top_stories": {
+          "name": "top_stories",
+          "source_name": "stories",
+          "view_name": null,
+          "description": "Top 10 Stories by Score",
+          "line_number": 50,
+          "raw_code": "query: top_stories is stories -> {\n  group_by: title, author, created_at\n  aggregate: \n    score is sum(score)\n    comments is sum(comment_count)\n  order_by: score desc\n  limit: 10\n}",
+          "is_check": false,
+          "is_dashboard": false,
+          "is_notebook_cell": false,
+          "cell_index": null,
+          "tags": [],
+          "nested_views": []
+        },
+        "check_valid_stories": {
+          "name": "check_valid_stories",
+          "source_name": "stories",
+          "view_name": null,
+          "description": "Verify story_id primary keys are non-null",
+          "line_number": 60,
+          "raw_code": "query: check_valid_stories is stories -> {\n  where: story_id is null\n  aggregate: invalid_count is count()\n}",
+          "is_check": true,
+          "is_dashboard": false,
+          "is_notebook_cell": false,
+          "cell_index": null,
+          "tags": [],
+          "nested_views": []
+        }
+      },
+      "imports": [],
+      "table_dependencies": [
+        "stories",
+        "comments"
+      ]
+    }
+  }
+}
