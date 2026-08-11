@@ -74,10 +74,11 @@ dbt_project = DbtProject(project_dir=DBT_PROJECT_DIR)
 dbt_project.prepare_if_dev()
 
 
-# Load Malloy assets (handles AST manifest caching & auto-recompilation natively)
+# Load Malloy assets with explicit manifest caching
 malloy_assets = load_malloy_assets(
     path=ANALYTICS_DIR,
     translator=CustomMalloyTranslator(),
+    use_manifest_if_exists=True,
 )
 
 # Ensure dbt subprocess resolves the DuckLake catalog by absolute path,
