@@ -1,5 +1,6 @@
 import logging
 import os
+import shutil
 from pathlib import Path
 
 from dagster import (
@@ -14,7 +15,7 @@ from dagster_dbt import dbt_assets as dbt_assets_decorator
 from dagster_dlt import DagsterDltResource, DagsterDltTranslator, dlt_assets
 from dagster_dlt.translator import DltResourceTranslatorData
 from dagster_malloy import MalloyResource, MalloyTranslator, load_malloy_assets
-from dagster_malloy.parser import MalloyParsedModel
+from dagster_malloy.parser import MalloyParsedModel, MalloyParser
 
 from ingestion.hackernews import hackernews_source
 from ingestion.utils import create_pipeline
@@ -69,12 +70,30 @@ def hackernews_assets(context: AssetExecutionContext, dlt: DagsterDltResource):
 # Configure dbt project using the DbtProject helper
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DBT_PROJECT_DIR = PROJECT_ROOT / "transformation"
+ANALYTICS_DIR = PROJECT_ROOT / "analytics"
 dbt_project = DbtProject(project_dir=DBT_PROJECT_DIR)
 dbt_project.prepare_if_dev()
 
-# Load Malloy assets
+
+def prepare_malloy_if_stale(dir_path: Path) -> None:
+    """Pre-compiles or refreshes the Malloy AST manifest if source files are newer than the manifest (mirroring dbt's prepare_if_dev)."""
+    manifest_file = dir_path / "malloy_manifest.json"
+    malloy_files = list(dir_path.glob("**/*.malloy")) + list(
+        dir_path.glob("**/*.malloynb")
+    )
+    if not manifest_file.exists() or (
+        malloy_files
+        and max(f.stat().st_mtime for f in malloy_files) > manifest_file.stat().st_mtime
+    ):
+        if shutil.which("node"):
+            MalloyParser.build_manifest(dir_path)
+
+
+# Refresh Malloy manifest if modified locally, then load assets
+prepare_malloy_if_stale(ANALYTICS_DIR)
+
 malloy_assets = load_malloy_assets(
-    path=PROJECT_ROOT / "analytics",
+    path=ANALYTICS_DIR,
     translator=CustomMalloyTranslator(),
 )
 
