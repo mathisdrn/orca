@@ -65,13 +65,13 @@
       "source": "malloydata/publisher",
       "sourceType": "github",
       "skillPath": "skills/malloy-model/SKILL.md",
-      "computedHash": "aa67bddefb771e54a355bfcfdc9d972b3909566c9c1e839241407dd8075f9d5e"
+      "computedHash": "124b6b6362ebd52f803138b4ab8f837998f37f346a9a20bdeec88aaa22b83fd4"
     },
     "malloy-modeling": {
       "source": "malloydata/publisher",
       "sourceType": "github",
       "skillPath": "skills/malloy-modeling/SKILL.md",
-      "computedHash": "b1bb3b1fc51f20437dd49608ce5a33c0af2c4ee1ab2a81bfe006416642ffd6c7"
+      "computedHash": "fcbeb30dd82b4e81752296fa0ee03c586f62cf9de2b07693a6557bce374dcb87"
     },
     "malloy-notebooks": {
       "source": "malloydata/publisher",
