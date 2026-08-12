@@ -4,8 +4,3 @@ This directory contains code related to deployment at `orca-datawarehouse.dev`. 
 - `orchestration/` displays Dagster UI in read-only mode. Runs on Cloud Run instance.
 - `transformations/` displays dbt docs from `mathisdrn.github.io/orca/dbt-docs` (CNAME).
 - `dashboards/` displays the embedded Streamlit dashboard (iframe).
-
-## Tools
-
-- `gcloud` CLI for Google Cloud platform
-- `npx wrangler` for Cloudflare CLI

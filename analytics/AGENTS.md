@@ -7,5 +7,5 @@ This directory contains data analytics code for Orca data warehouse.
 - Prefer explicit `SELECT` lists over `SELECT *`.
 
 ## Malloy
-- use `malloy-cli` to interact with the semantic model.
-- to compile models use: malloy-cli compile analytics/model.malloy --config analytics/malloy-config.json
+- Use `malloy-cli` to interact with the semantic model.
+- Compile models using `malloy-cli compile analytics/model.malloy --config analytics/malloy-config.json`.
