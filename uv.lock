@@ -697,15 +697,15 @@ wheels = [
 
 [[package]]
 name = "dagster-malloy"
-version = "0.2.5"
+version = "0.2.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "dagster" },
     { name = "pydantic" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d2/ce/3ceb9fbd169fb132625ac4850c9177831473aec99665332bab5260e94362/dagster_malloy-0.2.5.tar.gz", hash = "sha256:accd3c080192af99c73f0098087e5468d3433814284efe7debb9602a83dd1167", size = 698285, upload-time = "2026-08-11T21:17:49.141Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/85/66/35ed5f6a97e2e95cf9cbc99c57b594442cd6d91f3ee4abfdf24f378718bb/dagster_malloy-0.2.6.tar.gz", hash = "sha256:3bfca35b3c9e9359689c4444af0cd8b78393c47d4f0173ca025df18b94baa751", size = 703946, upload-time = "2026-08-13T19:56:50.693Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d9/73/5d53c390d90ccdb8ba46ef842b1ced476b73ec70db948d3e34304c9c5db0/dagster_malloy-0.2.5-py3-none-any.whl", hash = "sha256:e7fe2936f1dbbf280773ff67ae9a92afac76aae07aee35a2f7c35530d38b534e", size = 394947, upload-time = "2026-08-11T21:17:47.247Z" },
+    { url = "https://files.pythonhosted.org/packages/40/59/6c368b6576eb57189cddd0202fc2e23567cd543d84f0b20c7504c8e45cae/dagster_malloy-0.2.6-py3-none-any.whl", hash = "sha256:eed6565c1e880f30685889ab38b2d9e7fdfc4b4c35c682c8dd82e37fae9718f9", size = 396170, upload-time = "2026-08-13T19:56:49.06Z" },
 ]
 
 [[package]]
@@ -2376,7 +2376,6 @@ source = { editable = "." }
 dependencies = [
     { name = "dagster" },
     { name = "dagster-dbt" },
-    { name = "dagster-dg-cli" },
     { name = "dagster-dlt" },
     { name = "dagster-duckdb" },
     { name = "dagster-malloy" },
@@ -2398,6 +2397,7 @@ analytics = [
     { name = "streamlit" },
 ]
 dev = [
+    { name = "dagster-dg-cli" },
     { name = "ipykernel" },
     { name = "jupytext" },
     { name = "notebook" },
@@ -2409,10 +2409,9 @@ dev = [
 requires-dist = [
     { name = "dagster", specifier = ">=1.12.14" },
     { name = "dagster-dbt", specifier = ">=0.25.14" },
-    { name = "dagster-dg-cli", specifier = ">=1.12.14" },
     { name = "dagster-dlt", specifier = ">=0.29.8" },
     { name = "dagster-duckdb", specifier = ">=0.29.17" },
-    { name = "dagster-malloy", specifier = ">=0.2.5" },
+    { name = "dagster-malloy", specifier = ">=0.2.6" },
     { name = "dagster-webserver", specifier = ">=1.12.14" },
     { name = "dbt-duckdb", specifier = ">=1.9.0" },
     { name = "dlt", extras = ["duckdb", "hub"], specifier = ">=1.29.0" },
@@ -2431,6 +2430,7 @@ analytics = [
     { name = "streamlit", specifier = ">=1.54.0" },
 ]
 dev = [
+    { name = "dagster-dg-cli", specifier = ">=1.12.14" },
     { name = "ipykernel", specifier = ">=7.2.0" },
     { name = "jupytext", specifier = ">=1.19.1" },
     { name = "notebook", specifier = ">=7.5.3" },

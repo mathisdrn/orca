@@ -7,6 +7,11 @@ on:
   workflow_dispatch:
     # Allow manual triggering from GitHub UI
 
+# Allow only one concurrent pipeline run to prevent database push conflicts
+concurrency:
+  group: warehouse-execution
+  cancel-in-progress: false
+
 jobs:
   run-pipeline:
     runs-on: ubuntu-latest
@@ -22,6 +27,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
       - name: Install uv
         uses: astral-sh/setup-uv@v9.0.0
@@ -74,5 +84,6 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "weekly data warehouse update [skip ci]"
+            git pull --rebase origin main
             git push origin main
           fi

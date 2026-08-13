@@ -61,10 +61,7 @@ jobs:
       - name: Prepare Pages directory
         run: |
           mkdir -p public/dbt-docs
-          cp transformation/target/index.html public/dbt-docs/
-          cp transformation/target/manifest.json public/dbt-docs/
-          cp transformation/target/catalog.json public/dbt-docs/
-          cp transformation/target/run_results.json public/dbt-docs/
+          cp transformation/target/*.html transformation/target/*.json public/dbt-docs/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5

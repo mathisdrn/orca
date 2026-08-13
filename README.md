@@ -6,7 +6,7 @@
 
 # Orca – a modern data warehouse
 
-Orca is an implementation of a serverless, declarative and agentic-ready [data warehouse](https://en.wikipedia.org/wiki/Data_warehouse) built with best-in-class, free, and open-source tools. 
+Orca is an implementation of a serverless, declarative and agentic-ready [data warehouse](https://en.wikipedia.org/wiki/Data_warehouse) built with best-in-class, free, and open-source tools.
 
 ## Features 
 
