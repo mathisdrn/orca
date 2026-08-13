@@ -1,9 +1,29 @@
+# Stage 1: Build stage for Malloy AST manifest compilation
+FROM python:3.13-slim AS manifest-builder
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates nodejs npm \
+    && npm install -g @malloydata/cli @malloydata/malloy \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY pyproject.toml uv.lock README.md ./
+RUN uv sync --frozen --no-dev --no-install-project --python 3.13
+
+COPY analytics/ ./analytics/
+ENV PATH="/app/.venv/bin:$PATH"
+RUN python analytics/build_manifest.py
+
+
+# Stage 2: Final lightweight runtime image (pure Python 3.13)
 FROM python:3.13-slim
 
 # Install uv for fast Python environment setup
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# Minimal OS packages for SSL and curl
+# Minimal OS packages for SSL and curl (no Node.js/npm in final runtime image)
 RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
@@ -23,20 +43,23 @@ COPY pyproject.toml uv.lock README.md ./
 # 2. Install third-party dependencies first (without project source)
 RUN uv sync --frozen --no-dev --no-install-project --python 3.13
 
-# 3. Copy application source code (changes here reuse cached dependency layer)
+# 3. Copy application source code
 COPY ingestion/ ./ingestion/
 COPY transformation/ ./transformation/
 COPY orchestration/ ./orchestration/
 COPY analytics/ ./analytics/
 COPY storage/ ./storage/
 
-# 4. Install the project package itself & clean uv build cache to minimize image size
+# 4. Copy pre-compiled Malloy AST manifest from build stage
+COPY --from=manifest-builder /app/analytics/malloy_manifest.json ./analytics/malloy_manifest.json
+
+# 5. Install the project package itself & clean uv build cache to minimize image size
 RUN mkdir -p /app/orchestration/dagster_home && uv sync --frozen --no-dev --python 3.13 && uv cache clean
 
-# 5. Pre-compile dbt manifest & Malloy AST manifest
+# 6. Pre-compile dbt manifest
 RUN cd transformation && dbt compile --threads 1
-RUN python analytics/build_manifest.py
 
 EXPOSE 8080
 
 CMD ["dagster-webserver", "-h", "0.0.0.0", "-p", "8080", "-f", "orchestration/definitions.py", "--path-prefix", "/orchestration", "--read-only", "--suppress-warnings", "--uvicorn-log-level", "warning", "--live-data-poll-rate", "600000", "--code-server-log-level", "WARNING"]
+

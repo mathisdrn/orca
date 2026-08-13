@@ -26,16 +26,17 @@ graph TD
 * **Scale-to-Zero & Limits**: `--min-instances 0` (zero cost idle) / `--max-instances 1` (prevents runaway billing).
 * **Performance**: `--concurrency 80` (80 req/instance) / `--cpu-boost` (fast cold starts).
 * **Billing Optimization**: `--cpu-throttling` (CPU billed strictly during active HTTP processing).
+* **Artifact Storage Cap (< 500MB Free Tier)**: CI/CD tags images strictly with `:latest` (in-place tag overwrite). This prevents multiple commit SHA image manifests from accumulating in Artifact Registry between asynchronous 24-hour cleanup policy executions.
 
 ## 4. Setup Steps
 
-### Step 1: GCP Setup & GitHub Auth
+### Step 1: GCP Setup & GitHub Auth (OIDC Workload Identity)
 
 1. **Create Project & Enable Services**:
    ```bash
    gcloud projects create orca-datawarehouse --name="Orca Data Warehouse"
    gcloud config set project orca-datawarehouse
-   gcloud services enable run.googleapis.com artifactregistry.googleapis.com
+   gcloud services enable run.googleapis.com artifactregistry.googleapis.com iamcredentials.googleapis.com sts.googleapis.com
    ```
 
 2. **Create Deployer Service Account (for GitHub Actions)**:
@@ -50,11 +51,33 @@ graph TD
    done
    ```
 
-3. **Generate Keys for GitHub Actions**:
-   Create a JSON key and add it to your GitHub Repository Secrets as `GCP_SA_KEY`:
+3. **Configure Workload Identity Federation (OIDC - Keyless Auth)**:
+   Create an OIDC Workload Identity Pool and Provider to allow GitHub Actions to authenticate securely without long-lived keys:
    ```bash
-   gcloud iam service-accounts keys create key.json --iam-account=$SA_DEPLOYER
+   # Create Workload Identity Pool
+   gcloud iam workload-identity-pools create "github-pool" \
+     --location="global" \
+     --display-name="GitHub Actions Pool"
+
+   # Create Workload Identity Provider for GitHub
+   gcloud iam workload-identity-pools providers create-oidc "github-provider" \
+     --location="global" \
+     --workload-identity-pool="github-pool" \
+     --issuer-uri="https://token.actions.githubusercontent.com" \
+     --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository"
+
+   # Grant the GitHub repository permission to impersonate the deployer service account
+   PROJECT_NUMBER=$(gcloud projects describe orca-datawarehouse --format="value(projectNumber)")
+   gcloud iam service-accounts add-iam-policy-binding "$SA_DEPLOYER" \
+     --role="roles/iam.workloadIdentityUser" \
+     --member="principalSet://iam.googleapis.com/projects/$PROJECT_NUMBER/locations/global/workloadIdentityPools/github-pool/attribute.repository/mathisdrn/orca"
    ```
+
+4. **Set GitHub Repository Secrets**:
+   Add the following secrets to your GitHub repository (`Settings > Secrets and variables > Actions`):
+   - `GCP_PROJECT`: `orca-datawarehouse`
+   - `GCP_WORKLOAD_IDENTITY_PROVIDER`: `projects/<PROJECT_NUMBER>/locations/global/workloadIdentityPools/github-pool/providers/github-provider`
+   - `GCP_SERVICE_ACCOUNT`: `github-actions-deployer@orca-datawarehouse.iam.gserviceaccount.com`
 
 ---
 

@@ -8,5 +8,6 @@ This directory contains **dlt** ingestion pipelines that extract data from sourc
 - `pipelines/`: Pipeline execution entrypoints.
 
 ## Conventions
+- Use Python code instead of new dlt components (`.yaml`).
 - Use `create_pipeline` from `utils.py` which loads environment variables and target DuckLake storage.
 - Use a logger to track pipeline execution using `logger = logging.getLogger(__name__)`

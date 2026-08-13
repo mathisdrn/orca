@@ -1,6 +1,10 @@
 # AGENTS.md - Orca
 
-Orca is a data warehouse as-code implementation built around HackerNews data.
+Orca is a data warehouse as-code implementation built on modern and free tools. It provides a comprehensive framework for data ingestion, transformation, orchestration, storage, compute, semantic layers, analytics and deployments.
+
+Orca is designed to be easy to adopt, extend and reuse. Orca lightweight data model is built on HackerNews data from the Algolia REST API. 
+
+It features built-in documentation and workflows for humans and AI agents.
 
 This project contains:
 - `ingestion/`: dlt ingestion pipelines
@@ -9,7 +13,7 @@ This project contains:
 - `storage/`: Database stored using DuckLake lakehouse format
 - `analytics/`: Malloy semantics models and Streamlit dashboard
 - `deployment/`: Deployment for Dagster read-only web UI
-- `.github/workflows/`: Weekly data pipeline execution and Dagster UI serverless deployment in Google Cloud Run. Artifacts are force-pushed to GitHub but git-ignored for local-development.
+- `.github/workflows/`: Weekly warehouse execution and Dagster UI serverless deployment in Google Cloud Run.
 
 This project uses:
 - `duckdb` as the query engine and DuckLake catalog
@@ -24,9 +28,9 @@ This project uses:
 - `dg` for Dagster orchestrations
 
 Additional information:
-- Warehouse artifacts are force-pushed to GitHub by the weekly warehouse execution but are git-ignored for local-development.
-- Keep `README.md` and `AGENTS.md` up-to-date with latest development.
+- Warehouse artifacts (database, dbt `manifest.json`, Dagster logs) are git-ignored for local-development but force-pushed during GitHub Actions weekly warehouse execution.
 
-Best development practices:
-- Test changes to the data pipeline Use `dg dev`
-- Keep skills in-sync with deps ugprades
+Development practices:
+- Keep `README.md` and `AGENTS.md` up-to-date with developments.
+- Documents changes in `CHANGELOG.md` and update versions in `pyproject.toml`.
+- Keep skills in-sync with deps upgrades.
