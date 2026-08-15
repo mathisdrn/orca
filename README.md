@@ -19,7 +19,7 @@ Orca is an implementation of a serverless, declarative and agentic-ready [data w
 
 ## Links
 
-- 📊 **[Interactive dashboard](https://orca-datawarehouse.dev/dashboards/)** – Explore HackerNews analytics & insights
+- 📊 **[Interactive dashboard](https://orca-datawarehouse.dev/dashboard/)** – Explore HackerNews analytics & insights
 - 🔄 **[Dagster orchestration](https://orca-datawarehouse.dev/orchestration/)** – View the live asset graph and execution history
 - 🏗️ **[dbt documentation and lineage](https://orca-datawarehouse.dev/transformation/)** – Inspect data transformations and models
 - 🦆 **[Browse the database](https://demo.duckui.com/#s=H4sIAAAAAAAAE1WMXWuDMBSG_8ohN4VhddulXqXVrtI4WbVsDG9SPdSgJl1yslLG_vtoWWG7ez-fL_bJ4seA0fmILGbuY2QBI0Xjxb14tGcobSvhSdHa76E3jrCD1LeDkAOy4PqI2XwOf8adJAknabE33iFYnAzheAbvlD5cz-kCOiVHbClstCh5CuluuRF8kyWN5nXNl2vIV_Bc1pC95VVdwazz7TDKAeOe6OjiKLLyFB4U9X7vHdrWaEJNYWumaJLUK9dZHRnbymiSSkeOjJUHvCbhjTUDXsElSRq9q7KbbHS1Ll-BCwE1X4isSho9n0O1Kwq-zd8zmKQlF16QCt1vmYlsWcMdrLZl8X8AIi_yGh7uExYw6clsvWYxWY_fP63Oobl_AQAA)** – Query the data lakehouse live via Duck-UI
@@ -123,7 +123,7 @@ Malloy models and queries are integrated seamlessly into Dagster orchestration u
 Orca uses [Streamlit](https://streamlit.io/) to create interactive dashboards in Python.
 
 > [!TIP]
-> Explore the interactive dashboard at **https://orca-datawarehouse.dev/dashboards/**.
+> Explore the interactive dashboard at **https://orca-datawarehouse.dev/dashboard/**.
 
 
 

@@ -7,19 +7,19 @@
         "stories": {
           "name": "stories",
           "connection": "orca",
-          "table_or_sql": "stories",
+          "table_or_sql": "marts.stories",
           "base_source_name": null,
           "line_number": 1,
-          "raw_code": "source: stories is orca.table('stories') extend {\n  primary_key: story_id\n\n  # label=\"Story Count\"\n  # number=\"#,##0\"\n  measure: story_count is count()\n  # label=\"Unique Authors\"\n  # number=\"#,##0\"\n  measure: unique_author_count is count(author)\n  # label=\"Total Score\"\n  # number=\"#,##0\"\n  measure: total_score is sum(score)\n  # label=\"Average Score\"\n  # number=\"0.0\"\n  measure: avg_score is avg(score)\n  # label=\"Max Score\"\n  # number=\"#,##0\"\n  measure: max_score is max(score)\n  # label=\"Total Comments\"\n  # number=\"#,##0\"\n  measure: total_comments is sum(comment_count)\n  # label=\"Average Comments per Story\"\n  # number=\"0.0\"\n  measure: avg_comments is avg(comment_count)\n  # label=\"Link Story Count\"\n  # number=\"#,##0\"\n  measure: link_story_count is count() { where: url is not null }\n  # label=\"Show/Ask HN Count\"\n  # number=\"#,##0\"\n  measure: show_ask_count is count() { where: title ~ 'Show HN:%' or title ~ 'Ask HN:%' }\n}",
+          "raw_code": "source: stories is orca.table('marts.stories') extend {\n  primary_key: story_id\n\n  # label=\"Story Count\"\n  # number=\"#,##0\"\n  measure: story_count is count()\n  # label=\"Unique Authors\"\n  # number=\"#,##0\"\n  measure: unique_author_count is count(author)\n  # label=\"Total Score\"\n  # number=\"#,##0\"\n  measure: total_score is sum(score)\n  # label=\"Average Score\"\n  # number=\"0.0\"\n  measure: avg_score is avg(score)\n  # label=\"Max Score\"\n  # number=\"#,##0\"\n  measure: max_score is max(score)\n  # label=\"Total Comments\"\n  # number=\"#,##0\"\n  measure: total_comments is sum(comment_count)\n  # label=\"Average Comments per Story\"\n  # number=\"0.0\"\n  measure: avg_comments is avg(comment_count)\n  # label=\"Link Story Count\"\n  # number=\"#,##0\"\n  measure: link_story_count is count() { where: url is not null }\n  # label=\"Show/Ask HN Count\"\n  # number=\"#,##0\"\n  measure: show_ask_count is count() { where: title ~ 'Show HN:%' or title ~ 'Ask HN:%' }\n}",
           "joined_sources": []
         },
         "comments_base": {
           "name": "comments_base",
           "connection": "orca",
-          "table_or_sql": "comments",
+          "table_or_sql": "marts.comments",
           "base_source_name": null,
           "line_number": 33,
-          "raw_code": "source: comments_base is orca.table('comments') extend {\n  primary_key: comment_id\n}",
+          "raw_code": "source: comments_base is orca.table('marts.comments') extend {\n  primary_key: comment_id\n}",
           "joined_sources": []
         },
         "comments": {
@@ -67,8 +67,8 @@
       },
       "imports": [],
       "table_dependencies": [
-        "stories",
-        "comments"
+        "marts.stories",
+        "marts.comments"
       ]
     },
     "/Users/mathisderenne/GitHub/orca/analytics/model.malloy": {
@@ -77,19 +77,19 @@
         "stories": {
           "name": "stories",
           "connection": "orca",
-          "table_or_sql": "stories",
+          "table_or_sql": "marts.stories",
           "base_source_name": null,
           "line_number": 1,
-          "raw_code": "source: stories is orca.table('stories') extend {\n  primary_key: story_id\n\n  # label=\"Story Count\"\n  # number=\"#,##0\"\n  measure: story_count is count()\n  # label=\"Unique Authors\"\n  # number=\"#,##0\"\n  measure: unique_author_count is count(author)\n  # label=\"Total Score\"\n  # number=\"#,##0\"\n  measure: total_score is sum(score)\n  # label=\"Average Score\"\n  # number=\"0.0\"\n  measure: avg_score is avg(score)\n  # label=\"Max Score\"\n  # number=\"#,##0\"\n  measure: max_score is max(score)\n  # label=\"Total Comments\"\n  # number=\"#,##0\"\n  measure: total_comments is sum(comment_count)\n  # label=\"Average Comments per Story\"\n  # number=\"0.0\"\n  measure: avg_comments is avg(comment_count)\n  # label=\"Link Story Count\"\n  # number=\"#,##0\"\n  measure: link_story_count is count() { where: url is not null }\n  # label=\"Show/Ask HN Count\"\n  # number=\"#,##0\"\n  measure: show_ask_count is count() { where: title ~ 'Show HN:%' or title ~ 'Ask HN:%' }\n}",
+          "raw_code": "source: stories is orca.table('marts.stories') extend {\n  primary_key: story_id\n\n  # label=\"Story Count\"\n  # number=\"#,##0\"\n  measure: story_count is count()\n  # label=\"Unique Authors\"\n  # number=\"#,##0\"\n  measure: unique_author_count is count(author)\n  # label=\"Total Score\"\n  # number=\"#,##0\"\n  measure: total_score is sum(score)\n  # label=\"Average Score\"\n  # number=\"0.0\"\n  measure: avg_score is avg(score)\n  # label=\"Max Score\"\n  # number=\"#,##0\"\n  measure: max_score is max(score)\n  # label=\"Total Comments\"\n  # number=\"#,##0\"\n  measure: total_comments is sum(comment_count)\n  # label=\"Average Comments per Story\"\n  # number=\"0.0\"\n  measure: avg_comments is avg(comment_count)\n  # label=\"Link Story Count\"\n  # number=\"#,##0\"\n  measure: link_story_count is count() { where: url is not null }\n  # label=\"Show/Ask HN Count\"\n  # number=\"#,##0\"\n  measure: show_ask_count is count() { where: title ~ 'Show HN:%' or title ~ 'Ask HN:%' }\n}",
           "joined_sources": []
         },
         "comments_base": {
           "name": "comments_base",
           "connection": "orca",
-          "table_or_sql": "comments",
+          "table_or_sql": "marts.comments",
           "base_source_name": null,
           "line_number": 33,
-          "raw_code": "source: comments_base is orca.table('comments') extend {\n  primary_key: comment_id\n}",
+          "raw_code": "source: comments_base is orca.table('marts.comments') extend {\n  primary_key: comment_id\n}",
           "joined_sources": []
         },
         "comments": {
@@ -137,8 +137,8 @@
       },
       "imports": [],
       "table_dependencies": [
-        "stories",
-        "comments"
+        "marts.stories",
+        "marts.comments"
       ]
     }
   }

@@ -1,4 +1,4 @@
-source: stories is orca.table('stories') extend {
+source: stories is orca.table('marts.stories') extend {
   primary_key: story_id
 
   # label="Story Count"
@@ -30,7 +30,7 @@ source: stories is orca.table('stories') extend {
   measure: show_ask_count is count() { where: title ~ 'Show HN:%' or title ~ 'Ask HN:%' }
 }
 
-source: comments_base is orca.table('comments') extend {
+source: comments_base is orca.table('marts.comments') extend {
   primary_key: comment_id
 }
 

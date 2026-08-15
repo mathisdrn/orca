@@ -4,7 +4,7 @@
  * Routes:
  *  - /transformation/*  -> GitHub Pages (dbt-docs)
  *  - /orchestration/*   -> GCP Cloud Run (orca-dagster)
- *  - /dashboards/*      -> Streamlit App (iframe wrapper / redirect)
+ *  - /dashboard/*       -> Streamlit App (iframe wrapper / redirect)
  *  - /                  -> Redirect to /orchestration/
  */
 
@@ -236,7 +236,7 @@ export default {
     }
 
     // 2. Transformation / dbt docs -> GitHub Pages
-    if (pathname.startsWith("/transformation")) {
+    if (pathname === "/transformation" || pathname.startsWith("/transformation/")) {
       const targetPath = pathname.replace(/^\/transformation/, "");
       const targetUrl = `${GITHUB_PAGES_URL}${targetPath}${url.search}`;
       return fetch(targetUrl, request);
@@ -288,7 +288,7 @@ export default {
     };
 
     // 3. Orchestration / Dagster UI -> GCP Cloud Run (Protected by OIDC)
-    if (pathname.startsWith("/orchestration")) {
+    if (pathname === "/orchestration" || pathname.startsWith("/orchestration/")) {
       // On cold start, Cloud Run may return 503. Detect and serve loading page instead.
       const targetUrl = `${DAGSTER_CLOUD_RUN_URL}${pathname}${url.search}`;
 
@@ -320,14 +320,14 @@ export default {
       return proxyWithRedirectRewrite(targetUrl, new URL(DAGSTER_CLOUD_RUN_URL).host, true);
     }
 
-    // 4. Dashboards / Streamlit -> Seamless Fullscreen Iframe
-    if (pathname.startsWith("/dashboards")) {
+    // 4. Dashboard / Streamlit -> Seamless Fullscreen Iframe
+    if (pathname === "/dashboard" || pathname.startsWith("/dashboard/")) {
       const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orca Dashboards - Streamlit</title>
+  <title>Orca Dashboard - Streamlit</title>
   <style>
     body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: system-ui, sans-serif; background-color: #0e1117; }
     iframe { width: 100%; height: 100%; border: none; }

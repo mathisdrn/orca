@@ -4,7 +4,6 @@ from pathlib import Path
 
 from dagster import (
     AssetExecutionContext,
-    AssetKey,
     AssetSpec,
     Definitions,
     in_process_executor,
@@ -17,10 +16,8 @@ from dagster_duckdb import DuckDBResource
 from dagster_malloy import (
     MalloyProject,
     MalloyResource,
-    MalloyTranslator,
     load_malloy_assets,
 )
-from dagster_malloy.parser import MalloyParsedModel
 
 from ingestion.hackernews import hackernews_source
 from ingestion.utils import create_pipeline
@@ -43,21 +40,6 @@ class CustomDagsterDltTranslator(DagsterDltTranslator):
                 description=description,
             )
         )
-
-
-class CustomMalloyTranslator(MalloyTranslator):
-    def get_source_asset_spec(
-        self, source_name: str, file_path: Path, parsed_model: MalloyParsedModel
-    ) -> AssetSpec:
-        spec = super().get_source_asset_spec(source_name, file_path, parsed_model)
-        # Prepend 'marts' to table dependencies (e.g. marts/stories instead of stories)
-        new_deps = [
-            AssetKey(["marts", *list(dep.asset_key.path)])
-            if dep.asset_key.path[0] not in ("marts", "model")
-            else dep.asset_key
-            for dep in spec.deps
-        ]
-        return spec.replace_attributes(deps=new_deps)
 
 
 # Define DLT assets
@@ -88,7 +70,6 @@ malloy_project.prepare_if_dev()
 # Load Malloy assets with warehouse-native CTAS materialization
 malloy_assets = load_malloy_assets(
     project=malloy_project,
-    translator=CustomMalloyTranslator(),
     execution_mode="warehouse",
     materialization_mode="table",
     db_resource_key="duckdb",

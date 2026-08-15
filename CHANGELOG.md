@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-08-15
+
+### Added
+- Documented fully qualified table naming best practices in `analytics/AGENTS.md`.
+
+### Changed
+- Upgraded `dagster-malloy` to `v0.2.7` with improved dialect resolution, clean database engine kind badges (`duckdb`), and enriched source/schema lineage metadata.
+- Refactored Malloy model sources in `analytics/model.malloy` to use fully qualified table names (`marts.stories`, `marts.comments`).
+- Simplified `orchestration/definitions.py` by removing `CustomMalloyTranslator` and relying on native multi-part asset lineage resolution.
+
+## [0.3.1] - 2026-08-15
+
+### Changed
+- Standardized and uniformized all public domain routes on `orca-datawarehouse.dev` to strict singular paths (`/orchestration/`, `/transformation/`, `/dashboard/`).
+- Updated Cloudflare Worker router to strictly match singular routes and updated dashboard route to `/dashboard/`.
+
+### Fixed
+- Corrected route references and typos in deployment documentation.
+
 ## [0.3.0] - 2026-08-13
 
 ### Added
