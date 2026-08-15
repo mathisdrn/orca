@@ -697,15 +697,15 @@ wheels = [
 
 [[package]]
 name = "dagster-malloy"
-version = "0.2.6"
+version = "0.2.7"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "dagster" },
     { name = "pydantic" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/85/66/35ed5f6a97e2e95cf9cbc99c57b594442cd6d91f3ee4abfdf24f378718bb/dagster_malloy-0.2.6.tar.gz", hash = "sha256:3bfca35b3c9e9359689c4444af0cd8b78393c47d4f0173ca025df18b94baa751", size = 703946, upload-time = "2026-08-13T19:56:50.693Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9f/b3/c241a80f23c9d78c0d1fb3949a54ea98ba70a8417bc0d58c80fde8f6d0a2/dagster_malloy-0.2.7.tar.gz", hash = "sha256:1e106fb093aaf47ad68bc360dad82aae1b16f1aad1acbb373817e205424cf99f", size = 707966, upload-time = "2026-08-15T00:49:18.361Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/40/59/6c368b6576eb57189cddd0202fc2e23567cd543d84f0b20c7504c8e45cae/dagster_malloy-0.2.6-py3-none-any.whl", hash = "sha256:eed6565c1e880f30685889ab38b2d9e7fdfc4b4c35c682c8dd82e37fae9718f9", size = 396170, upload-time = "2026-08-13T19:56:49.06Z" },
+    { url = "https://files.pythonhosted.org/packages/bb/ea/63545558a75be9f7731e5d2cc5f727c4babdcbb257e55563d7bd9b19af33/dagster_malloy-0.2.7-py3-none-any.whl", hash = "sha256:e0e4a4f2caf88b006d0a90a538609ab6210620233a112fe541d7fbf7d744e4f9", size = 397977, upload-time = "2026-08-15T00:49:14.986Z" },
 ]
 
 [[package]]
@@ -2371,7 +2371,7 @@ wheels = [
 
 [[package]]
 name = "orca"
-version = "0.1.0"
+version = "0.3.2"
 source = { editable = "." }
 dependencies = [
     { name = "dagster" },
@@ -2411,7 +2411,7 @@ requires-dist = [
     { name = "dagster-dbt", specifier = ">=0.25.14" },
     { name = "dagster-dlt", specifier = ">=0.29.8" },
     { name = "dagster-duckdb", specifier = ">=0.29.17" },
-    { name = "dagster-malloy", specifier = ">=0.2.6" },
+    { name = "dagster-malloy", specifier = ">=0.2.7" },
     { name = "dagster-webserver", specifier = ">=1.12.14" },
     { name = "dbt-duckdb", specifier = ">=1.9.0" },
     { name = "dlt", extras = ["duckdb", "hub"], specifier = ">=1.29.0" },

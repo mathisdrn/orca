@@ -8,7 +8,7 @@ Serverless hosted deployment guide for `orca-datawarehouse.dev`.
 graph TD
     Router[Cloudflare Worker Router<br/>orca-datawarehouse.dev/*] -->|/orchestration/*| Dagster[Dagster Web UI<br/>GCP Cloud Run]
     Router -->|/transformation/*| dbt[dbt Documentation<br/>GitHub Pages]
-    Router -->|/dashboards/*| Streamlit[Streamlit Dashboard<br/>Embedded Iframe]
+    Router -->|/dashboard/*| Streamlit[Streamlit Dashboard<br/>Embedded Iframe]
 
     Dagster --> DuckLake[(Frozen DuckLake<br/>GitHub Raw)]
 ```
@@ -19,7 +19,7 @@ graph TD
 | --- | --- | --- | --- |
 | `/orchestration/` | Dagster Web UI | GCP Cloud Run (`orca-dagster`) | Read-only asset graph & logs |
 | `/transformation/` | dbt Docs | GitHub Pages | Static lineage & docs |
-| `/dashboards/` | Streamlit | Streamlit Cloud | Embedded iframe |
+| `/dashboard/` | Streamlit | Streamlit Cloud | Embedded iframe |
 
 ## 3. Cost Safeguards & Scaling
 
