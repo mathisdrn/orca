@@ -1,6 +1,6 @@
 [project]
 name = "Orca"
-version = "0.3.3"
+version = "0.3.4"
 description = "Orca is a modern data warehouse implementation built with best-in-class open-source tools."
 readme = "README.md"
 requires-python = ">=3.13"
