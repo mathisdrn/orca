@@ -1,11 +1,41 @@
 [project]
 name = "Orca"
-version = "0.3.2"
+version = "0.3.3"
 description = "Orca is a modern data warehouse implementation built with best-in-class open-source tools."
 readme = "README.md"
 requires-python = ">=3.13"
 
 dependencies = [
+  # Ingestion
+  "dlt[ducklake]>=1.29.0",  # Data ingestion
+
+  # Transformation
+  "dbt-duckdb>=1.9.0",  # dbt DuckDB adapter
+
+  # Orchestration
+  "dagster>=1.12.14",  # Orchestration framework
+  "dagster-dbt>=0.25.14",  # Dagster dbt integration
+  "dagster-dg-cli>=1.12.14",  # Dagster CLI
+  "dagster-dlt>=0.29.8",  # Dagster dlt integration
+  "dagster-duckdb>=0.29.17",  # DuckDB resource for Dagster
+  "dagster-malloy>=0.2.7",  # Dagster Malloy integration
+
+  # Storage & Compute
+  "duckdb>=1.4.2",  # Analytical database
+  "duckdb-cli>=1.5.0",  # DuckDB CLI
+
+  # Analytics & Reporting
+  "altair>=6.0.0",  # Plotting library
+  "marimo>=0.23.8",  # Notebook-style data analysis
+  "pandas>=2.3.3",  # DataFrame manipulation library
+  "polars>=1.35.2",  # DataFrame manipulation library
+  "pyarrow>=22.0.0",  # Columnar format (used by dlt, DuckDB, Polars & Streamlit)
+  "streamlit>=1.54.0",  # Python web data app
+]
+
+[dependency-groups]
+# Dagster UI webserver deployment
+deployment = [
   "dagster>=1.12.14",  # Orchestration framework
   "dagster-dbt>=0.25.14",  # Dagster dbt integration
   "dagster-dlt>=0.29.8",  # Dagster dlt integration
@@ -13,29 +43,23 @@ dependencies = [
   "dagster-malloy>=0.2.7",  # Dagster Malloy integration
   "dagster-webserver>=1.12.14",  # Dagster web UI
   "dbt-duckdb>=1.9.0",  # dbt DuckDB adapter
-  "dlt[duckdb,hub]>=1.29.0",  # Data ingestion
   "duckdb>=1.4.2",  # Analytical database
 ]
 
-[dependency-groups]
+# Dedicated for github actions dbt-docs build
+dbt-docs = [
+  "dbt-duckdb>=1.9.0",  # dbt DuckDB adapter
+  "duckdb>=1.4.2",  # Analytical database
+]
+
+# Developer environment
 dev = [
-  "dagster-dg-cli>=1.12.14",  # Dagster CLI
+  "dagster-webserver>=1.12.14",  # Dagster web UI
   "ipykernel>=7.2.0",  # Jupyter kernel for interactive development
   "jupytext>=1.19.1",  # Jupyter notebook and script synchronization
   "notebook>=7.5.3",  # Jupyter notebook interface
   "pyyaml>=6.0.3",  # Required for skill-creator scripts
   "ruff>=0.8.0",  # Python linter and formatter
-]
-
-analytics = [
-  "altair>=6.0.0",  # Plotting library
-  "duckdb-cli>=1.5.0",  # DuckDB CLI
-  "marimo>=0.23.8",  # Notebook-style data analysis
-  "pandas>=2.3.3",  # DataFrame manipulation library
-  "plotly>=6.5.2",  # Plotting library
-  "polars>=1.35.2",  # DataFrame manipulation library
-  "pyarrow>=22.0.0",  # Columnar in-memory format (used by dlt for performance)
-  "streamlit>=1.54.0",  # Python web data app
 ]
 
 [build-system]

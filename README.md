@@ -154,6 +154,7 @@ To get started with Orca, follow these steps:
 You can then:
 - Run Dagster UI using `dg dev`
 - Run ingestion and transformation pipeline using `dg launch --assets "*"`
+- Run the interactive dashboard using `uv run streamlit run analytics/dashboard/app.py`
 - Explore the local database using the [DuckDB UI](https://duckdb.org/2025/03/12/duckdb-ui):
   ```bash
   uv run duckdb -ui "ducklake:storage/orca.ducklake"

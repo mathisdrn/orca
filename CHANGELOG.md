@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+## [0.3.3] - 2026-08-17
+
+### Changed
+- Structured core data warehouse dependencies in `pyproject.toml` grouped by architectural layer (Ingestion, Transformation, Orchestration, Storage, Analytics) and introduced isolated sub-groups for specialized targets (`deployment`, `dbt-docs`, `dev`).
+- Replaced `dlt[duckdb,hub]` with `dlt[ducklake]`, dropped unused `plotly`, and made `pyarrow>=22.0.0` an explicit core dependency.
+- Decoupled deployment and CI targets to install only required packages (`deployment` in Docker, `dbt-docs` in GitHub Pages build, and `--no-dev` in data warehouse execution).
+
+### Fixed
+- Fixed scheduled data warehouse execution failure in GitHub Actions caused by missing `pyarrow` during `dlt` data normalization/parquet writing and missing `duckdb-cli` during DuckLake cleanup.
+- Updated `warehouse_execution.yml` workflow Node.js version from 20 to 22.
+
 ## [0.3.2] - 2026-08-15
 
 ### Added
