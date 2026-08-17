@@ -5,7 +5,7 @@
       "source": "dagster-io/skills",
       "sourceType": "github",
       "skillPath": "skills/dagster-expert/skills/dagster-expert/SKILL.md",
-      "computedHash": "0de12b5fee0975ce5440efbea2f49016bfe6af3e6b0aba12a293bc03698939b4"
+      "computedHash": "7a45d10e091e4187e47e8547443422a7347526b95853deeecbe8675bef110ce7"
     },
     "duckdb-docs": {
       "source": "duckdb/duckdb-skills",
@@ -23,7 +23,7 @@
       "source": "malloydata/publisher",
       "sourceType": "github",
       "skillPath": "skills/malloy/SKILL.md",
-      "computedHash": "4ed33d289e60466ff458e445153fba7c59f768cc2b2cf22cdd62f9b8074ad0e4"
+      "computedHash": "f2cd87dab4bb4a5115fa51b83d9ca6dc7d69c4d90f7f45d8c18ee438878c92d8"
     },
     "malloy-analyze": {
       "source": "malloydata/publisher",
@@ -35,43 +35,43 @@
       "source": "malloydata/publisher",
       "sourceType": "github",
       "skillPath": "skills/malloy-charts/SKILL.md",
-      "computedHash": "f2262b2338784ffb26a44c19987dae52a45468a5bb5e25e03c6696a348f76b1e"
+      "computedHash": "bd05e1d0abec9eb3419222cf578b5cc3898cc875dbebb80662ec8f8ec3e7ea72"
     },
     "malloy-debug": {
       "source": "malloydata/publisher",
       "sourceType": "github",
       "skillPath": "skills/malloy-debug/SKILL.md",
-      "computedHash": "ac1261342fe07c4fb2d1a5bc42d6a60d7e3bd3c04377781e72e4fbf5fe12dffb"
+      "computedHash": "eee4a8445159226feecca896417b42aad255d9c8b8ecd44330b46f8f7a13d3cc"
     },
     "malloy-define": {
       "source": "malloydata/publisher",
       "sourceType": "github",
       "skillPath": "skills/malloy-define/SKILL.md",
-      "computedHash": "66db66ff69bb4f604e0f6a25e9fc349c6ef8ee99a47343a1491d21f8029f2b9e"
+      "computedHash": "dcbe96ddcee8bda8134a5014d751b82c5b038497b2f4606311aba416b63db7d2"
     },
     "malloy-discover": {
       "source": "malloydata/publisher",
       "sourceType": "github",
       "skillPath": "skills/malloy-discover/SKILL.md",
-      "computedHash": "983ad5d9e8fc66fac9531f24fd37a8f24b864e7e19af37b26e8155610bdc6113"
+      "computedHash": "f7ddb82438e77a98e829cbe6759d8c8cfa1b2c5e5c6a00e5d4b9c3fdf1365fd6"
     },
     "malloy-document": {
       "source": "malloydata/publisher",
       "sourceType": "github",
       "skillPath": "skills/malloy-document/SKILL.md",
-      "computedHash": "760c26808cf7cd38ef126c964b72d85619357427d9e737407c243b5ed57241f6"
+      "computedHash": "66b91a62af2d174fd30fb13313acb4c1aed42274272567df146ecd6637484edb"
     },
     "malloy-model": {
       "source": "malloydata/publisher",
       "sourceType": "github",
       "skillPath": "skills/malloy-model/SKILL.md",
-      "computedHash": "124b6b6362ebd52f803138b4ab8f837998f37f346a9a20bdeec88aaa22b83fd4"
+      "computedHash": "a7bafc3c9027fb33df495e9de5ac29cfaa96bedf4dfd0d9dcdb17c794b214954"
     },
     "malloy-modeling": {
       "source": "malloydata/publisher",
       "sourceType": "github",
       "skillPath": "skills/malloy-modeling/SKILL.md",
-      "computedHash": "fcbeb30dd82b4e81752296fa0ee03c586f62cf9de2b07693a6557bce374dcb87"
+      "computedHash": "5bca9ca85cea0e17c85bea258c3a00a523939421bdbe74317aa842dcc77ae998"
     },
     "malloy-notebooks": {
       "source": "malloydata/publisher",
@@ -83,7 +83,7 @@
       "source": "malloydata/publisher",
       "sourceType": "github",
       "skillPath": "skills/malloy-patterns/SKILL.md",
-      "computedHash": "b6a0fc91b9f244345b617362a8181f2850de38543b4003aae38c512bc664f602"
+      "computedHash": "94dfd256bac43ea08ea386f41d00c53171de812559f7674ba1b54916a9cc9b3a"
     },
     "malloy-queries": {
       "source": "malloydata/publisher",
@@ -101,7 +101,7 @@
       "source": "malloydata/publisher",
       "sourceType": "github",
       "skillPath": "skills/malloy-scope/SKILL.md",
-      "computedHash": "f907c4a63ad4edc8da45dbeaa32f9f85ccbb3156e4cde8ceda8c3f5aaa57c926"
+      "computedHash": "55bd9555698544d47467974dfae555df51b2daf2ca03e98eaae68b06252e2a5d"
     },
     "marimo-notebook": {
       "source": "marimo-team/skills",
