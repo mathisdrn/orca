@@ -8,6 +8,7 @@ max_table_nesting=0
 
 [pipeline]
 dataset_name = "raw"
+pipelines_dir = "pipelines"
 
 [load]
 truncate_staging_dataset = true

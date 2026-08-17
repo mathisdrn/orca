@@ -25,4 +25,5 @@ def create_pipeline(pipeline_name: str, dataset_name: str = "raw") -> dlt.Pipeli
             override_data_path=True,
         ),
         dataset_name=dataset_name,
+        pipelines_dir="ingestion/.dlt/pipelines",
     )
