@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 WORKDIR /app
 
 COPY pyproject.toml uv.lock README.md ./
-RUN uv sync --frozen --no-dev --no-install-project --python 3.13
+RUN uv sync --frozen --no-dev --only-group deployment --no-install-project --python 3.13
 
 COPY analytics/ ./analytics/
 ENV PATH="/app/.venv/bin:$PATH"
@@ -41,7 +41,7 @@ ENV UV_COMPILE_BYTECODE=1 \
 COPY pyproject.toml uv.lock README.md ./
 
 # 2. Install third-party dependencies first (without project source)
-RUN uv sync --frozen --no-dev --no-install-project --python 3.13
+RUN uv sync --frozen --no-dev --only-group deployment --no-install-project --python 3.13
 
 # 3. Copy application source code
 COPY ingestion/ ./ingestion/
@@ -54,7 +54,7 @@ COPY storage/ ./storage/
 COPY --from=manifest-builder /app/analytics/malloy_manifest.json ./analytics/malloy_manifest.json
 
 # 5. Install the project package itself & clean uv build cache to minimize image size
-RUN mkdir -p /app/orchestration/dagster_home && uv sync --frozen --no-dev --python 3.13 && uv cache clean
+RUN mkdir -p /app/orchestration/dagster_home && uv sync --frozen --no-dev --only-group deployment --python 3.13 && uv cache clean
 
 # 6. Pre-compile dbt manifest
 RUN cd transformation && dbt compile --threads 1

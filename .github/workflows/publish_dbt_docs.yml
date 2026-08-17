@@ -42,7 +42,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          uv sync --frozen
+          uv sync --frozen --only-group dbt-docs
 
       - name: Generate dbt docs
         run: |

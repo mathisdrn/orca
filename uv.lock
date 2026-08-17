@@ -442,30 +442,6 @@ wheels = [
 ]
 
 [[package]]
-name = "cron-descriptor"
-version = "2.1.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "typing-extensions" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/91/75/b44b05ae7d1e49b59a27a917c44e04ce9aa4cebdd05dac42ba7df06a91b4/cron_descriptor-2.1.0.tar.gz", hash = "sha256:ecddb8b2f6c5286398949aaefe185364666af74f33b01877c61378e1fd4e38e6", size = 50221, upload-time = "2026-06-02T16:26:28.223Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/0d/41/c476c41cb88dbbba83e0685dd331b9d32599f1e4a94ca223b02437a3d83b/cron_descriptor-2.1.0-py3-none-any.whl", hash = "sha256:e280efae0e375e2cbc62846f833888f12c7921d2d11ab0dca598f94c51af8639", size = 74734, upload-time = "2026-06-02T16:26:26.919Z" },
-]
-
-[[package]]
-name = "croniter"
-version = "6.2.4"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "python-dateutil" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/37/57/2e2a65aee2a70483cb28e2b7e15a072d00a523207593b44400d4717bb100/croniter-6.2.4.tar.gz", hash = "sha256:fc124f751b1b04805c2a04b061898b436b45ab2320b045e1e052ea895de65189", size = 166267, upload-time = "2026-07-10T09:52:59.955Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/cd/ba/d678e5bd329646ca51d3c92addbc77804e86d21f4b6b6a027218e6abb010/croniter-6.2.4-py3-none-any.whl", hash = "sha256:8ef3d544107a5c05a150a2d78f8bf5a8eb9c5c4d93405a736b824109574e3f4d", size = 46677, upload-time = "2026-07-10T09:52:58.425Z" },
-]
-
-[[package]]
 name = "cryptography"
 version = "50.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -985,39 +961,9 @@ wheels = [
 ]
 
 [package.optional-dependencies]
-duckdb = [
+ducklake = [
     { name = "duckdb" },
-]
-hub = [
-    { name = "dlthub" },
-    { name = "dlthub-client" },
-]
-
-[[package]]
-name = "dlthub"
-version = "0.30.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/11/16/7ba6ca3b3be3212cd13225f614fba9b654719a858a40e6dd6824a346e072/dlthub-0.30.0.tar.gz", hash = "sha256:6b13c732ad81fc2e96d629a0e7f45f9d1cb4b8a5f230256cb1ef6d5b6b2bec1a", size = 173007, upload-time = "2026-08-11T12:20:33.682Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c7/b2/ac1c1cea00bc7808d1a05649207d126d5e4694595327c2e685fda26ae110/dlthub-0.30.0-py3-none-any.whl", hash = "sha256:205d52ef8b10e8b613b90df9c6c73911a2eff3cb5f5f07747d7f140db83747e0", size = 230487, upload-time = "2026-08-11T12:20:34.948Z" },
-]
-
-[[package]]
-name = "dlthub-client"
-version = "0.28.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "attrs" },
-    { name = "cron-descriptor" },
-    { name = "croniter" },
-    { name = "httpx" },
-    { name = "pathspec" },
-    { name = "pyjwt" },
-    { name = "tabulate" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/c7/02/97cac28340139106ba4b15f4402152d96ac2b3e30a70b0b903d1f4d3c90e/dlthub_client-0.28.2.tar.gz", hash = "sha256:2505c2f598e0528923d1275520df4a69a48825276b3e1be151568d992340c82c", size = 172345, upload-time = "2026-08-07T20:21:55.998Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/38/34/ed305801559f7927abde53fe39d1fa3f72c262e96466907c602d3e12f550/dlthub_client-0.28.2-py3-none-any.whl", hash = "sha256:fd1a2fb1f44b50ad7aeb0167b27c7a1ada61ab142b298cc4bec00c790b4f9a72", size = 415388, upload-time = "2026-08-07T20:21:54.652Z" },
+    { name = "pyarrow" },
 ]
 
 [[package]]
@@ -2371,9 +2317,33 @@ wheels = [
 
 [[package]]
 name = "orca"
-version = "0.3.2"
+version = "0.3.3"
 source = { editable = "." }
 dependencies = [
+    { name = "altair" },
+    { name = "dagster" },
+    { name = "dagster-dbt" },
+    { name = "dagster-dg-cli" },
+    { name = "dagster-dlt" },
+    { name = "dagster-duckdb" },
+    { name = "dagster-malloy" },
+    { name = "dbt-duckdb" },
+    { name = "dlt", extra = ["ducklake"] },
+    { name = "duckdb" },
+    { name = "duckdb-cli" },
+    { name = "marimo" },
+    { name = "pandas" },
+    { name = "polars" },
+    { name = "pyarrow" },
+    { name = "streamlit" },
+]
+
+[package.dev-dependencies]
+dbt-docs = [
+    { name = "dbt-duckdb" },
+    { name = "duckdb" },
+]
+deployment = [
     { name = "dagster" },
     { name = "dagster-dbt" },
     { name = "dagster-dlt" },
@@ -2381,23 +2351,10 @@ dependencies = [
     { name = "dagster-malloy" },
     { name = "dagster-webserver" },
     { name = "dbt-duckdb" },
-    { name = "dlt", extra = ["duckdb", "hub"] },
     { name = "duckdb" },
 ]
-
-[package.dev-dependencies]
-analytics = [
-    { name = "altair" },
-    { name = "duckdb-cli" },
-    { name = "marimo" },
-    { name = "pandas" },
-    { name = "plotly" },
-    { name = "polars" },
-    { name = "pyarrow" },
-    { name = "streamlit" },
-]
 dev = [
-    { name = "dagster-dg-cli" },
+    { name = "dagster-webserver" },
     { name = "ipykernel" },
     { name = "jupytext" },
     { name = "notebook" },
@@ -2407,6 +2364,30 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "altair", specifier = ">=6.0.0" },
+    { name = "dagster", specifier = ">=1.12.14" },
+    { name = "dagster-dbt", specifier = ">=0.25.14" },
+    { name = "dagster-dg-cli", specifier = ">=1.12.14" },
+    { name = "dagster-dlt", specifier = ">=0.29.8" },
+    { name = "dagster-duckdb", specifier = ">=0.29.17" },
+    { name = "dagster-malloy", specifier = ">=0.2.7" },
+    { name = "dbt-duckdb", specifier = ">=1.9.0" },
+    { name = "dlt", extras = ["ducklake"], specifier = ">=1.29.0" },
+    { name = "duckdb", specifier = ">=1.4.2" },
+    { name = "duckdb-cli", specifier = ">=1.5.0" },
+    { name = "marimo", specifier = ">=0.23.8" },
+    { name = "pandas", specifier = ">=2.3.3" },
+    { name = "polars", specifier = ">=1.35.2" },
+    { name = "pyarrow", specifier = ">=22.0.0" },
+    { name = "streamlit", specifier = ">=1.54.0" },
+]
+
+[package.metadata.requires-dev]
+dbt-docs = [
+    { name = "dbt-duckdb", specifier = ">=1.9.0" },
+    { name = "duckdb", specifier = ">=1.4.2" },
+]
+deployment = [
     { name = "dagster", specifier = ">=1.12.14" },
     { name = "dagster-dbt", specifier = ">=0.25.14" },
     { name = "dagster-dlt", specifier = ">=0.29.8" },
@@ -2414,23 +2395,10 @@ requires-dist = [
     { name = "dagster-malloy", specifier = ">=0.2.7" },
     { name = "dagster-webserver", specifier = ">=1.12.14" },
     { name = "dbt-duckdb", specifier = ">=1.9.0" },
-    { name = "dlt", extras = ["duckdb", "hub"], specifier = ">=1.29.0" },
     { name = "duckdb", specifier = ">=1.4.2" },
 ]
-
-[package.metadata.requires-dev]
-analytics = [
-    { name = "altair", specifier = ">=6.0.0" },
-    { name = "duckdb-cli", specifier = ">=1.5.0" },
-    { name = "marimo", specifier = ">=0.23.8" },
-    { name = "pandas", specifier = ">=2.3.3" },
-    { name = "plotly", specifier = ">=6.5.2" },
-    { name = "polars", specifier = ">=1.35.2" },
-    { name = "pyarrow", specifier = ">=22.0.0" },
-    { name = "streamlit", specifier = ">=1.54.0" },
-]
 dev = [
-    { name = "dagster-dg-cli", specifier = ">=1.12.14" },
+    { name = "dagster-webserver", specifier = ">=1.12.14" },
     { name = "ipykernel", specifier = ">=7.2.0" },
     { name = "jupytext", specifier = ">=1.19.1" },
     { name = "notebook", specifier = ">=7.5.3" },
@@ -2699,19 +2667,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/e5/98/0bf930c4f97d0266b58a89e36c015f56232c52b5d2f207215d48cca9e8f7/platformdirs-4.11.2.tar.gz", hash = "sha256:3a2ae5fca3520a01ab1be8b45613537f52ddf5b5f6f53d88233892dfbf0cd82d", size = 32716, upload-time = "2026-08-10T15:48:06.092Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/49/e2/4e6eee633809c376c024821b91ade709cbfd040ec53939ffbcc292aa7eee/platformdirs-4.11.2-py3-none-any.whl", hash = "sha256:7f89089b6ea71bda7962953edcf784b2e2d9d285b40ad88be2bb75c6e9d82ab4", size = 23361, upload-time = "2026-08-10T15:48:04.855Z" },
-]
-
-[[package]]
-name = "plotly"
-version = "6.9.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "narwhals" },
-    { name = "packaging" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/96/07/795c79dbce40c39bece88e69d049babbd23ffa95b5d117f248db8ea03abb/plotly-6.9.0.tar.gz", hash = "sha256:967ad33e8c704fed051800d11d985eb206a9c795c14206b30a6f463ed9c67d0d", size = 6919903, upload-time = "2026-07-09T14:55:59.982Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl", hash = "sha256:36bebe2f1bb13884774fe61689c329071446f6ce4a8927fb1f0d6fb24f581236", size = 9909646, upload-time = "2026-07-09T14:55:55.421Z" },
 ]
 
 [[package]]
