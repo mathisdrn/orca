@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+### Removed
+- Removed `skip-worktree` recommendation from `README.md` to prevent merge and pull conflicts when pulling upstream warehouse updates.
+
 ## [0.3.4] - 2026-08-18
 
 ### Changed
