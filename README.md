@@ -146,10 +146,6 @@ To get started with Orca, follow these steps:
 3. Install dependencies using `uv sync`
 4. Copy `.env.example` to `.env` and replace {PROJECT_ROOT} with the absolute path to the project.
 5. (optional) Install the recommended IDE extensions (VS Code, Cursor, Antigravity IDE).
-6. (optional) Ignore local modifications to the database and execution logs:
-   ```bash
-   git update-index --skip-worktree $(git ls-files storage/orca.ducklake storage/orca.ducklake.files/ orchestration/dagster_home/ | grep -v 'dagster.yaml')
-   ```
 
 You can then:
 - Run Dagster UI using `dg dev`
