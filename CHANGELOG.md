@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+## [0.3.5] - 2026-09-15
+
+### Added
+- Added `/robots.txt` endpoint in Cloudflare Worker to prevent web crawlers from indexing serverless orchestration and docs backends.
+- Added edge filtering for aggressive commercial scrapers and SEO bots (`AhrefsBot`, `SemrushBot`, etc.) with HTTP 403.
+- Implemented edge caching (`Cache-Control: immutable`) for Next.js static assets in Cloudflare Worker to eliminate container wakeups and preserve GCP free egress quotas.
+
+### Changed
+- Updated Google Cloud billing spend cap / budget envelope from 1 € to 10 € to align with Cloud Run's gross catalog free tier envelope and prevent premature service suspensions.
+- Documented gross billing vs net free tier considerations, anti-bot safeguards, and edge caching in `deployment/README.md` and `deployment/AGENTS.md`.
+
 ### Removed
 - Removed `skip-worktree` recommendation from `README.md` to prevent merge and pull conflicts when pulling upstream warehouse updates.
 

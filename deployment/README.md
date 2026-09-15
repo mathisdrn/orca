@@ -27,6 +27,11 @@ graph TD
 * **Performance**: `--concurrency 80` (80 req/instance) / `--cpu-boost` (fast cold starts).
 * **Billing Optimization**: `--cpu-throttling` (CPU billed strictly during active HTTP processing).
 * **Artifact Storage Cap (< 500MB Free Tier)**: CI/CD tags images strictly with `:latest` (in-place tag overwrite). This prevents multiple commit SHA image manifests from accumulating in Artifact Registry between asynchronous 24-hour cleanup policy executions.
+* **Billing Budget & Gross Spend Cap (10 € Envelope)**: Cloud Run Free Tier provides 360,000 vCPU-s and 180,000 GiB-s (~$9.89 gross value/month). Google Cloud's spend limits (*Plafonds de dépenses*) and budget forecasts track **gross catalog costs before Free Tier credits are applied**. A 1 € gross cap triggers premature alerts and risks automatic service suspension even with 0.00 € net spend. A 10 € threshold safely covers the Free Tier envelope.
+* **Anti-Bot & Crawler Protection**: Search engine and SEO crawlers (AhrefsBot, SemrushBot, etc.) can discover the site and wake up the serverless backend. The Cloudflare Worker intercepts requests at the edge:
+  - Serves `/robots.txt` disallowing crawlers on `/orchestration/` and `/transformation/`.
+  - Blocks known aggressive scrapers with HTTP 403 before reaching Cloud Run.
+* **Edge Asset Caching**: Static Next.js assets (`/orchestration/_next/static/*`) are cached at the Cloudflare edge (`Cache-Control: immutable`), avoiding repeated container wakeups and preserving the 1 GB/month North American free egress quota.
 
 ## 4. Setup Steps
 

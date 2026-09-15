@@ -219,10 +219,35 @@ async function getGoogleOidcToken(targetAudience, env) {
   }
 }
 
+// Regex matching aggressive crawlers and scrapers to preserve serverless quotas
+const BLOCKED_BOTS_REGEX = /AhrefsBot|SemrushBot|MJ12bot|DotBot|PetalBot|Bytespider|ClaudeBot|GPTBot|DataForSeoBot|ZoominfoBot|SEOkicks|Baiduspider|BLEXBot|YandexBot/i;
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const pathname = url.pathname;
+    const userAgent = request.headers.get("User-Agent") || "";
+
+    // 0. Robots.txt route to prevent search engines and crawlers from indexing serverless backends
+    if (pathname === "/robots.txt") {
+      return new Response(
+        "User-agent: *\nDisallow: /orchestration/\nDisallow: /transformation/\nAllow: /$\nAllow: /dashboard/\n",
+        {
+          headers: {
+            "Content-Type": "text/plain; charset=utf-8",
+            "Cache-Control": "public, max-age=86400",
+          },
+        }
+      );
+    }
+
+    // Block aggressive commercial scrapers & SEO crawlers from waking up Cloud Run
+    if (BLOCKED_BOTS_REGEX.test(userAgent)) {
+      return new Response("Forbidden: Bot crawling is restricted to protect serverless quotas.", {
+        status: 403,
+        headers: { "Content-Type": "text/plain; charset=utf-8" },
+      });
+    }
 
     // 0. Redirect www to apex domain
     if (url.hostname.startsWith("www.")) {
@@ -289,9 +314,28 @@ export default {
 
     // 3. Orchestration / Dagster UI -> GCP Cloud Run (Protected by OIDC)
     if (pathname === "/orchestration" || pathname.startsWith("/orchestration/")) {
-      // On cold start, Cloud Run may return 503. Detect and serve loading page instead.
       const targetUrl = `${DAGSTER_CLOUD_RUN_URL}${pathname}${url.search}`;
 
+      // Edge-cache immutable static assets (JS chunks, CSS, fonts) to eliminate Cloud Run invocations & egress bandwidth
+      if (pathname.startsWith("/orchestration/_next/static/") || pathname.startsWith("/orchestration/static/")) {
+        const cache = caches.default;
+        const cacheKey = new Request(url.toString(), request);
+        let cachedResponse = await cache.match(cacheKey);
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+
+        const response = await proxyWithRedirectRewrite(targetUrl, new URL(DAGSTER_CLOUD_RUN_URL).host, true);
+        if (response.ok) {
+          const responseToCache = new Response(response.body, response);
+          responseToCache.headers.set("Cache-Control", "public, max-age=2592000, immutable");
+          ctx.waitUntil(cache.put(cacheKey, responseToCache.clone()));
+          return responseToCache;
+        }
+        return response;
+      }
+
+      // On cold start, Cloud Run may return 503. Detect and serve loading page instead.
       // Only show the loader for browser navigation (not for API/asset sub-requests)
       const acceptHeader = request.headers.get("Accept") || "";
       const isBrowserNav = acceptHeader.includes("text/html");
