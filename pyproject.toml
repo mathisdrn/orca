@@ -1,6 +1,6 @@
 [project]
 name = "Orca"
-version = "0.3.5"
+version = "0.3.6"
 description = "Orca is a modern data warehouse implementation built with best-in-class open-source tools."
 readme = "README.md"
 requires-python = ">=3.13"
@@ -21,8 +21,8 @@ dependencies = [
   "dagster-malloy>=0.2.7",  # Dagster Malloy integration
 
   # Storage & Compute
-  "duckdb>=1.4.2",  # Analytical database
-  "duckdb-cli>=1.5.0",  # DuckDB CLI
+  "duckdb>=1.4.2,<2",  # Analytical database
+  "duckdb-cli>=1.5.0,<2",  # DuckDB CLI
 
   # Analytics & Reporting
   "altair>=6.0.0",  # Plotting library
@@ -43,13 +43,13 @@ deployment = [
   "dagster-malloy>=0.2.7",  # Dagster Malloy integration
   "dagster-webserver>=1.12.14",  # Dagster web UI
   "dbt-duckdb>=1.9.0",  # dbt DuckDB adapter
-  "duckdb>=1.4.2",  # Analytical database
+  "duckdb>=1.4.2,<2",  # Analytical database
 ]
 
 # Dedicated for github actions dbt-docs build
 dbt-docs = [
   "dbt-duckdb>=1.9.0",  # dbt DuckDB adapter
-  "duckdb>=1.4.2",  # Analytical database
+  "duckdb>=1.4.2,<2",  # Analytical database
 ]
 
 # Developer environment
@@ -88,36 +88,13 @@ docstring-code-format = true
 
 [tool.ruff.lint]
 preview = true
-# Comprehensive but pragmatic base categories for data engineering
 extend-select = [
-  "E",  # pycodestyle errors
-  "W",  # pycodestyle warnings
-  "I",  # isort
-  "UP",  # pyupgrade
-  "B",  # flake8-bugbear
-  "C4",  # flake8-comprehensions
-  "SIM",  # flake8-simplify
-  "A",  # flake8-builtins
-  "RET",  # flake8-return
-  "PT",  # flake8-pytest-style
-  "N",  # pep8-naming
-  "RUF",  # Ruff-specific rules
-  "S",  # flake8-bandit (security)
-  "T20",  # flake8-print (enforce logging in production pipelines)
-  "PLC",  # pylint convention
-  "PLE",  # pylint error
-  "PD",  # pandas best practices
-  "NPY",  # numpy best practices
-  "FA",  # flake8-future-annotations
+  "A",    # flake8-builtins
   "ICN",  # flake8-import-conventions (standard pd, pl, pa, st aliases)
-  "PTH",  # flake8-use-pathlib
-  "PERF",  # Perflint (performance checks)
-  "FURB",  # refurb (modern python idioms)
-  "PIE",  # flake8-pie
+  "NPY",  # numpy best practices
+  "PD",   # pandas best practices
   "SLF",  # flake8-self
-  "TC",  # flake8-type-checking (move type-only imports to IF TYPE_CHECKING)
-  "G",  # flake8-logging-format (enforces lazy logging formatting)
-  "LOG",  # flake8-logging
+  "T20",  # flake8-print (enforce logging in production pipelines)
 ]
 
 # Globally ignored for friction-less data development

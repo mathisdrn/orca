@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+## [0.3.6] - 2026-10-21
+
+### Changed
+- Pinned `duckdb` and `duckdb-cli` to `<2` (`duckdb>=1.4.2,<2`, `duckdb-cli>=1.5.0,<2`) in core and deployment groups to ensure stability against day-zero DuckDB 2.0.0 regressions.
+- Upgraded Polars to `v2.0.0`, PyArrow to `v26.0.0`, dlt to `v1.31.0`, Dagster to `v1.13.26`, Streamlit to `v1.66.1`, and Ruff to `v0.17.1`.
+- Upgraded dbt core ecosystem (`dbt-core 1.12.6`).
+- Simplified Ruff lint configuration in `pyproject.toml` by relying on Ruff's curated default rule set (413 rules) and keeping domain-specific data engineering extensions (`A`, `ICN`, `NPY`, `PD`, `SLF`, `T20`).
+
 ## [0.3.5] - 2026-09-15
 
 ### Added
