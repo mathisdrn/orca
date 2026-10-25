@@ -11,7 +11,7 @@ This project contains:
 - `transformation/`: dbt transformation pipelines
 - `orchestration/`: Dagster orchestration code
 - `storage/`: Database stored using DuckLake lakehouse format
-- `analytics/`: Malloy semantics models and Streamlit dashboard
+- `analytics/`: Boring Semantic Layer (BSL) models and Streamlit dashboard
 - `deployment/`: Deployment for Dagster read-only web UI
 - `.github/workflows/`: Weekly warehouse execution and Dagster UI serverless deployment in Google Cloud Run.
 
@@ -23,7 +23,6 @@ This project uses:
 - `gcloud` for Google Cloud platform
 - `npx wrangler` for Cloudflare environment
 - `gh` CLI to interact with GitHub
-- `malloy-cli` to interact with Malloy semantics models
 - `dbt` CLI for dbt transformations
 - `dg` for Dagster orchestrations
 

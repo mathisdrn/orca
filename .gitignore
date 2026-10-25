@@ -39,9 +39,5 @@ transformation/dbt_packages/
 transformation/.user.yml
 transformation/logs/
 
-# Analytics
-analytics/*.malloy.json
-analytics/malloy_manifest.json
-
 # Deployment
 deployment/.wrangler/

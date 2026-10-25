@@ -28,11 +28,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-
       - name: Install uv
         uses: astral-sh/setup-uv@v9.0.0
         with:
@@ -57,11 +52,6 @@ jobs:
         run: |
           cd transformation
           uv run dbt compile
-
-      - name: Install @malloydata/cli & pre-compile Malloy manifest
-        run: |
-          npm install -g @malloydata/cli
-          uv run python analytics/build_manifest.py
 
       - name: Run Dagster pipeline
         run: |

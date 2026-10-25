@@ -1,12 +1,11 @@
 {
     "recommendations": [
         "dbtlabsinc.dbt", // dbt extension
-        "charliermarsh.ruff", // Linting for Python
+        "charliermarsh.ruff", // Python linter and formatter
         "astral-sh.ty", // Type checking for Python
         "ms-toolsai.jupyter", // Jupyter extension for .ipynb files
-        "caenrigen.jupytext-sync", // Jupytext Sync for .ipynb and .py files
-        "tombi-toml.tombi", // TOML support for pyproject.toml
-        "ms-toolsai.datawrangler", // Data Wrangler for data manipulation
-        "malloydata.malloy-vscode", // Malloy semantic model
+        "caenrigen.jupytext-sync", // Synchronize .py and .ipynb files
+        "tombi-toml.tombi", // TOML linter and formatter
+        "ms-toolsai.datawrangler", // Visualize and transform Parquet files
     ]
 }
