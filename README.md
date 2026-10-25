@@ -109,18 +109,12 @@ Execution artifacts are git-ignored for local development and testing but force-
 
 ### Semantic layer
 
-Orca uses [Malloy](https://malloydata.dev) as a **semantic layer** to create reusable data models and metrics on top of the data warehouse `marts` layer.
-
-Malloy models and queries are integrated seamlessly into Dagster orchestration using [**`dagster-malloy`**](https://github.com/mathisdrn/dagster-malloy). `dagster-malloy` provides:
-- **Warehouse-Native Materialization (CTAS)**: Compiles Malloy models into dialect SQL and executes `CREATE TABLE AS <sql>` directly inside the DuckDB / DuckLake warehouse without Python RAM overhead or data egress.
-- **Full Data Lineage**: Automatically maps Malloy sources and join dependencies against `marts` dbt tables to generate a unified asset graph in the Dagster UI.
-- **AST Manifest Caching**: Pre-compiles AST metadata (`malloy_manifest.json`) via `MalloyProject` for instant pure-Python asset loading in production.
-- **Data Quality Asset Checks**: Automatically registers inline Malloy validation queries as Dagster asset checks executed directly in the warehouse.
+Orca uses [Boring Semantic Layer (BSL)](https://github.com/boringdata/boring-semantic-layer) as a Python-native **semantic layer** built on top of [Ibis](https://ibis-project.org/) to define reusable dimensions, measures, and relationships over the `marts` layer (`analytics/model.py`).
 
 
 ### Reporting
 
-Orca uses [Streamlit](https://streamlit.io/) to create interactive dashboards in Python.
+Orca uses [Streamlit](https://streamlit.io/) to create interactive dashboards in Python, querying the BSL semantic models directly into [Polars](https://pola.rs/) DataFrames and native Streamlit charts.
 
 > [!TIP]
 > Explore the interactive dashboard at **https://orca-datawarehouse.dev/dashboard/**.
@@ -135,8 +129,7 @@ Orca includes `AGENTS.MD` files throughout the codebase to provide context and d
 
 Orca bakes domain knowledge, context and documentation into the project structure:
 - `AGENTS.MD` files provide specific context relevant to the folder they are located in.
-- `SKILLS` files describe workflows and tool-specific knowledge.
-- [Malloy Publisher MCP Server](https://docs.malloydata.dev/documentation/user_guides/publishing/mcp_agents) helps AI agents efficiently explore Malloy models.
+- `SKILLS` files describe workflows and tool-specific knowledge (`bsl-model-builder`, `bsl-query-expert`, `dagster-expert`, `duckdb-docs`, `using-dbt-for-analytics-engineering`, etc.).
 
 ## Get started
 
@@ -155,7 +148,6 @@ You can then:
   ```bash
   uv run duckdb -ui "ducklake:storage/orca.ducklake"
   ```
-- Explore the Malloy semantic layer using the IDE extension.
 
 ## Project structure
 
@@ -163,7 +155,7 @@ You can then:
 orca/
 ├── .agents/             # Agent skills
 ├── .github/             # GitHub Actions workflows
-├── analytics/           # Dashboards and Malloy semantic models
+├── analytics/           # Dashboards and BSL semantic models
 ├── ingestion/           # dlt ingestion pipelines and configurations
 ├── orchestration/       # Dagster orchestration assets and configurations
 ├── storage/             # DuckLake storage + utils

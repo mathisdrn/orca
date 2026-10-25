@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-10-25
+
+### Added
+- Implemented Python-native semantic model (`stories`) in `analytics/model.py` using `boring-semantic-layer` (`>=0.3.18`) and `ibis-framework[duckdb]` (`>=11.0.0`).
+- Installed official Boring Semantic Layer agent skills (`bsl-model-builder` and `bsl-query-expert`).
+
+### Changed
+- Refactored Streamlit dashboard (`analytics/dashboard/app.py`) to query the BSL `stories` semantic model directly and use native Streamlit charts (`st.area_chart`, `st.bar_chart`).
+- Simplified `deployment/Dockerfile.dagster` into a single-stage pure-Python 3.13 build and removed Node.js / `@malloydata/cli` steps from `.github/workflows/warehouse_execution.yml`.
+
+### Removed
+- Removed Malloy semantic layer files (`analytics/model.malloy`, `analytics/malloy-config.json`, `analytics/malloy_manifest.json`, `analytics/build_manifest.py`), `dagster-malloy`, `dagster-duckdb`, `altair`, and Malloy agent skills.
+
 ## [0.3.6] - 2026-10-21
 
 ### Changed
