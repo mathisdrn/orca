@@ -22,7 +22,7 @@ Orca is an implementation of a serverless, declarative and agentic-ready [data w
 - 📊 **[Interactive dashboard](https://orca-datawarehouse.dev/dashboard/)** – Explore HackerNews analytics & insights
 - 🔄 **[Dagster orchestration](https://orca-datawarehouse.dev/orchestration/)** – View the live asset graph and execution history
 - 🏗️ **[dbt documentation and lineage](https://orca-datawarehouse.dev/transformation/)** – Inspect data transformations and models
-- 🦆 **[Browse the database](https://demo.duckui.com/#s=H4sIAAAAAAAAE1WMXWuDMBSG_8ohN4VhddulXqXVrtI4WbVsDG9SPdSgJl1yslLG_vtoWWG7ez-fL_bJ4seA0fmILGbuY2QBI0Xjxb14tGcobSvhSdHa76E3jrCD1LeDkAOy4PqI2XwOf8adJAknabE33iFYnAzheAbvlD5cz-kCOiVHbClstCh5CuluuRF8kyWN5nXNl2vIV_Bc1pC95VVdwazz7TDKAeOe6OjiKLLyFB4U9X7vHdrWaEJNYWumaJLUK9dZHRnbymiSSkeOjJUHvCbhjTUDXsElSRq9q7KbbHS1Ll-BCwE1X4isSho9n0O1Kwq-zd8zmKQlF16QCt1vmYlsWcMdrLZl8X8AIi_yGh7uExYw6clsvWYxWY_fP63Oobl_AQAA)** – Query the data lakehouse live via Duck-UI
+- 🦆 **[Browse the database](https://duckui.com/#s=H4sIAAAAAAAAE62OTU-DQBCG_8pkL6jhQz3CaVu2KSmIwqLGbNKssBZSWOp-aBrjfzdQjfHubeZ5J_O8H-gNhdcuMseDQCHSrz1ykelMP22VnKcG7qxQR-TOcYg87wQgVzWHhhsO71yJdrRagBLDaER_BKs7uYPY1vt4AU3He1Ebn8k0xzHE1XKT4g2JmMSU4uUakhXc5BTIY1LSEpzG1vue70XYGnPQYRAo_u7vOtPaZ6uFqkdphDR-PQ7BwE3b6UbJYFQ1DwbeyUCbUfGdmIn_88sBXMJE4IxJAIAYU7y9xXQNzj9q_JeuFzpw3JMkvydFkcRk-2szygomzyMmq5LMjSImmSzX-QPgNAWKFykpIyY9D8oqy3CRPBEYuDLan5Sd0N8hScmSwgWsijz7ewBpkiUUri4j5CJuzVhYicLJ_PkFdcj0_PMBAAA)** – Query the data lakehouse live via Duck-UI
 
 ## Content
 
@@ -105,7 +105,7 @@ Execution artifacts are git-ignored for local development and testing but force-
 > [!TIP]
 > Because the database is publicly hosted on GitHub using DuckLake format, any [query engine that speaks DuckLake](https://ducklake.select/docs/stable/#list-of-ducklake-clients) can remotely query the data lakehouse. The DuckDB team calls this a [frozen DuckLake](https://ducklake.select/2025/10/24/frozen-ducklake/). 
 >
-> Explore the latest database in your browser using this [Duck-UI query](https://demo.duckui.com/#s=H4sIAAAAAAAAE1WMXWuDMBSG_8ohN4VhddulXqXVrtI4WbVsDG9SPdSgJl1yslLG_vtoWWG7ez-fL_bJ4seA0fmILGbuY2QBI0Xjxb14tGcobSvhSdHa76E3jrCD1LeDkAOy4PqI2XwOf8adJAknabE33iFYnAzheAbvlD5cz-kCOiVHbClstCh5CuluuRF8kyWN5nXNl2vIV_Bc1pC95VVdwazz7TDKAeOe6OjiKLLyFB4U9X7vHdrWaEJNYWumaJLUK9dZHRnbymiSSkeOjJUHvCbhjTUDXsElSRq9q7KbbHS1Ll-BCwE1X4isSho9n0O1Kwq-zd8zmKQlF16QCt1vmYlsWcMdrLZl8X8AIi_yGh7uExYw6clsvWYxWY_fP63Oobl_AQAA).
+> Explore the latest database in your browser using this [Duck-UI query](https://duckui.com/#s=H4sIAAAAAAAAE62OTU-DQBCG_8pkL6jhQz3CaVu2KSmIwqLGbNKssBZSWOp-aBrjfzdQjfHubeZ5J_O8H-gNhdcuMseDQCHSrz1ykelMP22VnKcG7qxQR-TOcYg87wQgVzWHhhsO71yJdrRagBLDaER_BKs7uYPY1vt4AU3He1Ebn8k0xzHE1XKT4g2JmMSU4uUakhXc5BTIY1LSEpzG1vue70XYGnPQYRAo_u7vOtPaZ6uFqkdphDR-PQ7BwE3b6UbJYFQ1DwbeyUCbUfGdmIn_88sBXMJE4IxJAIAYU7y9xXQNzj9q_JeuFzpw3JMkvydFkcRk-2szygomzyMmq5LMjSImmSzX-QPgNAWKFykpIyY9D8oqy3CRPBEYuDLan5Sd0N8hScmSwgWsijz7ewBpkiUUri4j5CJuzVhYicLJ_PkFdcj0_PMBAAA).
 
 ### Semantic layer
 
