@@ -47,14 +47,13 @@ jobs:
       - name: Generate dbt docs
         run: |
           cd transformation
-          # Use --threads 1 for dbt commands to prevent concurrent write lock conflicts with DuckDB
           # If the DuckLake database file exists in the repo, use it. Otherwise, fallback to a temporary empty DuckDB file.
           if [ -f ../storage/orca.ducklake ]; then
             echo "Using existing DuckLake database for generating docs."
-            uv run dbt docs generate --threads 1
+            uv run dbt docs generate
           else
             echo "DuckLake database not found. Using a temporary empty DuckDB file."
-            DBT_DUCKDB_PATH="orca_temp.db" uv run dbt docs generate --threads 1
+            DBT_DUCKDB_PATH="orca_temp.db" uv run dbt docs generate
             rm -f orca_temp.db
           fi
 

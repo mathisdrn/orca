@@ -63,9 +63,7 @@ author = st.sidebar.selectbox(
 limit_n = st.sidebar.slider("Top Items Count", min_value=5, max_value=50, value=10)
 
 # 3. Filter Semantic Model
-filtered = stories.filter(
-    _.created_at.between(f"{date_range[0]} 00:00:00", f"{date_range[1]} 23:59:59")
-)
+filtered = stories.filter(_.day.between(date_range[0], date_range[1]))
 if story_type == "Show HN / Ask HN Only":
     filtered = filtered.filter(_.is_show_ask)
 elif story_type == "Link Stories Only":
@@ -168,7 +166,8 @@ with breakdown_col1:
         .group_by("story_id", "title")
         .aggregate("total_score")
         .order_by(_.total_score.desc())
-        .limit(limit_n),
+        .limit(limit_n)
+        .to_polars(),
         x="title",
         y="total_score",
         x_label="",
@@ -186,7 +185,8 @@ with breakdown_col2:
         .group_by("story_id", "title")
         .aggregate("total_comments")
         .order_by(_.total_comments.desc())
-        .limit(limit_n),
+        .limit(limit_n)
+        .to_polars(),
         x="title",
         y="total_comments",
         x_label="",

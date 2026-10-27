@@ -4,6 +4,7 @@ orca:
     dev:
       type: duckdb
       path: ':memory:'
+      threads: 1
       extensions:
         - ducklake
       attach:

@@ -6,8 +6,10 @@ on:
       - main
     paths:
       - 'deployment/**'
+      - 'ingestion/**'
       - 'orchestration/**'
-      - 'analytics/**'
+      - 'storage/**'
+      - 'transformation/**'
       - '.github/workflows/deploy_cloud_run.yml'
   workflow_dispatch:
 
@@ -31,7 +33,6 @@ jobs:
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v3

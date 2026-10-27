@@ -1,13 +1,16 @@
+import os
 from pathlib import Path
 
-import dlt
-from dlt.destinations.impl.ducklake.configuration import DuckLakeCredentials
 from dotenv import load_dotenv
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 # Load env variables from root .env file
 load_dotenv(PROJECT_ROOT / ".env")
+os.environ.setdefault("DLT_CONFIG_FOLDER", str(PROJECT_ROOT / "ingestion" / ".dlt"))
+
+import dlt
+from dlt.destinations.impl.ducklake.configuration import DuckLakeCredentials
 
 
 def create_pipeline(pipeline_name: str, dataset_name: str = "raw") -> dlt.Pipeline:
@@ -25,5 +28,5 @@ def create_pipeline(pipeline_name: str, dataset_name: str = "raw") -> dlt.Pipeli
             override_data_path=True,
         ),
         dataset_name=dataset_name,
-        pipelines_dir="ingestion/.dlt/pipelines",
+        pipelines_dir=str(PROJECT_ROOT / "ingestion" / ".dlt" / "pipelines"),
     )

@@ -11,7 +11,7 @@ models:
     columns:
       - name: story_id
         description: "Unique identifier of the story."
-        tests:
+        data_tests:
           - unique
           - not_null
       - name: author
@@ -32,7 +32,7 @@ models:
     columns:
       - name: comment_id
         description: "Unique identifier of the comment."
-        tests:
+        data_tests:
           - unique
           - not_null
       - name: author

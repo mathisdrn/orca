@@ -8,6 +8,7 @@ requires-python = ">=3.13"
 dependencies = [
   # Ingestion
   "dlt[ducklake]>=1.29.0",  # Data ingestion
+  "python-dotenv>=1.2.4",  # Environment variable loading
 
   # Transformation
   "dbt-duckdb>=1.9.0",  # dbt DuckDB adapter

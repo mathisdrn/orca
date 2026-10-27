@@ -8,111 +8,12 @@
  *  - /                  -> Redirect to /orchestration/
  */
 
+import COLDSTART_LOADER_HTML from "./coldstart_loader.html";
+
 // Replace these URLs with your actual deployed GCP Cloud Run URLs
 const DAGSTER_CLOUD_RUN_URL = "https://orca-dagster-120618094679.us-central1.run.app";
 const GITHUB_PAGES_URL = "https://mathisdrn.github.io/orca/dbt-docs";
 const STREAMLIT_APP_URL = "https://orca-dashboard.streamlit.app/?embed=true";
-
-const PROXY_SECRET = "orca-cloudflare-secret-987654321";
-
-const COLDSTART_LOADER_HTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orca Data Warehouse – Starting Instance</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: #0f172a;
-      color: #f8fafc;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-    .card {
-      background-color: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 12px;
-      padding: 40px 32px;
-      width: 100%;
-      max-width: 440px;
-      text-align: center;
-    }
-    .logo-container { margin-bottom: 20px; display: flex; justify-content: center; }
-    .logo {
-      width: 48px; height: 48px;
-      background-color: #0284c7;
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .logo svg { width: 28px; height: 28px; fill: none; stroke: #ffffff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .status-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background-color: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      color: #38bdf8; padding: 4px 12px; border-radius: 9999px;
-      font-size: 0.8rem; font-weight: 500; margin-bottom: 20px;
-    }
-    .pulse-dot { width: 6px; height: 6px; background-color: #38bdf8; border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
-    h1 { font-size: 1.35rem; font-weight: 600; color: #f8fafc; margin-bottom: 12px; }
-    p { color: #94a3b8; font-size: 0.9rem; line-height: 1.5; margin-bottom: 28px; }
-    .spinner-wrapper { position: relative; width: 40px; height: 40px; margin: 0 auto 24px auto; }
-    .spinner {
-      width: 100%; height: 100%;
-      border: 3px solid #334155;
-      border-top: 3px solid #38bdf8;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    .timer { font-size: 0.85rem; color: #64748b; font-variant-numeric: tabular-nums; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <div class="logo-container">
-      <div class="logo">
-        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      </div>
-    </div>
-    <div class="status-badge">
-      <div class="pulse-dot"></div>
-      <span>GCP Serverless Instance</span>
-    </div>
-    <h1>Starting Dagster UI...</h1>
-    <p>The serverless instance is spinning up to save resources. Spin-up usually takes about 30 seconds. You will be automatically redirected as soon as the server is ready.</p>
-    <div class="spinner-wrapper"><div class="spinner"></div></div>
-    <div class="timer" id="timer">Time elapsed: 0s</div>
-  </div>
-  <script>
-    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    const TARGET_URL = window.location.origin + '/orchestration/';
-    const POLL_INTERVAL_MS = 2000;
-    let secondsElapsed = 0;
-    const timerElem = document.getElementById('timer');
-    setInterval(() => { secondsElapsed++; timerElem.textContent = 'Time elapsed: ' + secondsElapsed + 's'; }, 1000);
-    async function checkAvailability() {
-      if (isLocalhost) return;
-      try {
-        const response = await fetch(TARGET_URL, { method: 'HEAD', headers: { 'Accept': 'application/json' } });
-        if (response.ok) { window.location.href = TARGET_URL; }
-      } catch (err) { /* still cold, keep polling */ }
-    }
-    if (!isLocalhost) {
-      setInterval(checkAvailability, POLL_INTERVAL_MS);
-      checkAvailability();
-    }
-  <\/script>
-</body>
-</html>`;
 
 
 // Cache OIDC token per target audience in worker instance memory
@@ -273,7 +174,6 @@ export default {
       modifiedRequest.headers.set("Host", backendHost);
       modifiedRequest.headers.set("X-Forwarded-Host", url.host);
       modifiedRequest.headers.set("X-Forwarded-Proto", "https");
-      modifiedRequest.headers.set("X-Orca-Proxy-Secret", PROXY_SECRET);
 
       if (requireAuth) {
         const idToken = await getGoogleOidcToken(new URL(targetUrl).origin, env);

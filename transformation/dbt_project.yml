@@ -4,8 +4,6 @@ config-version: 2
 profile: 'orca'
 
 model-paths: ["models"]
-seed-paths: ["seeds"]
-test-paths: ["tests"]
 macro-paths: ["macros"]
 
 target-path: "target"

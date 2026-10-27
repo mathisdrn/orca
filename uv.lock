@@ -2604,6 +2604,7 @@ dependencies = [
     { name = "pandas" },
     { name = "polars" },
     { name = "pyarrow" },
+    { name = "python-dotenv" },
     { name = "streamlit" },
 ]
 
@@ -2645,6 +2646,7 @@ requires-dist = [
     { name = "pandas", specifier = ">=2.3.3" },
     { name = "polars", specifier = ">=1.35.2" },
     { name = "pyarrow", specifier = ">=22.0.0" },
+    { name = "python-dotenv", specifier = ">=1.2.4" },
     { name = "streamlit", specifier = ">=1.54.0" },
 ]
 
