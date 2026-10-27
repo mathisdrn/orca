@@ -34,7 +34,7 @@ Orca data warehouse is built around [HackerNews](https://hcker.news/) data. Hack
 
 ### Ingestion
 
-Every day, new stories, comments, and user profiles are fetched from the [HackerNews REST API](https://github.com/hackernews/api) and ingested into the `raw` layer of the data warehouse. **Ingestion pipelines** are written using Python and [dlt](https://dlthub.com/product/dlt), which facilitates data extraction, schema inference, normalization, and loading into the warehouse.
+Every week, new stories, comments, and polls are fetched from the [HackerNews Algolia REST API](https://hn.algolia.com/api) and ingested into the `raw` layer of the data warehouse. **Ingestion pipelines** are written using Python and [dlt](https://dlthub.com/product/dlt), which facilitates data extraction, schema inference, normalization, and loading into the warehouse.
 
 <details>
 <summary>More about ingestion using dlt</summary>
@@ -156,6 +156,7 @@ orca/
 ├── .agents/             # Agent skills
 ├── .github/             # GitHub Actions workflows
 ├── analytics/           # Dashboards and BSL semantic models
+├── deployment/          # Serverless deployment (Cloud Run & Cloudflare Worker)
 ├── ingestion/           # dlt ingestion pipelines and configurations
 ├── orchestration/       # Dagster orchestration assets and configurations
 ├── storage/             # DuckLake storage + utils

@@ -22,6 +22,7 @@ jobs:
 
     env:
       DAGSTER_HOME: ${{ github.workspace }}/orchestration/dagster_home
+      DLT_CONFIG_FOLDER: ${{ github.workspace }}/ingestion/.dlt
       DBT_DUCKDB_PATH: ducklake:${{ github.workspace }}/storage/orca.ducklake
 
     steps:

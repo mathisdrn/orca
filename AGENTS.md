@@ -27,7 +27,7 @@ This project uses:
 - `dg` for Dagster orchestrations
 
 Additional information:
-- Warehouse artifacts (database, dbt `manifest.json`, Dagster logs) are git-ignored for local-development but force-pushed during GitHub Actions weekly warehouse execution.
+- Warehouse artifacts (database, Dagster logs) are git-ignored for local-development but force-pushed during GitHub Actions weekly warehouse execution.
 
 Development practices:
 - Keep `README.md` and `AGENTS.md` up-to-date with developments.

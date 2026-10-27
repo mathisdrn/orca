@@ -15,9 +15,10 @@
     },
     "dagster-expert": {
       "source": "dagster-io/skills",
+      "ref": "master",
       "sourceType": "github",
-      "skillPath": "skills/dagster-expert/skills/dagster-expert/SKILL.md",
-      "computedHash": "7a45d10e091e4187e47e8547443422a7347526b95853deeecbe8675bef110ce7"
+      "skillPath": "plugins/dagster/skills/dagster-expert/SKILL.md",
+      "computedHash": "c3f631f1c606a6c90e848508490e5cc04bd193e3c32d32f9f6b1bfa33ccc380f"
     },
     "duckdb-docs": {
       "source": "duckdb/duckdb-skills",
@@ -41,19 +42,19 @@
       "source": "motherduckdb/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/motherduck-duckdb-sql/SKILL.md",
-      "computedHash": "6eb088190d6ec32d4ce7f73ea17af63b2e128d281d6400f2b6f4cee82f5acf33"
+      "computedHash": "36ae9624a622d8b435c4d46e2f5dd98dae53d42e0b34937360d3c37ec4bf7f02"
     },
     "motherduck-load-data": {
       "source": "motherduckdb/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/motherduck-load-data/SKILL.md",
-      "computedHash": "8500d9a48222fde65185c958b25cc619fadaeeb081d0862d64aa67345eaa1ddd"
+      "computedHash": "2fbf5d51c4731f4d6b04093bdf232a7ee45d882adee0a079d722338db2b5bb11"
     },
     "motherduck-model-data": {
       "source": "motherduckdb/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/motherduck-model-data/SKILL.md",
-      "computedHash": "dc0d035d78dee9c5e0e76c75532b9f819b142d05772fcaa21754d7361135a96d"
+      "computedHash": "cb2412a783710b25003a8aea0f12b684c4b26fd5a76685dc5e52841d47b4daff"
     },
     "skill-creator": {
       "source": "anthropics/skills",
@@ -65,13 +66,13 @@
       "source": "dbt-labs/dbt-agent-skills",
       "sourceType": "github",
       "skillPath": "skills/dbt/skills/troubleshooting-dbt-job-errors/SKILL.md",
-      "computedHash": "6c18b079cebf60a7e6ef419133459f59cf2ea05206f3ccdd3e38cc413d3e3fd0"
+      "computedHash": "01e2f7ca9a721bd773408cfc2c37adc55e6e6200dc4a62a266bb7f033d93a9d2"
     },
     "using-dbt-for-analytics-engineering": {
       "source": "dbt-labs/dbt-agent-skills",
       "sourceType": "github",
       "skillPath": "skills/dbt/skills/using-dbt-for-analytics-engineering/SKILL.md",
-      "computedHash": "154227ce8eaf50cb8b38099722c5358f215e4728f4f5c18ea33f89bee5b8f88a"
+      "computedHash": "59a854e12cce06d476279f3664e1913564666c3187842b3f7a99fabd987e14fa"
     }
   }
 }

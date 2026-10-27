@@ -4,8 +4,9 @@ This directory contains **dlt** ingestion pipelines that extract data from sourc
 
 ## Directory Structure
 - `.dlt/`: dlt configuration and cache.
-- `sources/`: Data sources implementation.
-- `pipelines/`: Pipeline execution entrypoints.
+- `<source>.py`: Data source and resource implementation (e.g., `hackernews.py`).
+- `run_<source>.py`: Standalone pipeline execution entrypoints (e.g., `run_hackernews.py`).
+- `utils.py`: Shared pipeline initialization helpers.
 
 ## Conventions
 - Use Python code instead of new dlt components (`.yaml`).

@@ -2,12 +2,7 @@ import logging
 import os
 from pathlib import Path
 
-from dagster import (
-    AssetExecutionContext,
-    AssetSpec,
-    Definitions,
-    in_process_executor,
-)
+import dagster as dg
 from dagster_dbt import DbtCliResource, DbtProject
 from dagster_dbt import dbt_assets as dbt_assets_decorator
 from dagster_dlt import DagsterDltResource, DagsterDltTranslator, dlt_assets
@@ -23,7 +18,7 @@ logging.getLogger("dlt").handlers.clear()
 
 
 class CustomDagsterDltTranslator(DagsterDltTranslator):
-    def get_asset_spec(self, data: DltResourceTranslatorData) -> AssetSpec:
+    def get_asset_spec(self, data: DltResourceTranslatorData) -> dg.AssetSpec:
         doc = data.resource.__doc__
         description = doc.strip().split("\n")[0].strip() if doc else None
         return (
@@ -44,7 +39,7 @@ class CustomDagsterDltTranslator(DagsterDltTranslator):
     group_name="ingestion",
     dagster_dlt_translator=CustomDagsterDltTranslator(),
 )
-def hackernews_assets(context: AssetExecutionContext, dlt: DagsterDltResource):
+def hackernews_assets(context: dg.AssetExecutionContext, dlt: DagsterDltResource):
     yield from dlt.run(context=context)
 
 
@@ -65,11 +60,11 @@ os.environ.setdefault("DBT_DUCKDB_DATA_PATH", f"{_catalog}.files/")
 
 # Define dbt assets dynamically from manifest
 @dbt_assets_decorator(manifest=dbt_project.manifest_path)
-def dbt_assets(context: AssetExecutionContext, dbt: DbtCliResource):
+def dbt_assets(context: dg.AssetExecutionContext, dbt: DbtCliResource):
     yield from dbt.cli(["build"], context=context).stream()
 
 
-defs = Definitions(
+defs = dg.Definitions(
     assets=[
         hackernews_assets,
         dbt_assets,
@@ -78,5 +73,5 @@ defs = Definitions(
         "dlt": DagsterDltResource(),
         "dbt": DbtCliResource(project_dir=dbt_project),
     },
-    executor=in_process_executor,  # to avoid DuckDB concurrent access errors
+    executor=dg.in_process_executor,  # to avoid DuckDB concurrent access errors
 )

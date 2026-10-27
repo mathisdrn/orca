@@ -35,7 +35,7 @@ COPY storage/ ./storage/
 RUN mkdir -p /app/orchestration/dagster_home && uv sync --frozen --no-dev --only-group deployment --python 3.13 && uv cache clean
 
 # 5. Pre-compile dbt manifest
-RUN cd transformation && dbt compile --threads 1
+RUN cd transformation && dbt compile
 
 EXPOSE 8080
 
