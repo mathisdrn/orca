@@ -15,9 +15,6 @@ con.execute(
 )
 ibis_con = ibis.duckdb.from_connection(con)
 
-_is_link = _.url.notnull()
-_is_show_ask = _.title.startswith("Show HN:") | _.title.startswith("Ask HN:")
-
 stories = (
     to_semantic_table(
         ibis_con.table("stories", database=("orca", "marts")), name="stories"
@@ -29,8 +26,8 @@ stories = (
         day=_.created_at.truncate("D"),
         title=_.title,
         url=_.url,
-        is_link=_is_link,
-        is_show_ask=_is_show_ask,
+        is_link=_.url.notnull(),
+        is_show_ask=_.title.startswith("Show HN:") | _.title.startswith("Ask HN:"),
     )
     .with_measures(
         story_count=_.count(),
@@ -40,8 +37,8 @@ stories = (
         max_score=_.score.max(),
         total_comments=_.comment_count.sum(),
         avg_comments=_.comment_count.mean(),
-        link_story_count=_is_link.sum(),
-        show_ask_count=_is_show_ask.sum(),
+        link_story_count=_.is_link.sum(),
+        show_ask_count=_.is_show_ask.sum(),
         min_created_at=_.created_at.min(),
         max_created_at=_.created_at.max(),
     )

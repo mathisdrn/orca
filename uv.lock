@@ -263,7 +263,7 @@ css = [
 
 [[package]]
 name = "boring-semantic-layer"
-version = "0.3.18"
+version = "0.3.19"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
@@ -273,9 +273,9 @@ dependencies = [
     { name = "returns" },
     { name = "toolz" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/34/3a/bf449176546854c867836c6f284bed4b93bfe82032fbf84183a8997d7be2/boring_semantic_layer-0.3.18.tar.gz", hash = "sha256:7575219ff1d52c80efdb3901b78f0fa6ffce92c3dd987f47ea1e6463811ff917", size = 1437498, upload-time = "2026-08-24T13:39:32.967Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/dc/3d/79c4e9d1fc1cf1055d74f0eb33cca82288381e766ea797f7427a3e5fd144/boring_semantic_layer-0.3.19.tar.gz", hash = "sha256:4d99ec12701e299fa3da14692f642c455e2fdef67d37806cabca2e43c5174c72", size = 1439988, upload-time = "2026-11-11T07:30:16.231Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/32/14/049c9c4e14c33d0c59a3d40d6ae8269def83084f788dc665a5c2c7f4621e/boring_semantic_layer-0.3.18-py3-none-any.whl", hash = "sha256:e803744eb2e764877841562c23439eba99e8238efe755028feedf069456b470c", size = 421363, upload-time = "2026-08-24T13:39:31.211Z" },
+    { url = "https://files.pythonhosted.org/packages/45/82/521c7d13c014e20239e36d251c30985400f9fc1fc45569c08718aff56dc0/boring_semantic_layer-0.3.19-py3-none-any.whl", hash = "sha256:e62a85c4e51fb326ba32ff138bad1d9ba111d43622282b26164e1225f816335e", size = 422525, upload-time = "2026-11-11T07:30:14.458Z" },
 ]
 
 [[package]]
@@ -2632,7 +2632,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "boring-semantic-layer", specifier = ">=0.3.18" },
+    { name = "boring-semantic-layer", specifier = ">=0.3.19" },
     { name = "dagster", specifier = ">=1.12.14" },
     { name = "dagster-dbt", specifier = ">=0.25.14" },
     { name = "dagster-dg-cli", specifier = ">=1.12.14" },

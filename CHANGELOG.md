@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 ## [Unreleased]
 
 ### Changed
+- Upgraded `boring-semantic-layer` to `>=0.3.19` and simplified `analytics/model.py` so `link_story_count` and `show_ask_count` measures reference derived dimensions (`is_link`, `is_show_ask`) directly.
 - Updated Duck-UI remote query URL in `README.md` to `duckui.com` with `DATA_PATH` and `OVERRIDE_DATA_PATH true` for DuckLake remote querying.
 - Updated agent skills and cleaned up configurations, workflows, and documentation across ingestion, transformation, orchestration, analytics, and deployment.
 
