@@ -24,7 +24,7 @@ dependencies = [
   "duckdb-cli>=1.5.0,<2",  # DuckDB CLI
 
   # Analytics & Reporting
-  "boring-semantic-layer>=0.3.18",  # Semantic layer
+  "boring-semantic-layer>=0.3.19",  # Semantic layer
   "ibis-framework[duckdb]>=11.0.0",  # Ibis DuckDB backend (required by BSL)
   "marimo>=0.23.8",  # Notebook-style data analysis
   "pandas>=2.3.3",  # DataFrame manipulation library
