@@ -141,12 +141,18 @@ convention = "google"
   "non-lowercase-variable-in-function",
   "module-import-not-at-top-of-file",
   "request-without-timeout",
-  "G",  # Allow f-strings in logging
-  "LOG",  # Allow non-lazy logging
+  "logging-f-string",
+  "logging-string-format",
+  "logging-percent-format",
+  "logging-string-concat",
+  "root-logger-call",
 ]
 "**/*.ipynb" = [
-  "print",  # Allow print in notebooks
-  "module-import-not-at-top-of-file",  # Allow delayed imports
-  "G",  # Allow f-strings in logging in notebooks
-  "LOG",  # Allow non-lazy logging in notebooks
+  "print",
+  "module-import-not-at-top-of-file",
+  "logging-f-string",
+  "logging-string-format",
+  "logging-percent-format",
+  "logging-string-concat",
+  "root-logger-call",
 ]
