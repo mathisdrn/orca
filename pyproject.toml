@@ -1,6 +1,6 @@
 [project]
 name = "Orca"
-version = "0.4.0"
+version = "0.5.0"
 description = "Orca is a modern data warehouse implementation built with best-in-class open-source tools."
 readme = "README.md"
 requires-python = ">=3.13"
@@ -63,6 +63,10 @@ dev = [
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.uv]
+# ibis-framework 11.x requires sqlglot <29 for DuckDB any_value() compilation (used by BSL _.all()) and sqlglot[rs] compatibility
+constraint-dependencies = ["sqlglot<29"]
 
 [tool.dg]
 directory_type = "project"

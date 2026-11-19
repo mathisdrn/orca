@@ -4,12 +4,25 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.5.0] - 2026-11-19
+
+### Added
+- Added `comments` semantic model in `analytics/model.py` (with `is_top_level`, `comment_length`, temporal seasonality dimensions, and `comment_share` / `top_level_rate` / `avg_comment_length` / `median_comment_length` / `top_level_comment_count` measures) joined to `stories` via `join_one(stories, on="story_id")`.
+- Added `.streamlit/config.toml` configuring the minimalist editorial light theme (`#FFFFFF` canvas, `#F7F7F5` stone surface, `#18181B` ink, `#D95D1E` terracotta primary accent) and disabling usage stats collection.
 
 ### Changed
+- Redesigned `analytics/dashboard/app.py` into a minimalist interactive dashboard powered by both `stories` and `comments` semantic models, featuring parameter-scoped `@st.cache_data` queries, a full-width dual-axis 7-day rolling stories/comments trend paired with weekday average story and point bar charts, full-width format and breakout story tables with clickable HackerNews links, nested reply depth analysis, and localized number formatting.
+- Aligned `deployment/coldstart_loader.html` and `deployment/cloudflare_worker.js` to the minimalist editorial light theme (`#FFFFFF`, `#F7F7F5`, `#18181B`, `#D95D1E`).
+- Enriched the `stories` semantic model in `analytics/model.py` with `story_type` (`ibis.cases`), URL `domain`, `is_discussed`/`is_traction` dimensions, temporal seasonality dimensions (`week`, `hour_of_day`, `day_of_week`), and `median_score` / `discussion_rate` / `traction_rate` / `active_days` / `avg_daily_stories` / `avg_daily_score` / `comments_per_point` / `story_share` measures with `.nullif(0)` denominator guards.
+- Constrained `sqlglot<29` in `pyproject.toml` for `ibis-framework` 11.x compatibility with BSL `_.all()` measures on DuckDB and `sqlglot[rs]`.
 - Upgraded `boring-semantic-layer` to `>=0.3.19` and simplified `analytics/model.py` so `link_story_count` and `show_ask_count` measures reference derived dimensions (`is_link`, `is_show_ask`) directly.
 - Updated Duck-UI remote query URL in `README.md` to `duckui.com` with `DATA_PATH` and `OVERRIDE_DATA_PATH true` for DuckLake remote querying.
 - Updated agent skills and cleaned up configurations, workflows, and documentation across ingestion, transformation, orchestration, analytics, and deployment.
+
+### Fixed
+- Guarded `_.story_id.isnull()` in `stories.story_type` so unmatched left-joined comments on pre-window stories or polls are no longer misclassified as `Self-Post` comments.
+- Hardened domain extraction regex in `analytics/model.py` (`[^/?#:]+`) to strip query strings, fragments, and ports on root URLs.
+- Fixed `None` KPI/narrative formatting crashes on null `comment_count`/`text` slices, added startup guards for empty/single-day warehouses, aligned 7-day rolling averages and weekday averages to calendar dates with complete 24-hour/7-weekday scaffolding, and added thread-safe locking with cache TTL for concurrent Streamlit sessions.
 
 ## [0.4.0] - 2026-10-25
 
