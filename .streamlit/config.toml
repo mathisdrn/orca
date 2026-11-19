@@ -1,0 +1,19 @@
+[theme]
+base = "light"
+primaryColor = "#D95D1E"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F7F7F5"
+textColor = "#18181B"
+borderColor = "#E6E6E2"
+dataframeBorderColor = "#E6E6E2"
+dataframeHeaderBackgroundColor = "#F7F7F5"
+blueBackgroundColor = "#F7F7F5"
+blueTextColor = "#27272A"
+baseRadius = "0.25rem"
+showSidebarBorder = true
+showWidgetBorder = true
+linkColor = "#D95D1E"
+linkUnderline = false
+
+[browser]
+gatherUsageStats = false
