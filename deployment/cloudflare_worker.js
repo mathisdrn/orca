@@ -2,7 +2,6 @@
  * Cloudflare Worker Router for orca-datawarehouse.dev
  *
  * Routes:
- *  - /transformation/*  -> GitHub Pages (dbt-docs)
  *  - /orchestration/*   -> GCP Cloud Run (orca-dagster)
  *  - /dashboard/*       -> Streamlit App (iframe wrapper / redirect)
  *  - /                  -> Redirect to /orchestration/
@@ -12,7 +11,6 @@ import COLDSTART_LOADER_HTML from "./coldstart_loader.html";
 
 // Replace these URLs with your actual deployed GCP Cloud Run URLs
 const DAGSTER_CLOUD_RUN_URL = "https://orca-dagster-120618094679.us-central1.run.app";
-const GITHUB_PAGES_URL = "https://mathisdrn.github.io/orca/dbt-docs";
 const STREAMLIT_APP_URL = "https://orca-dashboard.streamlit.app/?embed=true";
 
 
@@ -132,7 +130,7 @@ export default {
     // 0. Robots.txt route to prevent search engines and crawlers from indexing serverless backends
     if (pathname === "/robots.txt") {
       return new Response(
-        "User-agent: *\nDisallow: /orchestration/\nDisallow: /transformation/\nAllow: /$\nAllow: /dashboard/\n",
+        "User-agent: *\nDisallow: /orchestration/\nAllow: /$\nAllow: /dashboard/\n",
         {
           headers: {
             "Content-Type": "text/plain; charset=utf-8",
@@ -159,13 +157,6 @@ export default {
     // 1. Root path redirect
     if (pathname === "/" || pathname === "") {
       return Response.redirect(`${url.origin}/orchestration/`, 302);
-    }
-
-    // 2. Transformation / dbt docs -> GitHub Pages
-    if (pathname === "/transformation" || pathname.startsWith("/transformation/")) {
-      const targetPath = pathname.replace(/^\/transformation/, "");
-      const targetUrl = `${GITHUB_PAGES_URL}${targetPath}${url.search}`;
-      return fetch(targetUrl, request);
     }
 
     // Helper function to proxy requests and rewrite redirect Location headers
@@ -212,7 +203,7 @@ export default {
       }
     };
 
-    // 3. Orchestration / Dagster UI -> GCP Cloud Run (Protected by OIDC)
+    // 2. Orchestration / Dagster UI -> GCP Cloud Run (Protected by OIDC)
     if (pathname === "/orchestration" || pathname.startsWith("/orchestration/")) {
       const targetUrl = `${DAGSTER_CLOUD_RUN_URL}${pathname}${url.search}`;
 
@@ -264,7 +255,7 @@ export default {
       return proxyWithRedirectRewrite(targetUrl, new URL(DAGSTER_CLOUD_RUN_URL).host, true);
     }
 
-    // 4. Dashboard / Streamlit -> Seamless Fullscreen Iframe
+    // 3. Dashboard / Streamlit -> Seamless Fullscreen Iframe
     if (pathname === "/dashboard" || pathname.startsWith("/dashboard/")) {
       const html = `<!DOCTYPE html>
 <html lang="en">

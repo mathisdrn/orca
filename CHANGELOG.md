@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] - 2026-11-24
+
+### Added
+- Replaced `dbt` transformations with a lightweight, typed Python/Ibis transformation layer (`transformation/engine.py`, `transformation/sources.py`, `transformation/marts.py`) exposing `register_dlt_source`, `@model`, `materialize_model`, `:memory:` DuckDB DDL dry-run verification, and `sqlglot` column-level lineage.
+- Added `DuckLakeResource` and thin `build_model_asset` wiring in `orchestration/definitions.py` to execute `materialize_model` against DuckLake, persist `COMMENT ON VIEW`/`TABLE`/`COLUMN` metadata, and run blocking `not_null` / `unique` `@dg.asset` checks in a single DuckDB scan.
+
+### Changed
+- Updated `.github/workflows/warehouse_execution.yml` to run `uv run dg check defs` instead of `dbt compile`, and simplified `deployment/Dockerfile.dagster` by removing the `dbt compile` pre-build step.
+- Updated `pyproject.toml` (`version = "0.7.0"`), `README.md`, `AGENTS.md`, `transformation/AGENTS.md`, `deployment/README.md`, `deployment/AGENTS.md`, `.env.example`, `.gitignore`, `.vscode/extensions.json`, and `analytics/dashboard.py`.
+
+### Removed
+- Removed `dbt-duckdb`, `dagster-dbt`, the `dbt-docs` dependency group, and the `transformation/` dbt project files (`dbt_project.yml`, `profiles.yml`, `.sqlfluff`, `macros/`, `models/`).
+- Removed `.github/workflows/publish_dbt_docs.yml`, the `/transformation/*` Cloudflare Worker proxy route, the GitHub Pages deployment + `github-pages` environment, and dbt agent skills (`using-dbt-for-analytics-engineering`, `troubleshooting-dbt-job-errors`).
+- Removed `__init__.py` markers across `analytics/`, `ingestion/`, `orchestration/`, and `transformation/` in favor of PEP 420 namespace packages.
+
 ## [0.6.0] - 2026-11-24
 
 ### Changed

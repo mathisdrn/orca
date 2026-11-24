@@ -8,7 +8,7 @@ It features built-in documentation and workflows for humans and AI agents.
 
 This project contains:
 - `ingestion/`: dlt ingestion pipelines
-- `transformation/`: dbt transformation pipelines
+- `transformation/`: Ibis transformation pipelines
 - `orchestration/`: Dagster orchestration code
 - `storage/`: Database stored using DuckLake lakehouse format
 - `analytics/`: Boring Semantic Layer (BSL) models and Streamlit dashboard
@@ -23,7 +23,7 @@ This project uses:
 - `gcloud` for Google Cloud platform
 - `npx wrangler` for Cloudflare environment
 - `gh` CLI to interact with GitHub
-- `dbt` CLI for dbt transformations
+- `ibis` for typed Python data transformations
 - `dg` for Dagster orchestrations
 
 Additional information:

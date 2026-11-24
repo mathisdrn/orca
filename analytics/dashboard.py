@@ -714,7 +714,6 @@ st.sidebar.divider()
 st.sidebar.caption(f"Latest story: {max_datetime.strftime('%Y-%m-%d %H:%M UTC')}")
 st.sidebar.caption(
     "[Dagster UI](https://orca-datawarehouse.dev/orchestration/) · "
-    "[dbt docs](https://orca-datawarehouse.dev/transformation/) · "
     "[GitHub](https://github.com/mathisdrn/orca)"
 )
 

@@ -23,7 +23,6 @@ jobs:
     env:
       DAGSTER_HOME: ${{ github.workspace }}/orchestration/dagster_home
       DLT_CONFIG_FOLDER: ${{ github.workspace }}/ingestion/.dlt
-      DBT_DUCKDB_PATH: ducklake:${{ github.workspace }}/storage/orca.ducklake
 
     steps:
       - name: Checkout repository
@@ -49,10 +48,9 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-      - name: Run dbt compile to refresh manifest
+      - name: Validate Dagster definitions and transformation contracts
         run: |
-          cd transformation
-          uv run dbt compile
+          uv run dg check defs
 
       - name: Run Dagster pipeline
         run: |

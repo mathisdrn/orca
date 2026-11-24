@@ -21,7 +21,6 @@ Orca is an implementation of a serverless, declarative and agentic-ready [data w
 
 - 📊 **[Interactive dashboard](https://orca-datawarehouse.dev/dashboard/)** – Explore HackerNews analytics & insights
 - 🔄 **[Dagster orchestration](https://orca-datawarehouse.dev/orchestration/)** – View the live asset graph and execution history
-- 🏗️ **[dbt documentation and lineage](https://orca-datawarehouse.dev/transformation/)** – Inspect data transformations and models
 - 🦆 **[Browse the database](https://duckui.com/#s=H4sIAAAAAAAAE62OTU-DQBCG_8pkL6jhQz3CaVu2KSmIwqLGbNKssBZSWOp-aBrjfzdQjfHubeZ5J_O8H-gNhdcuMseDQCHSrz1ykelMP22VnKcG7qxQR-TOcYg87wQgVzWHhhsO71yJdrRagBLDaER_BKs7uYPY1vt4AU3He1Ebn8k0xzHE1XKT4g2JmMSU4uUakhXc5BTIY1LSEpzG1vue70XYGnPQYRAo_u7vOtPaZ6uFqkdphDR-PQ7BwE3b6UbJYFQ1DwbeyUCbUfGdmIn_88sBXMJE4IxJAIAYU7y9xXQNzj9q_JeuFzpw3JMkvydFkcRk-2szygomzyMmq5LMjSImmSzX-QPgNAWKFykpIyY9D8oqy3CRPBEYuDLan5Sd0N8hScmSwgWsijz7ewBpkiUUri4j5CJuzVhYicLJ_PkFdcj0_PMBAAA)** – Query the data lakehouse live via Duck-UI
 
 ## Content
@@ -48,26 +47,21 @@ Every week, new stories, comments, and polls are fetched from the [HackerNews Al
 
 ### Transformation
 
-Data is progressively cleaned and structured inside the data warehouse. The `marts` layer contains business-ready tables (materialized as views) that have been joined and structured to form final datasets. **Transformation pipelines** are written using SQL with [dbt](https://docs.getdbt.com/docs/introduction?version=2.0&name=Fusion) transformation framework.
+Data is progressively cleaned and structured inside the data warehouse. The `marts` layer contains business-ready tables (materialized as zero-copy views) defined in Python with [Ibis](https://ibis-project.org/) (`transformation/marts.py`).
 
 <details>
-<summary>More about transformation using dbt</summary>
+<summary>More about transformation using Ibis</summary>
 
-dbt is a SQL-based data transformation framework:
-- dbt transforms data directly in the warehouse using SQL and Jinja templating.
-- dbt parses SQL files and generates a dependency graph, allowing for incremental and parallel execution.
-- dbt supports data testing (uniqueness, non-null values, and referential integrity).
-- dbt auto-generates project documentation and data lineage graphs.
+- Transformation models compile directly to DuckDB SQL and materialize as native DuckLake views (or tables) via `@model` and `materialize_model` in `transformation/engine.py`.
+- Upstream `raw` table schemas are registered in `transformation/sources.py` directly from `dlt`, enabling static type checking and an in-memory DuckDB DDL dry-run at `dg check defs` time before any database execution.
+- Upstream asset dependencies, column schemas, `sqlglot` column-level lineage, compiled SQL, and `unique` / `not_null` asset checks are automatically surfaced in the [Dagster UI](https://orca-datawarehouse.dev/orchestration/).
 </details>
-
-> [!TIP]
-> Explore the dbt models and data lineage of the data warehouse at **https://orca-datawarehouse.dev/transformation/**.
 
 ### Orchestration & Observability
 
 The data warehouse ingestion and transformation pipelines are **orchestrated** using [Dagster](https://www.dagster.io/). 
 
-Dagster integrates with `dlt` and `dbt` to generate a unified view of asset dependencies. It manages the execution of ingestion and transformation pipelines while tracking execution details and asset metadata, such as runtime logs, performance, and row counts. [**Dagster UI**](https://docs.dagster.io/guides/operate/webserver) provides a user interface to view asset dependencies and execution history.
+Dagster integrates with `dlt` and `Ibis` transformations to generate a unified view of asset dependencies. It manages the execution of ingestion, view materialization, and data quality checks while tracking runtime logs, column schemas, column lineage, and row counts. [**Dagster UI**](https://docs.dagster.io/guides/operate/webserver) provides a user interface to view asset dependencies and execution history.
 
 > [!TIP]
 > Explore the live asset graph and execution history of the data warehouse at **https://orca-datawarehouse.dev/orchestration/**
@@ -129,7 +123,7 @@ Orca includes `AGENTS.MD` files throughout the codebase to provide context and d
 
 Orca bakes domain knowledge, context and documentation into the project structure:
 - `AGENTS.MD` files provide specific context relevant to the folder they are located in.
-- `SKILLS` files describe workflows and tool-specific knowledge (`bsl-model-builder`, `bsl-query-expert`, `dagster-expert`, `duckdb-docs`, `using-dbt-for-analytics-engineering`, etc.).
+- `SKILLS` files describe workflows and tool-specific knowledge (`bsl-model-builder`, `bsl-query-expert`, `dagster-expert`, `duckdb-docs`, etc.).
 
 ## Get started
 
@@ -160,9 +154,10 @@ orca/
 ├── ingestion/           # dlt ingestion pipelines and configurations
 ├── orchestration/       # Dagster orchestration assets and configurations
 ├── storage/             # DuckLake storage + utils
-├── transformation/      # dbt transformation models
-│   ├── models/          # dbt models layers
-│   │   └── marts/       # Cleaned and structured raw data (views)
+├── transformation/      # Typed Ibis transformation models
+│   ├── engine.py        # @model decorator, DuckDB DDL verification, and execution
+│   ├── sources.py       # Upstream dlt source schema contracts
+│   └── marts.py         # Cleaned and structured raw data (views)
 ├── AGENTS.md            # Documentation entry-points: context and guideline 
 └── pyproject.toml       # Project environment and dependencies
 ```

@@ -61,18 +61,6 @@
       "sourceType": "github",
       "skillPath": "skills/skill-creator/SKILL.md",
       "computedHash": "5ea13a6d9f0d4bb694405d79acd00cadec0d21bb138c4dd10fcf3c500cb835c2"
-    },
-    "troubleshooting-dbt-job-errors": {
-      "source": "dbt-labs/dbt-agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/dbt/skills/troubleshooting-dbt-job-errors/SKILL.md",
-      "computedHash": "01e2f7ca9a721bd773408cfc2c37adc55e6e6200dc4a62a266bb7f033d93a9d2"
-    },
-    "using-dbt-for-analytics-engineering": {
-      "source": "dbt-labs/dbt-agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/dbt/skills/using-dbt-for-analytics-engineering/SKILL.md",
-      "computedHash": "59a854e12cce06d476279f3664e1913564666c3187842b3f7a99fabd987e14fa"
     }
   }
 }

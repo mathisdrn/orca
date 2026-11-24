@@ -7,7 +7,6 @@ Serverless hosted deployment guide for `orca-datawarehouse.dev`.
 ```mermaid
 graph TD
     Router[Cloudflare Worker Router<br/>orca-datawarehouse.dev/*] -->|/orchestration/*| Dagster[Dagster Web UI<br/>GCP Cloud Run]
-    Router -->|/transformation/*| dbt[dbt Documentation<br/>GitHub Pages]
     Router -->|/dashboard/*| Streamlit[Streamlit Dashboard<br/>Embedded Iframe]
 
     Dagster --> DuckLake[(Frozen DuckLake<br/>GitHub Raw)]
@@ -18,7 +17,6 @@ graph TD
 | Route | Service | Backend | Access |
 | --- | --- | --- | --- |
 | `/orchestration/` | Dagster Web UI | GCP Cloud Run (`orca-dagster`) | Read-only asset graph & logs |
-| `/transformation/` | dbt Docs | GitHub Pages | Static lineage & docs |
 | `/dashboard/` | Streamlit | Streamlit Cloud | Embedded iframe |
 
 ## 3. Cost Safeguards & Scaling
@@ -29,7 +27,7 @@ graph TD
 * **Artifact Storage Cap (< 500MB Free Tier)**: CI/CD tags images strictly with `:latest` (in-place tag overwrite). This prevents multiple commit SHA image manifests from accumulating in Artifact Registry between asynchronous 24-hour cleanup policy executions.
 * **Billing Budget & Gross Spend Cap (10 € Envelope)**: Cloud Run Free Tier provides 360,000 vCPU-s and 180,000 GiB-s (~$9.89 gross value/month). Google Cloud's spend limits (*Plafonds de dépenses*) and budget forecasts track **gross catalog costs before Free Tier credits are applied**. A 1 € gross cap triggers premature alerts and risks automatic service suspension even with 0.00 € net spend. A 10 € threshold safely covers the Free Tier envelope.
 * **Anti-Bot & Crawler Protection**: Search engine and SEO crawlers (AhrefsBot, SemrushBot, etc.) can discover the site and wake up the serverless backend. The Cloudflare Worker intercepts requests at the edge:
-  - Serves `/robots.txt` disallowing crawlers on `/orchestration/` and `/transformation/`.
+  - Serves `/robots.txt` disallowing crawlers on `/orchestration/`.
   - Blocks known aggressive scrapers with HTTP 403 before reaching Cloud Run.
 * **Edge Asset Caching**: Static Next.js assets (`/orchestration/_next/static/*`) are cached at the Cloudflare edge (`Cache-Control: immutable`), avoiding repeated container wakeups and preserving the 1 GB/month North American free egress quota.
 

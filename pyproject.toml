@@ -1,6 +1,6 @@
 [project]
 name = "Orca"
-version = "0.6.0"
+version = "0.7.0"
 description = "Orca is a modern data warehouse implementation built with best-in-class open-source tools."
 readme = "README.md"
 requires-python = ">=3.13"
@@ -11,11 +11,10 @@ dependencies = [
   "python-dotenv>=1.2.4",  # Environment variable loading
 
   # Transformation
-  "dbt-duckdb>=1.9.0",  # dbt DuckDB adapter
+  "ibis-framework[duckdb]>=11.0.0",  # Typed Python transformations & Ibis DuckDB backend
 
   # Orchestration
   "dagster>=1.12.14",  # Orchestration framework
-  "dagster-dbt>=0.25.14",  # Dagster dbt integration
   "dagster-dg-cli>=1.12.14",  # Dagster CLI
   "dagster-dlt>=0.29.8",  # Dagster dlt integration
 
@@ -25,7 +24,6 @@ dependencies = [
 
   # Analytics & Reporting
   "boring-semantic-layer>=0.3.19",  # Semantic layer
-  "ibis-framework[duckdb]>=11.0.0",  # Ibis DuckDB backend (required by BSL)
   "marimo>=0.23.8",  # Notebook-style data analysis
   "pandas>=2.3.3",  # DataFrame manipulation library
   "polars>=1.35.2",  # DataFrame manipulation library
@@ -37,17 +35,10 @@ dependencies = [
 # Dagster UI webserver deployment
 deployment = [
   "dagster>=1.12.14",  # Orchestration framework
-  "dagster-dbt>=0.25.14",  # Dagster dbt integration
   "dagster-dlt>=0.29.8",  # Dagster dlt integration
   "dagster-webserver>=1.12.14",  # Dagster web UI
-  "dbt-duckdb>=1.9.0",  # dbt DuckDB adapter
   "duckdb>=1.4.2,<2",  # Analytical database
-]
-
-# Dedicated for github actions dbt-docs build
-dbt-docs = [
-  "dbt-duckdb>=1.9.0",  # dbt DuckDB adapter
-  "duckdb>=1.4.2,<2",  # Analytical database
+  "ibis-framework[duckdb]>=11.0.0",  # Transformation definitions & schema compilation
 ]
 
 # Developer environment
@@ -75,7 +66,7 @@ directory_type = "project"
 root_module = "orchestration"
 
 [tool.hatch.build.targets.wheel]
-packages = ["analytics", "ingestion", "orchestration"]
+packages = ["analytics", "ingestion", "orchestration", "transformation"]
 
 [tool.ruff]
 fix = true

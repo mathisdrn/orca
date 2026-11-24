@@ -1,17 +1,13 @@
 # AGENTS.md - transformation/
 
-This directory contains dbt transformation pipelines for Orca data warehouse. `raw` contains raw data extracted by dlt. `marts` contains cleaned and structured raw data as views.
+Typed Python/Ibis transformations compiled to DuckLake views and tables.
 
-## dbt CLI
-- Run commands from the `transformation/` directory: `cd transformation/ && dbt ...`.
-- Use `dbt debug` to inspect the profile and DuckDB connection.
-- Use `dbt run` to execute the models and persist changes to the database.
-- Use `dbt build` to execute and test all resources in the DAG.
-- Use `dbt test` to run data tests.
+## Engine API & structure
+- `sources.py`: Register upstream `dlt` sources with `register_dlt_source(source, db_schema="raw")` to expose unbound `ibis.Table` contracts.
+- `<layer>.py` (e.g., `marts.py`): Define models with `@model(db_schema=..., materialized=..., unique=..., not_null=..., columns=...)` returning an `ibis.Table`. Chain upstream models via `<model>.table`.
+- Keep `engine.py` free of domain-specific imports; `orchestration/definitions.py` loads model modules explicitly via `get_models(marts)`.
 
-## Conventions for building dbt models
-- Avoid `SELECT *`.
-- Use standard Jinja configs, e.g.: `{{ config(materialized='view') }}`.
-- Describe the model inside `{{ config(description='...') }}`
-- Use lowercase function names (e.g., `row_number()`).
-- Use uppercase for SQL keywords (e.g., `PARTITION BY`).
+## Conventions & verification
+- Use `ibis` expressions (`from ibis import _`) instead of raw SQL or `SELECT *`.
+- Give each `@model` a docstring, column descriptions in `columns={...}`, and primary-key checks via `unique=(...,)` and `not_null=(...,)`.
+- Validate types, schemas, and DDL offline with `uv run dg check defs`; materialize with `uv run dg launch --assets "group:marts"`.

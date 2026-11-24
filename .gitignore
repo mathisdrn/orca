@@ -33,11 +33,5 @@ orchestration/dagster_home/*
 **/.dlt/profile-name
 **/.dlt/.var
 
-# Transformation
-transformation/target/
-transformation/dbt_packages/
-transformation/.user.yml
-transformation/logs/
-
 # Deployment
 deployment/.wrangler/

@@ -1,6 +1,5 @@
 {
     "recommendations": [
-        "dbtlabsinc.dbt", // dbt extension
         "charliermarsh.ruff", // Python linter and formatter
         "astral-sh.ty", // Type checking for Python
         "ms-toolsai.jupyter", // Jupyter extension for .ipynb files
