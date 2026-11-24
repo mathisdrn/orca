@@ -51,7 +51,7 @@ columns_schema: dict[str, TColumnSchema] = {
     "author": {"data_type": "text"},
     "created_at": {"data_type": "timestamp"},
     "parent_id": {"data_type": "bigint"},
-    "text": {"data_type": "text"},
+    "text_length": {"data_type": "bigint"},
     "story_id": {"data_type": "bigint"},
     "score": {"data_type": "bigint"},
     "comment_count": {"data_type": "bigint"},
@@ -127,7 +127,7 @@ def hackernews_items(
             start_date_str = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(start_ts))
             end_date_str = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(end_ts))
 
-            logger.info(
+            logger.debug(
                 "Querying time window: %s to %s (%d to %d)...",
                 start_date_str,
                 end_date_str,
@@ -155,7 +155,7 @@ def hackernews_items(
 
             break
 
-        logger.info("Retrieved %d items in this window.", len(hits))
+        logger.debug("Retrieved %d items in this window.", len(hits))
 
         # Sort hits chronologically (ascending by created_at_i)
         hits.sort(key=lambda x: x.get("created_at_i", 0))
@@ -181,21 +181,20 @@ def hackernews_items(
                 datetime.fromtimestamp(created_at_i, UTC) if created_at_i else None
             )
 
-            # Merge story_title and story_url into title and url
-            title = hit.get("title") or hit.get("story_title")
-            url = hit.get("url") or hit.get("story_url")
+            comment_text = hit.get("comment_text")
+            text_length = len(comment_text) if comment_text is not None else None
 
             yield {
                 "item_id": item_id,
                 "author": hit.get("author"),
                 "created_at": created_at,
                 "parent_id": hit.get("parent_id"),
-                "text": hit.get("comment_text"),
+                "text_length": text_length,
                 "story_id": hit.get("story_id"),
                 "score": hit.get("points"),
                 "comment_count": hit.get("num_comments"),
-                "title": title,
-                "url": url,
+                "title": hit.get("title"),
+                "url": hit.get("url"),
                 "type": item_type,
             }
 

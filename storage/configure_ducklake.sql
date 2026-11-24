@@ -14,11 +14,13 @@ LOAD DUCKLAKE;
 -- OVERRIDE_DATA_PATH true:
 --   • First run: stores 'orca.ducklake.files/' in the catalog (relative to project root).
 --   • Re-run on ducklake with absolute path baked in: overrides for current session only.
-ATTACH 'ducklake:storage/orca.ducklake' AS orca (DATA_PATH 'orca.ducklake.files/', OVERRIDE_DATA_PATH true);
+ATTACH 'ducklake:storage/orca.ducklake' AS orca (DATA_PATH 'storage/orca.ducklake.files/', OVERRIDE_DATA_PATH true);
 
 -- Configure DuckLake options (persisted to catalog).
 CALL orca.set_option('target_file_size', '90MB');
 CALL orca.set_option('parquet_version', '2');
+CALL orca.set_option('parquet_compression', 'zstd');
+CALL orca.set_option('parquet_compression_level', '9');
 CALL orca.set_option('auto_compact', false);
 
 -- Inspect options and settings.

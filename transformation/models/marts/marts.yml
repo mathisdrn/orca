@@ -28,7 +28,7 @@ models:
         description: "Number of comments on the story."
 
   - name: comments
-    description: "Hacker News comments, containing comment text, references to parent items, and root story metadata."
+    description: "Hacker News comments containing character length and references to parent items and root stories."
     columns:
       - name: comment_id
         description: "Unique identifier of the comment."
@@ -41,12 +41,8 @@ models:
         description: "Timestamp of when the comment was created."
       - name: parent_id
         description: "ID of the parent story or parent comment."
-      - name: text
-        description: "Text content of the comment."
+      - name: text_length
+        description: "Character length of the comment text."
       - name: story_id
         description: "ID of the root parent story."
-      - name: story_title
-        description: "Title of the root parent story."
-      - name: story_url
-        description: "URL of the root parent story."
 

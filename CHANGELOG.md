@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2026-11-24
+
+### Changed
+- Flattened the Streamlit dashboard into `analytics/dashboard.py` with `analytics/.streamlit/config.toml` and minimal `analytics/requirements.txt` (`sqlglot<29`) for Streamlit Community Cloud.
+- Configured DuckLake `ZSTD` (level 9) + Parquet v2 compression, replaced raw HTML `text` and duplicated `story_title`/`story_url` on comments with `text_length`, and pruned historical `storage/` blobs from Git history — shrinking `storage/` from 406 MB to 46 MB (~89% reduction).
+
 ## [0.5.0] - 2026-11-19
 
 ### Added

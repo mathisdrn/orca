@@ -1,6 +1,6 @@
 {{ config(
     materialized='view',
-    description='Hacker News comments, containing comment text and reference to parent story or comment.'
+    description='Hacker News comments with character length and references to parent story or comment.'
 ) }}
 
 SELECT
@@ -8,9 +8,7 @@ SELECT
     author,
     created_at,
     parent_id,
-    text,
-    story_id,
-    title AS story_title,
-    url AS story_url
+    text_length,
+    story_id
 FROM {{ source('raw', 'items') }}
 WHERE type = 'comment'
