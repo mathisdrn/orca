@@ -1,0 +1,7 @@
+boring-semantic-layer>=0.3.19
+duckdb>=1.4.2,<2
+ibis-framework[duckdb]>=11.0.0
+polars>=1.35.2
+pyarrow>=22.0.0
+sqlglot<29
+streamlit>=1.54.0

@@ -4,8 +4,7 @@ import threading
 import polars as pl
 import streamlit as st
 from ibis import _
-
-from analytics.model import comments, stories
+from model import comments, stories
 
 _DB_LOCK = threading.Lock()
 CACHE_TTL = 3600
