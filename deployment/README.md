@@ -16,7 +16,8 @@ graph TD
 
 | Route | Service | Backend | Access |
 | --- | --- | --- | --- |
-| `/orchestration/` | Dagster Web UI | GCP Cloud Run (`orca-dagster`) | Read-only asset graph & logs |
+| `/`, `/orchestration/` | Redirect -> `/orchestration/asset-groups` | Cloudflare Worker | Default expanded Global Asset Lineage |
+| `/orchestration/*` | Dagster Web UI | GCP Cloud Run (`orca-dagster`) | Read-only asset graph & logs |
 | `/dashboard/` | Streamlit | Streamlit Cloud | Embedded iframe |
 
 ## 3. Cost Safeguards & Scaling

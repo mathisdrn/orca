@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.1] - 2026-11-27
+
+### Changed
+- Redirected `/`, `/orchestration`, and `/orchestration/` to `/orchestration/asset-groups` in `deployment/cloudflare_worker.js` instead of Dagster's default `/overview/activity/timeline?groupBy=automation`.
+- Added edge `HTMLRewriter` script injection in `deployment/cloudflare_worker.js` to query Dagster's GraphQL `assetNodes` once per browser tab session and dynamically expand all asset groups in `localStorage` without hardcoding group names in the URL.
+- Updated `deployment/coldstart_loader.html` to poll `/orchestration/server_info` and preserve `/orchestration/asset-groups` and deep links across cold-start wakeups.
+- Updated `deployment/README.md`, `deployment/AGENTS.md`, and bumped `pyproject.toml` to `0.7.1`.
+
 ## [0.7.0] - 2026-11-24
 
 ### Added

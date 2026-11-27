@@ -2,15 +2,16 @@
  * Cloudflare Worker Router for orca-datawarehouse.dev
  *
  * Routes:
- *  - /orchestration/*   -> GCP Cloud Run (orca-dagster)
- *  - /dashboard/*       -> Streamlit App (iframe wrapper / redirect)
- *  - /                  -> Redirect to /orchestration/
+ *  - /, /orchestration, /orchestration/ -> Redirect to /orchestration/asset-groups
+ *  - /orchestration/*                    -> GCP Cloud Run (orca-dagster)
+ *  - /dashboard/*                        -> Streamlit App (iframe wrapper / redirect)
  */
 
 import COLDSTART_LOADER_HTML from "./coldstart_loader.html";
 
 // Replace these URLs with your actual deployed GCP Cloud Run URLs
 const DAGSTER_CLOUD_RUN_URL = "https://orca-dagster-120618094679.us-central1.run.app";
+const DEFAULT_ORCHESTRATION_PATH = "/orchestration/asset-groups";
 const STREAMLIT_APP_URL = "https://orca-dashboard.streamlit.app/?embed=true";
 
 
@@ -154,10 +155,37 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
 
-    // 1. Root path redirect
-    if (pathname === "/" || pathname === "") {
-      return Response.redirect(`${url.origin}/orchestration/`, 302);
+    // 1. Root & bare orchestration path redirect
+    if (
+      pathname === "/" ||
+      pathname === "" ||
+      pathname === "/orchestration" ||
+      pathname === "/orchestration/"
+    ) {
+      return Response.redirect(`${url.origin}${DEFAULT_ORCHESTRATION_PATH}`, 302);
     }
+
+    // Inject a CSP-nonced script that dynamically expands all Dagster asset groups once per tab session
+    const injectAutoExpandScript = (response) => {
+      const contentType = response.headers.get("Content-Type") || "";
+      if (!response.ok || !contentType.includes("text/html")) {
+        return response;
+      }
+
+      const csp = response.headers.get("Content-Security-Policy") || "";
+      const nonceMatch = csp.match(/'nonce-([^']+)'/);
+      const nonceAttr = nonceMatch ? ` nonce="${nonceMatch[1]}"` : "";
+
+      const script = `<script${nonceAttr}>(function(){try{var STORAGE_KEY="asset-graph-open-graph-nodes-global-__GLOBAL__",SESSION_KEY="orca_asset_groups_expanded";var sp=new URLSearchParams(location.search),force=sp.has("expanded")&&!sp.get("expanded");if(force){sp.delete("expanded");var qs=sp.toString();history.replaceState(null,"",location.pathname+(qs?"?"+qs:"")+location.hash);}if(!force&&sessionStorage.getItem(SESSION_KEY))return;fetch("/orchestration/graphql",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:"{ assetNodes { groupName repository { name location { name } } } }"})}).then(function(r){return r.ok?r.json():null;}).then(function(res){var nodes=res&&res.data&&res.data.assetNodes;if(!Array.isArray(nodes))return;var perLoc=false;try{var flags=JSON.parse(localStorage.getItem("DAGSTER_FLAGS")||"{}");perLoc=Boolean(flags&&flags.flagAssetGraphGroupsPerCodeLocation);}catch(e){}var seen={},groups=[];for(var i=0;i<nodes.length;i++){var n=nodes[i];if(!n||!n.groupName)continue;var gid=perLoc&&n.repository&&n.repository.location?n.repository.name+"@"+n.repository.location.name+":"+n.groupName:"global@global:"+n.groupName;if(!seen[gid]){seen[gid]=true;groups.push(gid);}}if(groups.length>0){localStorage.setItem(STORAGE_KEY,JSON.stringify({expanded:groups.join(",")}));sessionStorage.setItem(SESSION_KEY,"1");document.dispatchEvent(new CustomEvent("",{detail:STORAGE_KEY}));}}).catch(function(){});}catch(e){}})();</script>`;
+
+      return new HTMLRewriter()
+        .on("head", {
+          element(el) {
+            el.append(script, { html: true });
+          },
+        })
+        .transform(response);
+    };
 
     // Helper function to proxy requests and rewrite redirect Location headers
     const proxyWithRedirectRewrite = async (targetUrl, backendHost, requireAuth = false, timeoutMs = null) => {
@@ -242,7 +270,7 @@ export default {
               headers: { "Content-Type": "text/html; charset=utf-8" },
             });
           }
-          return response;
+          return injectAutoExpandScript(response);
         } catch (err) {
           // Network error or AbortError (timeout) => instance is cold, show loader
           return new Response(COLDSTART_LOADER_HTML, {
