@@ -47,13 +47,13 @@ Every week, new stories, comments, and polls are fetched from the [HackerNews Al
 
 ### Transformation
 
-Data is progressively cleaned and structured inside the data warehouse. The `marts` layer contains business-ready tables (materialized as zero-copy views) defined in Python with [Ibis](https://ibis-project.org/) (`transformation/marts.py`).
+Data is progressively cleaned and structured inside the data warehouse. The `marts` layer contains business-ready tables (materialized as zero-copy views) defined in Python with [Ibis](https://ibis-project.org/) (`transformation/models/marts.py`).
 
 <details>
 <summary>More about transformation using Ibis</summary>
 
-- Transformation models compile directly to DuckDB SQL and materialize as native DuckLake views (or tables) via `@model` and `materialize_model` in `transformation/engine.py`.
-- Upstream `raw` table schemas are registered in `transformation/sources.py` directly from `dlt`, enabling static type checking and an in-memory DuckDB DDL dry-run at `dg check defs` time before any database execution.
+- Transformation models compile directly to DuckDB SQL and materialize as native DuckLake views, tables, incremental (`MERGE` / `DELETE+INSERT`), or SCD Type 2 tables via `@model` (`transformation/engine/compiler.py`), `materialize_model` (`transformation/engine/executor.py`), and `sqlglot` AST builders (`transformation/engine/sql.py`).
+- Upstream `raw` table schemas are registered in `transformation/models/sources.py` directly from `dlt`, enabling static type checking and an in-memory DuckDB DDL dry-run at `dg check defs` time before any database execution.
 - Upstream asset dependencies, column schemas, `sqlglot` column-level lineage, compiled SQL, and `unique` / `not_null` asset checks are automatically surfaced in the [Dagster UI](https://orca-datawarehouse.dev/orchestration/).
 </details>
 
@@ -152,12 +152,15 @@ orca/
 ├── analytics/           # Dashboards and BSL semantic models
 ├── deployment/          # Serverless deployment (Cloud Run & Cloudflare Worker)
 ├── ingestion/           # dlt ingestion pipelines and configurations
-├── orchestration/       # Dagster orchestration assets and configurations
+├── orchestration/       # Dagster orchestration resources, assets, and definitions
+│   ├── resources.py     # DuckLakeResource connection manager
+│   ├── assets.py        # dlt ingestion assets and build_model_asset factory
+│   └── definitions.py   # Top-level Dagster Definitions wiring
 ├── storage/             # DuckLake storage + utils
-├── transformation/      # Typed Ibis transformation models
-│   ├── engine.py        # @model decorator, DuckDB DDL verification, and execution
-│   ├── sources.py       # Upstream dlt source schema contracts
-│   └── marts.py         # Cleaned and structured raw data (views)
+├── tests/               # Local pytest integration tests
+├── transformation/      # Typed Ibis transformation engine and models
+│   ├── engine/          # Compiler, executor, and sqlglot AST builders
+│   └── models/          # Source contracts (sources.py) and marts (marts.py)
 ├── AGENTS.md            # Documentation entry-points: context and guideline 
 └── pyproject.toml       # Project environment and dependencies
 ```

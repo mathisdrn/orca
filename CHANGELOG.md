@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0] - 2026-11-27
+
+### Added
+- Added `transformation/engine/sql.py` with programmatic `sqlglot` AST builders (`ALTER TABLE ADD COLUMN`, `MERGE INTO`, `DELETE + INSERT`, and two-step `SCD2`) using explicit column lists and `DuckDBType.from_ibis` schema evolution.
+- Expanded `transformation/engine/compiler.py` and `transformation/engine/executor.py` (`@model` and `materialize_model`) with `materialized="incremental"` (`merge` / `delete_insert`, `incremental_key`, `lookback`), `materialized="scd2"` (`changes` / `snapshot`, `tracked_columns`, `valid_from_col`), `primary_key` (single or composite), `temp.main._orca_stage` batch staging, deterministic `code_version`, and pre-commit check rollback (`rolled_back`).
+- Split `orchestration/` into `resources.py` (`DuckLakeResource`), `assets.py` (`hackernews_assets`, `ModelRunConfig(full_refresh: bool = False)`, `build_model_asset` with `code_version`, `rows_affected`, `TableColumnConstraints`, partition range support, and `output_required=False`), and `definitions.py`.
+- Added local integration test suite in `tests/conftest.py`, `tests/test_transformation.py`, and `tests/test_orchestration.py` (`pytest` in `dev` dependency group).
+
+### Changed
+- Moved model definitions to `transformation/models/sources.py` and `transformation/models/marts.py` (declaring `primary_key="story_id"` and `primary_key="comment_id"`).
+- Added `ducklake_merge_adjacent_files` and `ducklake_rewrite_data_files` compaction calls to `storage/clean_ducklake.sql`.
+- Updated `pyproject.toml` (`version = "0.8.0"`), `AGENTS.md`, `transformation/AGENTS.md`, `orchestration/AGENTS.md`, and `README.md`.
+
 ## [0.7.1] - 2026-11-27
 
 ### Changed

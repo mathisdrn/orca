@@ -1,15 +1,14 @@
 import ibis
 from ibis import _
 
-from transformation.engine import model
-from transformation.sources import raw_items
+from transformation.engine.compiler import model
+from transformation.models.sources import raw_items
 
 
 @model(
     db_schema="marts",
     materialized="view",
-    unique=("story_id",),
-    not_null=("story_id",),
+    primary_key="story_id",
     columns={
         "story_id": "Unique identifier of the story.",
         "author": "Username of the author.",
@@ -36,8 +35,7 @@ def stories() -> ibis.Table:
 @model(
     db_schema="marts",
     materialized="view",
-    unique=("comment_id",),
-    not_null=("comment_id",),
+    primary_key="comment_id",
     columns={
         "comment_id": "Unique identifier of the comment.",
         "author": "Username of the author.",

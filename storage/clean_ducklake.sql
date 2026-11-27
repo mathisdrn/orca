@@ -7,6 +7,10 @@ ATTACH 'ducklake:storage/orca.ducklake' AS orca (DATA_PATH 'storage/orca.ducklak
 -- Drops the `raw_staging` schema created by dlt so its parquet files are purged during DuckLake cleanup
 DROP SCHEMA IF EXISTS orca.raw_staging CASCADE;
 
+-- Compact small/deleted parquet files before expiring snapshots
+CALL ducklake_merge_adjacent_files('orca');
+CALL ducklake_rewrite_data_files('orca');
+
 -- Expire old snapshots and physically purge deleted/orphaned files
 CALL ducklake_expire_snapshots('orca', older_than => now());
 CALL ducklake_cleanup_old_files('orca', cleanup_all => true);

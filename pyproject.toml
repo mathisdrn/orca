@@ -1,6 +1,6 @@
 [project]
 name = "Orca"
-version = "0.7.1"
+version = "0.8.0"
 description = "Orca is a modern data warehouse implementation built with best-in-class open-source tools."
 readme = "README.md"
 requires-python = ">=3.13"
@@ -47,6 +47,7 @@ dev = [
   "ipykernel>=7.2.0",  # Jupyter kernel for interactive development
   "jupytext>=1.19.1",  # Jupyter notebook and script synchronization
   "notebook>=7.5.3",  # Jupyter notebook interface
+  "pytest>=8.3.0",  # Unit and integration testing
   "pyyaml>=6.0.3",  # Required for skill-creator scripts
   "ruff>=0.8.0",  # Python linter and formatter
 ]

@@ -8,11 +8,12 @@ It features built-in documentation and workflows for humans and AI agents.
 
 This project contains:
 - `ingestion/`: dlt ingestion pipelines
-- `transformation/`: Ibis transformation pipelines
+- `transformation/`: Ibis transformation engine and models
 - `orchestration/`: Dagster orchestration code
 - `storage/`: Database stored using DuckLake lakehouse format
 - `analytics/`: Boring Semantic Layer (BSL) models and Streamlit dashboard
 - `deployment/`: Deployment for Dagster read-only web UI
+- `tests/`: Local `pytest` integration tests for transformations and orchestration
 - `.github/workflows/`: Weekly warehouse execution and Dagster UI serverless deployment in Google Cloud Run.
 
 This project uses:
